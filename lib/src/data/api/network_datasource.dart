@@ -1,5 +1,6 @@
-import 'model/affiliate_model.dart';
+import 'package:car_assistance/src/data/api/model/api_model.dart';
+
 
 abstract class NetworkDataSource {
-  Future<List<Affiliate>> getAllAffiliate();
+  Future<List<AffiliateNetwork>> getAllAffiliate();
 }
