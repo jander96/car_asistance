@@ -1,0 +1,32 @@
+
+import 'package:json_annotation/json_annotation.dart';
+part 'api_model.g.dart';
+
+@JsonSerializable()
+class AffiliateNetwork{
+  final int id;
+  final String name;
+  @JsonKey(name: "open_time")final String? openTime;
+  @JsonKey(name: "close_time")final String? closeTime;
+  @JsonKey(name: "is_full_time_service")final bool isFullTimeService;
+  @JsonKey(name: "phone_number")final String phoneNumber;
+  final double lat;
+  final double long;
+  final String address;
+  final List<String> services;
+
+  AffiliateNetwork(
+      {required this.id,
+        required this.name,
+        this.openTime,
+        this.closeTime,
+        required this.isFullTimeService,
+        required this.phoneNumber,
+        required this.lat,
+        required this.long,
+        required this.address,
+        required this.services});
+
+  factory AffiliateNetwork.fromJson(Map<String,dynamic> json) => _$AffiliateNetworkFromJson(json);
+
+}

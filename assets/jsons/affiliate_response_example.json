@@ -1,0 +1,126 @@
+{
+  "affiliates": [
+    {
+      "id": 1,
+      "name": "Motors Taller",
+      "open_time": "08:30:00",
+      "close_time": "15:30:00",
+      "is_full_time_service": false,
+      "phone_number": "+1 (555) 123-4567",
+      "lat": 20.1688,
+      "long": -75.1985,
+      "address": "Maceo street",
+      "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
+
+
+    },
+    {
+      "id": 2,
+      "name": "CarCare Center",
+      "open_time": null,
+      "close_time": null,
+      "is_full_time_service": true,
+      "phone_number": "+1 (555) 987-6543",
+      "lat": 20.0574,
+      "long": -75.1531,
+      "address": "Crombet street",
+      "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
+    },
+    {
+      "id": 3,
+      "name": "MotorWorks",
+      "open_time": "08:00:00",
+      "close_time": "16:30:00",
+      "is_full_time_service": false,
+      "phone_number": "+1 (555) 555-1212",
+      "lat": 20.2399,
+      "long": -75.1838,
+      "address": "Calixto Garcia street",
+      "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
+    },
+    {
+      "id": 4,
+      "name": "Precision Auto Repair",
+      "open_time": "09:30:00",
+      "close_time": "17:00:00",
+      "is_full_time_service": false,
+      "phone_number": "+1 (555) 888-9999",
+      "lat": 20.1182,
+      "long": -75.1217,
+      "address": "Paseo street",
+      "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
+    },
+    {
+      "id": 5,
+      "name": "The Garage",
+      "open_time": "10:30:00",
+      "close_time": "18:30:00",
+      "is_full_time_service": false,
+      "phone_number": "+1 (555) 246-8101",
+      "lat": 20.1905,
+      "long": -75.1882,
+      "address": "Agramonte street",
+      "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
+    },
+    {
+      "id": 6,
+      "name": "Expert Auto Care",
+      "open_time": null,
+      "close_time": null,
+      "is_full_time_service": true,
+      "phone_number": "+1 (555) 369-1470",
+      "lat": 20.0981,
+      "long": -75.1329,
+      "address": "Avenida Main street",
+      "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
+    },
+    {
+      "id": 7,
+      "name": "Quality Car Repair",
+      "open_time": "08:30:00",
+      "close_time": "15:30:00",
+      "is_full_time_service": false,
+      "phone_number": "+1 (555) 314-1592",
+      "lat": 20.2965,
+      "long": -75.2111,
+      "address": "Apple street",
+      "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
+    },
+    {
+      "id": 8,
+      "name": "ProTech Auto Service",
+      "open_time": "6:00:00",
+      "close_time": "15:30:00",
+      "is_full_time_service": false,
+      "phone_number": "+1 (555) 777-8888",
+      "lat": 20.2309,
+      "long": -75.0848,
+      "address": "Wall street",
+      "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
+    },
+    {
+      "id": 9,
+      "name": "Master Mechanics",
+      "open_time": "09:00:00",
+      "close_time": "17:00:00",
+      "is_full_time_service": false,
+      "phone_number": "+1 (555) 432-1098",
+      "lat": 20.1603,
+      "long": -75.2213,
+      "address": "E. Giro street",
+      "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
+    },
+    {
+      "id": 10,
+      "name": "Ace Auto Repair",
+      "open_time": "08:30:00",
+      "close_time": "15:30:00",
+      "is_full_time_service": false,
+      "phone_number": "+1 (555) 555-5555",
+      "lat": 20.0844,
+      "long": -75.1614,
+      "address": "Pinto street",
+      "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
+    }
+  ]
+}
