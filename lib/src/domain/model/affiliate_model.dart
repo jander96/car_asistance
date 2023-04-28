@@ -5,6 +5,7 @@ class Affiliate {
   final String? closeTime;
   final bool isFullTimeService;
   final String phoneNumber;
+  final double rating;
   final double lat;
   final double long;
   final String address;
@@ -17,6 +18,7 @@ class Affiliate {
       this.closeTime,
       required this.isFullTimeService,
       required this.phoneNumber,
+      required this.rating, 
       required this.lat,
       required this.long,
       required this.address,

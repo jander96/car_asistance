@@ -14,6 +14,7 @@ class AffiliateNetwork {
   final bool isFullTimeService;
   @JsonKey(name: "phone_number")
   final String phoneNumber;
+  final double rating;
   final double lat;
   final double long;
   final String address;
@@ -26,6 +27,7 @@ class AffiliateNetwork {
       this.closeTime,
       required this.isFullTimeService,
       required this.phoneNumber,
+      required this.rating,
       required this.lat,
       required this.long,
       required this.address,
@@ -43,6 +45,7 @@ extension AffilateExtensions on AffiliateNetwork {
       closeTime: closeTime,
       isFullTimeService: isFullTimeService,
       phoneNumber: phoneNumber,
+      rating: rating,
       lat: lat,
       long: long,
       address: address,
