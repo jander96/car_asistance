@@ -11,7 +11,7 @@ import 'package:get_it/get_it.dart';
 
 final injector = GetIt.instance;
 void inject() {
-  injector.registerSingleton<ApiAffiliateService>(ApiAffiliateService());
+  injector.registerSingleton<ApiService>(ApiService());
   injector.registerFactory<NetworkDataSource>(() => NetworkDataSourceImpl());
   injector.registerFactory<LocalDataSource>(() => LocalDataSourceImp());
   injector.registerLazySingleton<AppDatabase>(()=> AppDatabase());

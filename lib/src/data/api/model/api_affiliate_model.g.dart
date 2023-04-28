@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'api_model.dart';
+part of 'api_affiliate_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

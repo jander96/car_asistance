@@ -1,6 +1,6 @@
 import 'package:car_assistance/src/domain/model/affiliate_model.dart';
 import 'package:json_annotation/json_annotation.dart';
-part 'api_model.g.dart';
+part 'api_affiliate_model.g.dart';
 
 @JsonSerializable()
 class AffiliateNetwork {
