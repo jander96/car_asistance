@@ -1,10 +1,9 @@
 import 'package:car_assistance/dependency_injection.dart';
-import 'package:car_assistance/src/data/api/api_affiliate_service.dart';
-import 'package:car_assistance/src/data/api/model/api_model.dart';
-import 'package:car_assistance/src/data/api/network_datasource.dart';
+import 'package:car_assistance/src/domain/affiliate_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../domain/model/affiliate_model.dart';
 import 'home_view_model.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,18 +25,20 @@ class _HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<HomeCubit>().state;
     final bloc = context.read<HomeCubit>();
-    final affiliatesList = injector.get<NetworkDataSource>().getAllAffiliate();
+   
+    final affiliatesList =
+        injector.get<AffiliateRepository>().watchAffiliates();
 
     return Scaffold(
       appBar: AppBar(title: Text("Home")),
       body: Center(
-          child: FutureBuilder(
-              future: affiliatesList,
+          child: StreamBuilder(
+              stream: affiliatesList,
               builder: (BuildContext context,
-                  AsyncSnapshot<List<AffiliateNetwork>> snapshot) {
+                  AsyncSnapshot<List<Affiliate>> snapshot) {
                 if (snapshot.hasData) {
                   return Text(
-                      "el primer servicio de taller es ${snapshot.data?[0].name ?? "no recibio nada"}");
+                      "el primer servicio de taller es ${snapshot.data != null ? snapshot.data![5].name : "es nullo "}");
                 } else if (snapshot.hasError) {
                   return const Icon(Icons.error_outline);
                 } else {

@@ -1,11 +1,11 @@
 
 import 'package:drift/drift.dart';
 
-class Affiliates extends Table {
+class AffiliatesEntitys extends Table {
   TextColumn get id => text()();
   TextColumn get name => text()();
-  TextColumn get openTime => text()();
-  TextColumn get closeTime => text()();
+  TextColumn get openTime => text().nullable()();
+  TextColumn get closeTime => text().nullable()();
   BoolColumn get isFullTimeService => boolean()();
   TextColumn get phoneNumber => text()();
   RealColumn get rating => real()();

@@ -1,7 +1,7 @@
 {
   "affiliates": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Motors Taller",
       "open_time": "08:30:00",
       "close_time": "15:30:00",
@@ -16,7 +16,7 @@
 
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "CarCare Center",
       "open_time": null,
       "close_time": null,
@@ -29,7 +29,7 @@
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "MotorWorks",
       "open_time": "08:00:00",
       "close_time": "16:30:00",
@@ -42,7 +42,7 @@
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Precision Auto Repair",
       "open_time": "09:30:00",
       "close_time": "17:00:00",
@@ -55,7 +55,7 @@
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "The Garage",
       "open_time": "10:30:00",
       "close_time": "18:30:00",
@@ -68,7 +68,7 @@
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Expert Auto Care",
       "open_time": null,
       "close_time": null,
@@ -81,7 +81,7 @@
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Quality Car Repair",
       "open_time": "08:30:00",
       "close_time": "15:30:00",
@@ -94,7 +94,7 @@
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "ProTech Auto Service",
       "open_time": "6:00:00",
       "close_time": "15:30:00",
@@ -107,7 +107,7 @@
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Master Mechanics",
       "open_time": "09:00:00",
       "close_time": "17:00:00",
@@ -120,7 +120,7 @@
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Ace Auto Repair",
       "open_time": "08:30:00",
       "close_time": "15:30:00",

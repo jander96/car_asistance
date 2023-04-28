@@ -3,12 +3,12 @@
 part of 'drift_database.dart';
 
 // ignore_for_file: type=lint
-class $AffiliatesTable extends Affiliates
-    with TableInfo<$AffiliatesTable, Affiliate> {
+class $AffiliatesEntitysTable extends AffiliatesEntitys
+    with TableInfo<$AffiliatesEntitysTable, AffiliatesEntity> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $AffiliatesTable(this.attachedDatabase, [this._alias]);
+  $AffiliatesEntitysTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -23,14 +23,14 @@ class $AffiliatesTable extends Affiliates
       const VerificationMeta('openTime');
   @override
   late final GeneratedColumn<String> openTime = GeneratedColumn<String>(
-      'open_time', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'open_time', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _closeTimeMeta =
       const VerificationMeta('closeTime');
   @override
   late final GeneratedColumn<String> closeTime = GeneratedColumn<String>(
-      'close_time', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'close_time', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _isFullTimeServiceMeta =
       const VerificationMeta('isFullTimeService');
   @override
@@ -91,11 +91,11 @@ class $AffiliatesTable extends Affiliates
         services
       ];
   @override
-  String get aliasedName => _alias ?? 'affiliates';
+  String get aliasedName => _alias ?? 'affiliates_entitys';
   @override
-  String get actualTableName => 'affiliates';
+  String get actualTableName => 'affiliates_entitys';
   @override
-  VerificationContext validateIntegrity(Insertable<Affiliate> instance,
+  VerificationContext validateIntegrity(Insertable<AffiliatesEntity> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -113,14 +113,10 @@ class $AffiliatesTable extends Affiliates
     if (data.containsKey('open_time')) {
       context.handle(_openTimeMeta,
           openTime.isAcceptableOrUnknown(data['open_time']!, _openTimeMeta));
-    } else if (isInserting) {
-      context.missing(_openTimeMeta);
     }
     if (data.containsKey('close_time')) {
       context.handle(_closeTimeMeta,
           closeTime.isAcceptableOrUnknown(data['close_time']!, _closeTimeMeta));
-    } else if (isInserting) {
-      context.missing(_closeTimeMeta);
     }
     if (data.containsKey('is_full_time_service')) {
       context.handle(
@@ -174,17 +170,17 @@ class $AffiliatesTable extends Affiliates
   @override
   Set<GeneratedColumn> get $primaryKey => const {};
   @override
-  Affiliate map(Map<String, dynamic> data, {String? tablePrefix}) {
+  AffiliatesEntity map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Affiliate(
+    return AffiliatesEntity(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       openTime: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}open_time'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}open_time']),
       closeTime: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}close_time'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}close_time']),
       isFullTimeService: attachedDatabase.typeMapping.read(
           DriftSqlType.bool, data['${effectivePrefix}is_full_time_service'])!,
       phoneNumber: attachedDatabase.typeMapping
@@ -203,16 +199,17 @@ class $AffiliatesTable extends Affiliates
   }
 
   @override
-  $AffiliatesTable createAlias(String alias) {
-    return $AffiliatesTable(attachedDatabase, alias);
+  $AffiliatesEntitysTable createAlias(String alias) {
+    return $AffiliatesEntitysTable(attachedDatabase, alias);
   }
 }
 
-class Affiliate extends DataClass implements Insertable<Affiliate> {
+class AffiliatesEntity extends DataClass
+    implements Insertable<AffiliatesEntity> {
   final String id;
   final String name;
-  final String openTime;
-  final String closeTime;
+  final String? openTime;
+  final String? closeTime;
   final bool isFullTimeService;
   final String phoneNumber;
   final double rating;
@@ -220,11 +217,11 @@ class Affiliate extends DataClass implements Insertable<Affiliate> {
   final double long;
   final String address;
   final String services;
-  const Affiliate(
+  const AffiliatesEntity(
       {required this.id,
       required this.name,
-      required this.openTime,
-      required this.closeTime,
+      this.openTime,
+      this.closeTime,
       required this.isFullTimeService,
       required this.phoneNumber,
       required this.rating,
@@ -237,8 +234,12 @@ class Affiliate extends DataClass implements Insertable<Affiliate> {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['name'] = Variable<String>(name);
-    map['open_time'] = Variable<String>(openTime);
-    map['close_time'] = Variable<String>(closeTime);
+    if (!nullToAbsent || openTime != null) {
+      map['open_time'] = Variable<String>(openTime);
+    }
+    if (!nullToAbsent || closeTime != null) {
+      map['close_time'] = Variable<String>(closeTime);
+    }
     map['is_full_time_service'] = Variable<bool>(isFullTimeService);
     map['phone_number'] = Variable<String>(phoneNumber);
     map['rating'] = Variable<double>(rating);
@@ -249,12 +250,16 @@ class Affiliate extends DataClass implements Insertable<Affiliate> {
     return map;
   }
 
-  AffiliatesCompanion toCompanion(bool nullToAbsent) {
-    return AffiliatesCompanion(
+  AffiliatesEntitysCompanion toCompanion(bool nullToAbsent) {
+    return AffiliatesEntitysCompanion(
       id: Value(id),
       name: Value(name),
-      openTime: Value(openTime),
-      closeTime: Value(closeTime),
+      openTime: openTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(openTime),
+      closeTime: closeTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(closeTime),
       isFullTimeService: Value(isFullTimeService),
       phoneNumber: Value(phoneNumber),
       rating: Value(rating),
@@ -265,14 +270,14 @@ class Affiliate extends DataClass implements Insertable<Affiliate> {
     );
   }
 
-  factory Affiliate.fromJson(Map<String, dynamic> json,
+  factory AffiliatesEntity.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Affiliate(
+    return AffiliatesEntity(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
-      openTime: serializer.fromJson<String>(json['openTime']),
-      closeTime: serializer.fromJson<String>(json['closeTime']),
+      openTime: serializer.fromJson<String?>(json['openTime']),
+      closeTime: serializer.fromJson<String?>(json['closeTime']),
       isFullTimeService: serializer.fromJson<bool>(json['isFullTimeService']),
       phoneNumber: serializer.fromJson<String>(json['phoneNumber']),
       rating: serializer.fromJson<double>(json['rating']),
@@ -288,8 +293,8 @@ class Affiliate extends DataClass implements Insertable<Affiliate> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
-      'openTime': serializer.toJson<String>(openTime),
-      'closeTime': serializer.toJson<String>(closeTime),
+      'openTime': serializer.toJson<String?>(openTime),
+      'closeTime': serializer.toJson<String?>(closeTime),
       'isFullTimeService': serializer.toJson<bool>(isFullTimeService),
       'phoneNumber': serializer.toJson<String>(phoneNumber),
       'rating': serializer.toJson<double>(rating),
@@ -300,11 +305,11 @@ class Affiliate extends DataClass implements Insertable<Affiliate> {
     };
   }
 
-  Affiliate copyWith(
+  AffiliatesEntity copyWith(
           {String? id,
           String? name,
-          String? openTime,
-          String? closeTime,
+          Value<String?> openTime = const Value.absent(),
+          Value<String?> closeTime = const Value.absent(),
           bool? isFullTimeService,
           String? phoneNumber,
           double? rating,
@@ -312,11 +317,11 @@ class Affiliate extends DataClass implements Insertable<Affiliate> {
           double? long,
           String? address,
           String? services}) =>
-      Affiliate(
+      AffiliatesEntity(
         id: id ?? this.id,
         name: name ?? this.name,
-        openTime: openTime ?? this.openTime,
-        closeTime: closeTime ?? this.closeTime,
+        openTime: openTime.present ? openTime.value : this.openTime,
+        closeTime: closeTime.present ? closeTime.value : this.closeTime,
         isFullTimeService: isFullTimeService ?? this.isFullTimeService,
         phoneNumber: phoneNumber ?? this.phoneNumber,
         rating: rating ?? this.rating,
@@ -327,7 +332,7 @@ class Affiliate extends DataClass implements Insertable<Affiliate> {
       );
   @override
   String toString() {
-    return (StringBuffer('Affiliate(')
+    return (StringBuffer('AffiliatesEntity(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('openTime: $openTime, ')
@@ -349,7 +354,7 @@ class Affiliate extends DataClass implements Insertable<Affiliate> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Affiliate &&
+      (other is AffiliatesEntity &&
           other.id == this.id &&
           other.name == this.name &&
           other.openTime == this.openTime &&
@@ -363,11 +368,11 @@ class Affiliate extends DataClass implements Insertable<Affiliate> {
           other.services == this.services);
 }
 
-class AffiliatesCompanion extends UpdateCompanion<Affiliate> {
+class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
   final Value<String> id;
   final Value<String> name;
-  final Value<String> openTime;
-  final Value<String> closeTime;
+  final Value<String?> openTime;
+  final Value<String?> closeTime;
   final Value<bool> isFullTimeService;
   final Value<String> phoneNumber;
   final Value<double> rating;
@@ -376,7 +381,7 @@ class AffiliatesCompanion extends UpdateCompanion<Affiliate> {
   final Value<String> address;
   final Value<String> services;
   final Value<int> rowid;
-  const AffiliatesCompanion({
+  const AffiliatesEntitysCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.openTime = const Value.absent(),
@@ -390,11 +395,11 @@ class AffiliatesCompanion extends UpdateCompanion<Affiliate> {
     this.services = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  AffiliatesCompanion.insert({
+  AffiliatesEntitysCompanion.insert({
     required String id,
     required String name,
-    required String openTime,
-    required String closeTime,
+    this.openTime = const Value.absent(),
+    this.closeTime = const Value.absent(),
     required bool isFullTimeService,
     required String phoneNumber,
     required double rating,
@@ -405,8 +410,6 @@ class AffiliatesCompanion extends UpdateCompanion<Affiliate> {
     this.rowid = const Value.absent(),
   })  : id = Value(id),
         name = Value(name),
-        openTime = Value(openTime),
-        closeTime = Value(closeTime),
         isFullTimeService = Value(isFullTimeService),
         phoneNumber = Value(phoneNumber),
         rating = Value(rating),
@@ -414,7 +417,7 @@ class AffiliatesCompanion extends UpdateCompanion<Affiliate> {
         long = Value(long),
         address = Value(address),
         services = Value(services);
-  static Insertable<Affiliate> custom({
+  static Insertable<AffiliatesEntity> custom({
     Expression<String>? id,
     Expression<String>? name,
     Expression<String>? openTime,
@@ -444,11 +447,11 @@ class AffiliatesCompanion extends UpdateCompanion<Affiliate> {
     });
   }
 
-  AffiliatesCompanion copyWith(
+  AffiliatesEntitysCompanion copyWith(
       {Value<String>? id,
       Value<String>? name,
-      Value<String>? openTime,
-      Value<String>? closeTime,
+      Value<String?>? openTime,
+      Value<String?>? closeTime,
       Value<bool>? isFullTimeService,
       Value<String>? phoneNumber,
       Value<double>? rating,
@@ -457,7 +460,7 @@ class AffiliatesCompanion extends UpdateCompanion<Affiliate> {
       Value<String>? address,
       Value<String>? services,
       Value<int>? rowid}) {
-    return AffiliatesCompanion(
+    return AffiliatesEntitysCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       openTime: openTime ?? this.openTime,
@@ -517,7 +520,7 @@ class AffiliatesCompanion extends UpdateCompanion<Affiliate> {
 
   @override
   String toString() {
-    return (StringBuffer('AffiliatesCompanion(')
+    return (StringBuffer('AffiliatesEntitysCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('openTime: $openTime, ')
@@ -535,11 +538,12 @@ class AffiliatesCompanion extends UpdateCompanion<Affiliate> {
   }
 }
 
-class $RatingsTable extends Ratings with TableInfo<$RatingsTable, Rating> {
+class $RatingsEntitysTable extends RatingsEntitys
+    with TableInfo<$RatingsEntitysTable, RatingsEntity> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $RatingsTable(this.attachedDatabase, [this._alias]);
+  $RatingsEntitysTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -559,11 +563,11 @@ class $RatingsTable extends Ratings with TableInfo<$RatingsTable, Rating> {
   @override
   List<GeneratedColumn> get $columns => [id, affiliateId, rating];
   @override
-  String get aliasedName => _alias ?? 'ratings';
+  String get aliasedName => _alias ?? 'ratings_entitys';
   @override
-  String get actualTableName => 'ratings';
+  String get actualTableName => 'ratings_entitys';
   @override
-  VerificationContext validateIntegrity(Insertable<Rating> instance,
+  VerificationContext validateIntegrity(Insertable<RatingsEntity> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -592,9 +596,9 @@ class $RatingsTable extends Ratings with TableInfo<$RatingsTable, Rating> {
   @override
   Set<GeneratedColumn> get $primaryKey => const {};
   @override
-  Rating map(Map<String, dynamic> data, {String? tablePrefix}) {
+  RatingsEntity map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Rating(
+    return RatingsEntity(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       affiliateId: attachedDatabase.typeMapping
@@ -605,16 +609,16 @@ class $RatingsTable extends Ratings with TableInfo<$RatingsTable, Rating> {
   }
 
   @override
-  $RatingsTable createAlias(String alias) {
-    return $RatingsTable(attachedDatabase, alias);
+  $RatingsEntitysTable createAlias(String alias) {
+    return $RatingsEntitysTable(attachedDatabase, alias);
   }
 }
 
-class Rating extends DataClass implements Insertable<Rating> {
+class RatingsEntity extends DataClass implements Insertable<RatingsEntity> {
   final String id;
   final String affiliateId;
   final double rating;
-  const Rating(
+  const RatingsEntity(
       {required this.id, required this.affiliateId, required this.rating});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -625,18 +629,18 @@ class Rating extends DataClass implements Insertable<Rating> {
     return map;
   }
 
-  RatingsCompanion toCompanion(bool nullToAbsent) {
-    return RatingsCompanion(
+  RatingsEntitysCompanion toCompanion(bool nullToAbsent) {
+    return RatingsEntitysCompanion(
       id: Value(id),
       affiliateId: Value(affiliateId),
       rating: Value(rating),
     );
   }
 
-  factory Rating.fromJson(Map<String, dynamic> json,
+  factory RatingsEntity.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Rating(
+    return RatingsEntity(
       id: serializer.fromJson<String>(json['id']),
       affiliateId: serializer.fromJson<String>(json['affiliateId']),
       rating: serializer.fromJson<double>(json['rating']),
@@ -652,14 +656,15 @@ class Rating extends DataClass implements Insertable<Rating> {
     };
   }
 
-  Rating copyWith({String? id, String? affiliateId, double? rating}) => Rating(
+  RatingsEntity copyWith({String? id, String? affiliateId, double? rating}) =>
+      RatingsEntity(
         id: id ?? this.id,
         affiliateId: affiliateId ?? this.affiliateId,
         rating: rating ?? this.rating,
       );
   @override
   String toString() {
-    return (StringBuffer('Rating(')
+    return (StringBuffer('RatingsEntity(')
           ..write('id: $id, ')
           ..write('affiliateId: $affiliateId, ')
           ..write('rating: $rating')
@@ -672,24 +677,24 @@ class Rating extends DataClass implements Insertable<Rating> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Rating &&
+      (other is RatingsEntity &&
           other.id == this.id &&
           other.affiliateId == this.affiliateId &&
           other.rating == this.rating);
 }
 
-class RatingsCompanion extends UpdateCompanion<Rating> {
+class RatingsEntitysCompanion extends UpdateCompanion<RatingsEntity> {
   final Value<String> id;
   final Value<String> affiliateId;
   final Value<double> rating;
   final Value<int> rowid;
-  const RatingsCompanion({
+  const RatingsEntitysCompanion({
     this.id = const Value.absent(),
     this.affiliateId = const Value.absent(),
     this.rating = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  RatingsCompanion.insert({
+  RatingsEntitysCompanion.insert({
     required String id,
     required String affiliateId,
     required double rating,
@@ -697,7 +702,7 @@ class RatingsCompanion extends UpdateCompanion<Rating> {
   })  : id = Value(id),
         affiliateId = Value(affiliateId),
         rating = Value(rating);
-  static Insertable<Rating> custom({
+  static Insertable<RatingsEntity> custom({
     Expression<String>? id,
     Expression<String>? affiliateId,
     Expression<double>? rating,
@@ -711,12 +716,12 @@ class RatingsCompanion extends UpdateCompanion<Rating> {
     });
   }
 
-  RatingsCompanion copyWith(
+  RatingsEntitysCompanion copyWith(
       {Value<String>? id,
       Value<String>? affiliateId,
       Value<double>? rating,
       Value<int>? rowid}) {
-    return RatingsCompanion(
+    return RatingsEntitysCompanion(
       id: id ?? this.id,
       affiliateId: affiliateId ?? this.affiliateId,
       rating: rating ?? this.rating,
@@ -744,7 +749,7 @@ class RatingsCompanion extends UpdateCompanion<Rating> {
 
   @override
   String toString() {
-    return (StringBuffer('RatingsCompanion(')
+    return (StringBuffer('RatingsEntitysCompanion(')
           ..write('id: $id, ')
           ..write('affiliateId: $affiliateId, ')
           ..write('rating: $rating, ')
@@ -756,11 +761,13 @@ class RatingsCompanion extends UpdateCompanion<Rating> {
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
-  late final $AffiliatesTable affiliates = $AffiliatesTable(this);
-  late final $RatingsTable ratings = $RatingsTable(this);
+  late final $AffiliatesEntitysTable affiliatesEntitys =
+      $AffiliatesEntitysTable(this);
+  late final $RatingsEntitysTable ratingsEntitys = $RatingsEntitysTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [affiliates, ratings];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [affiliatesEntitys, ratingsEntitys];
 }
