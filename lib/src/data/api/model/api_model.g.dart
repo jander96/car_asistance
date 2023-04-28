@@ -8,7 +8,7 @@ part of 'api_model.dart';
 
 AffiliateNetwork _$AffiliateNetworkFromJson(Map<String, dynamic> json) =>
     AffiliateNetwork(
-      id: json['id'] as int,
+      id: json['id'] as String,
       name: json['name'] as String,
       openTime: json['open_time'] as String?,
       closeTime: json['close_time'] as String?,

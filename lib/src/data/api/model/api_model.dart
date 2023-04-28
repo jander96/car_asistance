@@ -4,7 +4,7 @@ part 'api_model.g.dart';
 
 @JsonSerializable()
 class AffiliateNetwork {
-  final int id;
+  final String id;
   final String name;
   @JsonKey(name: "open_time")
   final String? openTime;
