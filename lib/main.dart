@@ -1,5 +1,6 @@
 import 'package:car_assistance/dependency_injection.dart';
-import 'package:car_assistance/src/ui/screens/nav_host.dart';
+import 'package:car_assistance/routes.dart';
+
 import 'package:car_assistance/src/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +14,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: MyAppTheme.light(),
       title: 'My name app',
-      initialRoute: "nav_host",
-      routes: {"nav_host": (context) => NavHost()},
+      routerConfig: appRouter,
     );
   }
 }
