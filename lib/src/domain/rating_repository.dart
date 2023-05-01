@@ -4,6 +4,6 @@ abstract class RatingRepository {
   Future<List<Rating>> getAllRatings();
   Future posNewRating(Rating rating);
   Future<double> getRatingOfAffiliate(String affiliateId);
-  void cleanAllRatingsInDB();
-  void storeRatingInDB(Rating rating);
+  Future<int> cleanAllRatingsInDB();
+  Future<int> storeRatingInDB(Rating rating);
 }

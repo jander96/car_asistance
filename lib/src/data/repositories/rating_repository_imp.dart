@@ -16,8 +16,8 @@ class RatingRepositoryImp extends RatingRepository {
         _ratingLocalDataSource = injector.get<RatingLocalDataSource>();
 
   @override
-  void cleanAllRatingsInDB() {
-    _ratingLocalDataSource.clearAllRating();
+  Future<int> cleanAllRatingsInDB() {
+    return _ratingLocalDataSource.clearAllRating();
   }
 
   @override
@@ -33,9 +33,9 @@ class RatingRepositoryImp extends RatingRepository {
   }
 
   @override
-  void storeRatingInDB(Rating rating) {
+  Future<int> storeRatingInDB(Rating rating) {
     final entity = ratingsEntityFromDomain(rating);
-    _ratingLocalDataSource.insertRating(entity);
+    return _ratingLocalDataSource.insertRating(entity);
   }
 
   @override
