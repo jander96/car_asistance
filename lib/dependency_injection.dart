@@ -2,6 +2,7 @@ import 'package:car_assistance/src/data/api/api_service.dart';
 import 'package:car_assistance/src/data/api/network_datasource.dart';
 import 'package:car_assistance/src/data/api/network_datasource_imp.dart';
 import 'package:car_assistance/src/data/database/daos/affiliate_dao.dart';
+import 'package:car_assistance/src/data/database/daos/rating_dao.dart';
 import 'package:car_assistance/src/data/database/drift_database.dart';
 import 'package:car_assistance/src/data/database/local_datasource.dart';
 import 'package:car_assistance/src/data/database/local_datasource_imp.dart';
@@ -19,7 +20,8 @@ void inject() {
 
   final db = injector.get<AppDatabase>();
   injector.registerLazySingleton<AffiliateDao>(() => AffiliateDao(db));
-  
+  injector.registerLazySingleton<RatingDao>(() => RatingDao(db));
+
   injector.registerFactory<AffiliateRepository>(() => AffiliateRepositoryImp());
   injector.registerFactory<WatchAllAffiliatesUsesCase>(
       () => WatchAllAffiliatesUsesCase());
