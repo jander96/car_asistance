@@ -1,5 +1,5 @@
 import 'package:car_assistance/dependency_injection.dart';
-import 'package:car_assistance/src/data/api/api_affiliate_service.dart';
+import 'package:car_assistance/src/data/api/api_service.dart';
 import 'package:car_assistance/src/data/api/model/api_affiliate_model.dart';
 import 'package:car_assistance/src/data/api/model/api_rating_model.dart';
 import 'package:car_assistance/src/data/api/network_datasource.dart';

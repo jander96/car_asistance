@@ -1,23 +1,24 @@
 import 'package:car_assistance/dependency_injection.dart';
+import 'package:car_assistance/src/data/database/daos/affiliate_dao.dart';
 import 'package:car_assistance/src/data/database/drift_database.dart';
 import 'package:car_assistance/src/data/database/local_datasource.dart';
 
 class LocalDataSourceImp extends LocalDataSource {
-  AppDatabase db;
-  LocalDataSourceImp() : db = injector.get<AppDatabase>();
+  final AffiliateDao _affiliateDao;
+  LocalDataSourceImp() : _affiliateDao = injector.get<AffiliateDao>();
 
   @override
   Stream<List<AffiliatesEntity>> allAffiliateStream() {
-    return db.allAffiliates;
+    return _affiliateDao.allAffiliates;
   }
 
   @override
   Future<int> addAffiliate(AffiliatesEntity affiliate) {
-    return db.addAffiliate(affiliate);
+    return _affiliateDao.addAffiliate(affiliate);
   }
 
   @override
   void deleteAllAffiliates() {
-    db.cleanAllAffiliates();
+    _affiliateDao.cleanAllAffiliates();
   }
 }

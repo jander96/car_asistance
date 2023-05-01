@@ -12,17 +12,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
   @override
   int get schemaVersion => 1;
-  //Stream de affiliate
-  Stream<List<AffiliatesEntity>> get allAffiliates =>
-      select(affiliatesEntitys).watch();
-  // insert New affiliate
-  Future<int> addAffiliate(AffiliatesEntity affiliate) {
-    return into(affiliatesEntitys).insert(affiliate);
-  }
-
-  void cleanAllAffiliates() {
-   delete(affiliatesEntitys);
-  }
+  
 }
 
 LazyDatabase _openConnection() {
