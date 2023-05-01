@@ -69,8 +69,8 @@ class _HomeView extends StatelessWidget {
                   : Text("No hay datos");
             },
           ),
-          FutureBuilder(
-            future: top,
+          StreamBuilder(
+            stream: top,
             builder: (BuildContext context,
                 AsyncSnapshot<List<Affiliate>> snapshot) {
               return snapshot.data != null

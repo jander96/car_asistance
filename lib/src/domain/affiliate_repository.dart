@@ -6,5 +6,5 @@ abstract class AffiliateRepository {
   Future<List<Affiliate>> getAllAffiliate();
   Future<int> saveAffiliatesInDb(Affiliate affiliate);
   Future<int> cleanAllAffiliatesInDb();
-  Future<List<Affiliate>> getBestRating(int top);
+  Stream<List<Affiliate>> getBestRating(int top);
 }

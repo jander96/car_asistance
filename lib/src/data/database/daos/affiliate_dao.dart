@@ -21,11 +21,11 @@ class AffiliateDao extends DatabaseAccessor<AppDatabase>
     return delete(affiliatesEntitys).go();
   }
 
-  Future<List<AffiliatesEntity>> getBestRating(int top) {
+  Stream<List<AffiliatesEntity>> getBestRating(int top) {
     final result = select(affiliatesEntitys)
       ..orderBy(
           [(t) => OrderingTerm(expression: t.rating, mode: OrderingMode.desc)])
       ..limit(top);
-    return result.get();
+    return result.watch();
   }
 }

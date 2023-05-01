@@ -24,7 +24,7 @@ class AffiliateLocalDataSourceImp extends AffiliateLocalDataSource {
   }
 
   @override
-  Future<List<AffiliatesEntity>> getBestRating(int top) {
+  Stream<List<AffiliatesEntity>> getBestRating(int top) {
     return _affiliateDao.getBestRating(top);
   }
 }

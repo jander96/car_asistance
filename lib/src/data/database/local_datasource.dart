@@ -5,5 +5,5 @@ abstract class AffiliateLocalDataSource {
   Future<int> addAffiliate(AffiliatesEntity affiliate);
   Stream<List<AffiliatesEntity>> allAffiliateStream();
   Future<int> deleteAllAffiliates();
-  Future<List<AffiliatesEntity>> getBestRating(int top);
+  Stream<List<AffiliatesEntity>> getBestRating(int top);
 }

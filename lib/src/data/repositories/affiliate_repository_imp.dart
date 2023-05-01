@@ -39,9 +39,9 @@ class AffiliateRepositoryImp extends AffiliateRepository {
   }
 
   @override
-  Future<List<Affiliate>> getBestRating(int top) {
+  Stream<List<Affiliate>> getBestRating(int top) {
+    final transformer = ConvertToAffiliate().transformToDomain;
     return _localDataSource
-        .getBestRating(top)
-        .then((list) => list.map((affiliate) => affiliate.toDomain()).toList());
+        .getBestRating(top).transform(transformer);
   }
 }
