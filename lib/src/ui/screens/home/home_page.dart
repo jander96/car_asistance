@@ -1,6 +1,3 @@
-import 'package:car_assistance/dependency_injection.dart';
-import 'package:car_assistance/src/domain/affiliate_repository.dart';
-import 'package:car_assistance/src/domain/rating_repository.dart';
 import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,73 +16,36 @@ class HomePage extends StatelessWidget {
 }
 
 class _HomeView extends StatelessWidget {
-  const _HomeView({
-    super.key,
-  });
+  const _HomeView();
 
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HomeCubit>().state;
-    final bloc = context.read<HomeCubit>();
-
-    final affiliatesList = injector.get<WatchAllAffiliatesUsesCase>();
-    final ratingRepository = injector.get<RatingRepository>();
-
-    ratingRepository.getAllRatings().then((ratingList) {
-      for (final rating in ratingList) {
-        ratingRepository.storeRatingInDB(rating);
-      }
-    });
-
-    final affiliateRepository = injector.get<AffiliateRepository>();
-    final top = affiliateRepository.getBestRating(10);
-
-    final rating = ratingRepository.getRatingOfAffiliate("1");
+    final viewModel = context.read<HomeCubit>();
+    viewModel.loadAffiliates();
+    final stream = WatchAllAffiliatesUsesCase().watchAffiliates();
 
     return Scaffold(
-      appBar: AppBar(title: Text("Home")),
+      appBar: AppBar(title: const Text("Home")),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           StreamBuilder(
-              stream: affiliatesList.watchAffiliates(),
+              stream: state.streamOfAffiliates,
               builder: (BuildContext context,
                   AsyncSnapshot<List<Affiliate>> snapshot) {
                 if (snapshot.hasData) {
                   return Text(
-                      "el primer servicio de taller es ${snapshot.data != null ? snapshot.data![6].name : "es nullo "}");
+                      "el primer servicio de taller es ${snapshot.data != null ? snapshot.data![1].name : "es nullo "} y su rating es ${snapshot.data![1].rating}");
                 } else if (snapshot.hasError) {
                   return const Icon(Icons.error_outline);
                 } else {
                   return const CircularProgressIndicator();
                 }
               }),
-          FutureBuilder(
-            future: rating,
-            builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
-              return snapshot.data != null
-                  ? Text("el rating del primer elemento es ${snapshot.data}")
-                  : Text("No hay datos");
-            },
-          ),
-          StreamBuilder(
-            stream: top,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<Affiliate>> snapshot) {
-              return snapshot.data != null
-                  ? Text("El mejor valorado es ${snapshot.data!.first.name}")
-                  : Text("Limpio ");
-            },
-          ),
         ],
       )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          bloc.increaseBy(1);
-        },
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }

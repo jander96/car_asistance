@@ -1,14 +1,17 @@
+import '../../../domain/model/affiliate_model.dart';
+
 class HomeViewState {
   final bool isLoading;
-  final int counter;
+  final Stream<List<Affiliate>> streamOfAffiliates;
 
-  HomeViewState({this.isLoading = true, this.counter = 0});
+  HomeViewState(
+      {this.streamOfAffiliates = const Stream.empty(), this.isLoading = true});
 
   copyWith({
+    Stream<List<Affiliate>>? streamOfAffiliates,
     bool? isLoading,
-    int? counter,
-  }) => HomeViewState(
-      isLoading: isLoading ?? this.isLoading,
-      counter: counter ?? this.counter
-  );
+  }) =>
+      HomeViewState(
+          streamOfAffiliates: streamOfAffiliates ?? this.streamOfAffiliates,
+          isLoading: isLoading ?? this.isLoading);
 }
