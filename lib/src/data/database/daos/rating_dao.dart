@@ -19,4 +19,13 @@ class RatingDao extends DatabaseAccessor<AppDatabase> with _$RatingDaoMixin {
         await query.map((row) => row.read(ratingAvg)).getSingle() ?? 0.0;
     return average;
   }
+
+  Future<int> insertRating(RatingsEntity rating) {
+    return into(ratingsEntitys).insert(rating);
+  }
+
+  Future<int> cleanAllRatings() {
+   return delete(ratingsEntitys).go();
+  }
+ 
 }

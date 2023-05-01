@@ -3,9 +3,9 @@ import 'package:car_assistance/src/data/database/daos/affiliate_dao.dart';
 import 'package:car_assistance/src/data/database/drift_database.dart';
 import 'package:car_assistance/src/data/database/local_datasource.dart';
 
-class LocalDataSourceImp extends LocalDataSource {
+class AffiliateLocalDataSourceImp extends AffiliateLocalDataSource {
   final AffiliateDao _affiliateDao;
-  LocalDataSourceImp() : _affiliateDao = injector.get<AffiliateDao>();
+  AffiliateLocalDataSourceImp() : _affiliateDao = injector.get<AffiliateDao>();
 
   @override
   Stream<List<AffiliatesEntity>> allAffiliateStream() {

@@ -10,11 +10,11 @@ import 'package:car_assistance/src/data/api/network_datasource.dart';
 
 class AffiliateRepositoryImp extends AffiliateRepository {
   final NetworkDataSource _networkDataSource;
-  final LocalDataSource _localDataSource;
+  final AffiliateLocalDataSource _localDataSource;
 
   AffiliateRepositoryImp()
       : _networkDataSource = injector.get<NetworkDataSource>(),
-        _localDataSource = injector.get<LocalDataSource>();
+        _localDataSource = injector.get<AffiliateLocalDataSource>();
 
   @override
   Stream<List<Affiliate>> watchAffiliates() {

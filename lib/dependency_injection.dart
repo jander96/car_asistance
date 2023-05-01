@@ -5,7 +5,9 @@ import 'package:car_assistance/src/data/database/daos/affiliate_dao.dart';
 import 'package:car_assistance/src/data/database/daos/rating_dao.dart';
 import 'package:car_assistance/src/data/database/drift_database.dart';
 import 'package:car_assistance/src/data/database/local_datasource.dart';
-import 'package:car_assistance/src/data/database/local_datasource_imp.dart';
+import 'package:car_assistance/src/data/database/affiliate_local_datasource_imp.dart';
+import 'package:car_assistance/src/data/database/rating_local_datasource.dart';
+import 'package:car_assistance/src/data/database/rating_local_datasource_imp.dart';
 import 'package:car_assistance/src/data/repositories/affiliate_repository_imp.dart';
 import 'package:car_assistance/src/data/repositories/rating_repository_imp.dart';
 import 'package:car_assistance/src/domain/affiliate_repository.dart';
@@ -17,7 +19,10 @@ final injector = GetIt.instance;
 void inject() {
   injector.registerSingleton<ApiService>(ApiService());
   injector.registerFactory<NetworkDataSource>(() => NetworkDataSourceImpl());
-  injector.registerFactory<LocalDataSource>(() => LocalDataSourceImp());
+  injector.registerFactory<AffiliateLocalDataSource>(
+      () => AffiliateLocalDataSourceImp());
+  injector
+      .registerFactory<RatingLocalDataSource>(() => RatingLocalDataSourceImp());
   injector.registerLazySingleton<AppDatabase>(() => AppDatabase());
 
   final db = injector.get<AppDatabase>();

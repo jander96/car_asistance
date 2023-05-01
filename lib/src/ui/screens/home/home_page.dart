@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/model/affiliate_model.dart';
-import '../../../domain/model/rating_model.dart';
 import 'home_view_model.dart';
 
 class HomePage extends StatelessWidget {
@@ -29,13 +28,21 @@ class _HomeView extends StatelessWidget {
     final bloc = context.read<HomeCubit>();
 
     final affiliatesList = injector.get<WatchAllAffiliatesUsesCase>();
-    final ratingList = injector.get<RatingRepository>().getAllRatings();
+    final ratingRepository = injector.get<RatingRepository>();
+
+    ratingRepository.getAllRatings().then((ratingList) {
+      for (final rating in ratingList) {
+        ratingRepository.storeRatingInDB(rating);
+      }
+    });
+
+    final rating = ratingRepository.getRatingOfAffiliate("1");
 
     return Scaffold(
       appBar: AppBar(title: Text("Home")),
       body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           StreamBuilder(
               stream: affiliatesList.watchAffiliates(),
@@ -51,12 +58,10 @@ class _HomeView extends StatelessWidget {
                 }
               }),
           FutureBuilder(
-            future: ratingList,
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Rating>> snapshot) {
+            future: rating,
+            builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
               return snapshot.data != null
-                  ? Text(
-                      "el rating del primer elemento es ${snapshot.data![0].rating}")
+                  ? Text("el rating del primer elemento es ${snapshot.data}")
                   : Text("No hay datos");
             },
           ),
