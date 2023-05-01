@@ -8,4 +8,6 @@ part 'rating_dao.g.dart';
 @DriftAccessor(tables: [RatingsEntitys])
 class RatingDao extends DatabaseAccessor<AppDatabase> with _$RatingDaoMixin {
   RatingDao(AppDatabase db) : super(db);
+
+  
 }
