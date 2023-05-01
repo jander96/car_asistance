@@ -1,4 +1,5 @@
 import 'package:car_assistance/dependency_injection.dart';
+import 'package:car_assistance/src/domain/affiliate_repository.dart';
 import 'package:car_assistance/src/domain/rating_repository.dart';
 import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,9 @@ class _HomeView extends StatelessWidget {
       }
     });
 
+    final affiliateRepository = injector.get<AffiliateRepository>();
+    final top = affiliateRepository.getBestRating(10);
+
     final rating = ratingRepository.getRatingOfAffiliate("1");
 
     return Scaffold(
@@ -63,6 +67,15 @@ class _HomeView extends StatelessWidget {
               return snapshot.data != null
                   ? Text("el rating del primer elemento es ${snapshot.data}")
                   : Text("No hay datos");
+            },
+          ),
+          FutureBuilder(
+            future: top,
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Affiliate>> snapshot) {
+              return snapshot.data != null
+                  ? Text("El mejor valorado es ${snapshot.data!.first.name}")
+                  : Text("Limpio ");
             },
           ),
         ],

@@ -7,7 +7,6 @@ import 'package:car_assistance/src/domain/affiliate_repository.dart';
 import 'package:car_assistance/src/domain/model/affiliate_model.dart';
 import 'package:car_assistance/src/data/api/network_datasource.dart';
 
-
 class AffiliateRepositoryImp extends AffiliateRepository {
   final NetworkDataSource _networkDataSource;
   final AffiliateLocalDataSource _localDataSource;
@@ -31,13 +30,18 @@ class AffiliateRepositoryImp extends AffiliateRepository {
   @override
   Future<int> saveAffiliatesInDb(Affiliate affiliate) {
     final affiliateEntity = affiliatesEntityfromDomain(affiliate);
-   return _localDataSource.addAffiliate(affiliateEntity);
+    return _localDataSource.addAffiliate(affiliateEntity);
   }
 
   @override
   Future<int> cleanAllAffiliatesInDb() {
-   return  _localDataSource.deleteAllAffiliates();
+    return _localDataSource.deleteAllAffiliates();
   }
 
-
+  @override
+  Future<List<Affiliate>> getBestRating(int top) {
+    return _localDataSource
+        .getBestRating(top)
+        .then((list) => list.map((affiliate) => affiliate.toDomain()).toList());
+  }
 }

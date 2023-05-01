@@ -10,16 +10,22 @@ class AffiliateDao extends DatabaseAccessor<AppDatabase>
     with _$AffiliateDaoMixin {
   AffiliateDao(AppDatabase db) : super(db);
 
-
   Stream<List<AffiliatesEntity>> get allAffiliates =>
       select(affiliatesEntitys).watch();
- 
+
   Future<int> addAffiliate(AffiliatesEntity affiliate) {
     return into(affiliatesEntitys).insert(affiliate);
   }
-  
+
   Future<int> cleanAllAffiliates() {
-   return delete(affiliatesEntitys).go();
+    return delete(affiliatesEntitys).go();
   }
- 
+
+  Future<List<AffiliatesEntity>> getBestRating(int top) {
+    final result = select(affiliatesEntitys)
+      ..orderBy(
+          [(t) => OrderingTerm(expression: t.rating, mode: OrderingMode.desc)])
+      ..limit(top);
+    return result.get();
+  }
 }
