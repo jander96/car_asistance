@@ -18,8 +18,8 @@ class AffiliateDao extends DatabaseAccessor<AppDatabase>
     return into(affiliatesEntitys).insert(affiliate);
   }
   
-  void cleanAllAffiliates() {
-   delete(affiliatesEntitys);
+  Future<int> cleanAllAffiliates() {
+   return delete(affiliatesEntitys).go();
   }
  
 }

@@ -29,14 +29,14 @@ class AffiliateRepositoryImp extends AffiliateRepository {
   }
 
   @override
-  void saveAffiliatesInDb(Affiliate affiliate) {
+  Future<int> saveAffiliatesInDb(Affiliate affiliate) {
     final affiliateEntity = affiliatesEntityfromDomain(affiliate);
-    _localDataSource.addAffiliate(affiliateEntity);
+   return _localDataSource.addAffiliate(affiliateEntity);
   }
 
   @override
-  void cleanAllAffiliatesInDb() {
-    _localDataSource.deleteAllAffiliates();
+  Future<int> cleanAllAffiliatesInDb() {
+   return  _localDataSource.deleteAllAffiliates();
   }
 
 

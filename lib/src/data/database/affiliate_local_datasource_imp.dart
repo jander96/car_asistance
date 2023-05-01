@@ -18,7 +18,7 @@ class AffiliateLocalDataSourceImp extends AffiliateLocalDataSource {
   }
 
   @override
-  void deleteAllAffiliates() {
-    _affiliateDao.cleanAllAffiliates();
+  Future<int> deleteAllAffiliates() {
+    return _affiliateDao.cleanAllAffiliates();
   }
 }
