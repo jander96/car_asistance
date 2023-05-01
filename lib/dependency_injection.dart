@@ -7,7 +7,9 @@ import 'package:car_assistance/src/data/database/drift_database.dart';
 import 'package:car_assistance/src/data/database/local_datasource.dart';
 import 'package:car_assistance/src/data/database/local_datasource_imp.dart';
 import 'package:car_assistance/src/data/repositories/affiliate_repository_imp.dart';
+import 'package:car_assistance/src/data/repositories/rating_repository_imp.dart';
 import 'package:car_assistance/src/domain/affiliate_repository.dart';
+import 'package:car_assistance/src/domain/rating_repository.dart';
 import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:get_it/get_it.dart';
 
@@ -23,6 +25,7 @@ void inject() {
   injector.registerLazySingleton<RatingDao>(() => RatingDao(db));
 
   injector.registerFactory<AffiliateRepository>(() => AffiliateRepositoryImp());
+  injector.registerFactory<RatingRepository>(() => RatingRepositoryImp());
   injector.registerFactory<WatchAllAffiliatesUsesCase>(
       () => WatchAllAffiliatesUsesCase());
 }

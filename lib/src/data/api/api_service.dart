@@ -21,13 +21,20 @@ class ApiService {
   }
 
   Future<List<RatingNetwork>> getAllRatings() async {
+    final jsonResponse = await rootBundle
+        .loadString("assets/jsons/rating_responde_example.json");
+    final Map<String, dynamic> mapResponse = json.decode(jsonResponse);
+    final List<dynamic> listOfRatings = mapResponse["ratings"]!;
 
-    // TODO Implementar la lectura del json desde la red o mockearla
+    final allRatings = <RatingNetwork>[];
+    for (final ratingMap in listOfRatings) {
+      allRatings.add( RatingNetwork.fromJson(ratingMap));
+    }
 
-    return [];
+    return allRatings;
   }
 
-  Future postNewRating(RatingNetwork rating) async{
+  Future postNewRating(RatingNetwork rating) async {
     // TODO Implementar la funcion que me permita postear un nuevo rating
   }
 }

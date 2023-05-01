@@ -1,0 +1,32 @@
+{
+    "ratings": [
+        {
+            "id": "a", "affiliate_id":"1","rating":4.0
+        },
+        {
+            "id": "b", "affiliate_id":"2","rating":3.0
+        },
+        {
+            "id": "c", "affiliate_id":"3","rating":4.3
+        },
+        {
+            "id": "d", "affiliate_id":"1","rating":4.1
+        },
+        {
+            "id": "e", "affiliate_id":"2","rating":4.7
+        },
+        {
+            "id": "f", "affiliate_id":"3","rating":5.0
+        },
+        {
+            "id": "g", "affiliate_id":"1","rating":5.0
+        },
+        {
+            "id": "h", "affiliate_id":"2","rating":3.0
+        },
+        {
+            "id": "i", "affiliate_id":"3","rating":4.8
+        }
+
+    ]
+}

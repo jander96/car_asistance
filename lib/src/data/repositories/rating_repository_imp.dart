@@ -8,11 +8,10 @@ import '../api/network_datasource.dart';
 
 class RatingRepositoryImp extends RatingRepository {
   final NetworkDataSource _networkDataSource;
-  final LocalDataSource _localDataSource;
 
   RatingRepositoryImp()
-      : _networkDataSource = injector.get<NetworkDataSource>(),
-        _localDataSource = injector.get<LocalDataSource>();
+      : _networkDataSource = injector.get<NetworkDataSource>();
+
   @override
   void cleanAllRatingsInDB() {
     // TODO: implement cleanAllRatingsInDB
