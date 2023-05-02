@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/model/affiliate_model.dart';
+import '../../widgets/app_bar.dart';
 import 'home_view_model.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,26 +27,13 @@ class _HomeView extends StatelessWidget {
     final stream = WatchAllAffiliatesUsesCase().watchAffiliates();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Home")),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          StreamBuilder(
-              stream: state.streamOfAffiliates,
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<Affiliate>> snapshot) {
-                if (snapshot.hasData) {
-                  return Text(
-                      "el primer servicio de taller es ${snapshot.data != null ? snapshot.data![1].name : "es nullo "} y su rating es ${snapshot.data![1].rating}");
-                } else if (snapshot.hasError) {
-                  return const Icon(Icons.error_outline);
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              }),
-        ],
-      )),
+     
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: const  [
+          CustomAppBar()
+      
+        ],)
     );
   }
 }
