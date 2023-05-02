@@ -10,7 +10,7 @@
       "rating": 4.4,
       "lat": 20.1688,
       "long": -75.1985,
-      "address": "Maceo street",
+      "address": "1234 Main St, Miami, FL 33101",
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
 
 
@@ -25,7 +25,7 @@
       "rating": 4.2,
       "lat": 20.0574,
       "long": -75.1531,
-      "address": "Crombet street",
+      "address": "456 Oak Ave, Tampa, FL 33602",
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
@@ -38,7 +38,7 @@
       "rating": 4.0,
       "lat": 20.2399,
       "long": -75.1838,
-      "address": "Calixto Garcia street",
+      "address": "789 Pine St, Orlando, FL 32801",
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
@@ -51,7 +51,7 @@
       "rating": 4.1,
       "lat": 20.1182,
       "long": -75.1217,
-      "address": "Paseo street",
+      "address": "1010 Elm St, Jacksonville, FL 32202",
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
@@ -64,7 +64,7 @@
       "rating": 4.7,
       "lat": 20.1905,
       "long": -75.1882,
-      "address": "Agramonte street",
+      "address": "1111 Maple Ave, St. Petersburg, FL 33701",
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
@@ -77,7 +77,7 @@
       "rating": 4.9,
       "lat": 20.0981,
       "long": -75.1329,
-      "address": "Avenida Main street",
+      "address": "2222 Cedar St, Tallahassee, FL 32301",
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
@@ -90,7 +90,7 @@
       "rating": 4.2,
       "lat": 20.2965,
       "long": -75.2111,
-      "address": "Apple street",
+      "address": "3333 Birch Ave, Sarasota, FL 34236",
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
@@ -103,7 +103,7 @@
       "rating": 4.8,
       "lat": 20.2309,
       "long": -75.0848,
-      "address": "Wall street",
+      "address": "4444 Walnut St, Ft. Lauderdale, FL 33301 ",
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
@@ -116,7 +116,7 @@
       "rating": 4.3,
       "lat": 20.1603,
       "long": -75.2213,
-      "address": "E. Giro street",
+      "address": "5555 Cherry Ave, Gainesville, FL 32601",
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     },
     {
@@ -129,7 +129,7 @@
       "rating": 4.7,
       "lat": 20.0844,
       "long": -75.1614,
-      "address": "Pinto street",
+      "address": "6666 Oak St, Pensacola, FL 32501",
       "services":["Cambiar aceite", "Mantenimiento preventivo","Cambio de neumáticos","Alineación y balanceo de neumáticos","Reparación del motor","Diagnóstico y reparación de problemas eléctricos"]
     }
   ]

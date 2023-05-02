@@ -70,6 +70,7 @@ class MyAppTheme {
           },
         ),
       ),
+      colorSchemeSeed: Colors.red,
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
