@@ -13,10 +13,17 @@ class MapPage extends StatelessWidget {
         center: LatLng(51.509364, -0.128928),
         zoom: 9.2,
       ),children: [
+      
         TileLayer(
           urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
           subdomains: ['a', 'b', 'c'],
         ),
+          MarkerLayer(
+          markers: [
+            Marker(point: LatLng(51.509364,-0.128928), builder: (context)=> Icon(Icons.location_on_outlined) )
+          ],
+        )
+
       ],
       ),
     );

@@ -1,5 +1,4 @@
 import 'package:car_assistance/src/domain/model/affiliate_model.dart';
-import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/affiliate_grid_card.dart';
@@ -23,32 +22,21 @@ class _HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<HomeCubit>().state;
     final viewModel = context.read<HomeCubit>();
-    viewModel.loadAffiliates();
-    final stream = WatchAllAffiliatesUsesCase().watchAffiliates();
+    
+    print("Se actualizó vista");
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 149, 175, 189),
         body: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-         CustomAppBar(
+        CustomAppBar(
           userName: "Jander",
           userPhotoUrl: "assets/images/jhon_wick.jpg",
           onSubmmit: (p0) {},
           onStatePicked: (p0) {},
-         ),
+        ),
         Expanded(
-            child: StreamBuilder<List<Affiliate>>(
-                stream: state.streamOfAffiliates,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data!= null) {
-                    return _gridView(snapshot.data!);
-                  } else if (snapshot.hasError) {
-                    return Text("Eroor");
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                })),
+            child:state.isLoading ? const Center(child:  CircularProgressIndicator()):  _gridView(state.affiliates)),
       ],
     ));
   }

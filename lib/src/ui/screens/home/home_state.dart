@@ -1,17 +1,23 @@
+import 'package:equatable/equatable.dart';
+
 import '../../../domain/model/affiliate_model.dart';
 
-class HomeViewState {
+class HomeViewState extends Equatable {
   final bool isLoading;
-  final Stream<List<Affiliate>> streamOfAffiliates;
+  final List<Affiliate> affiliates;
 
-  HomeViewState(
-      {this.streamOfAffiliates = const Stream.empty(), this.isLoading = true});
+  const HomeViewState(
+      {this.affiliates = const [] , this.isLoading = true});
 
   copyWith({
-    Stream<List<Affiliate>>? streamOfAffiliates,
+    List<Affiliate> ? affiliates,
     bool? isLoading,
   }) =>
       HomeViewState(
-          streamOfAffiliates: streamOfAffiliates ?? this.streamOfAffiliates,
+          affiliates: affiliates ?? this.affiliates,
           isLoading: isLoading ?? this.isLoading);
+          
+            @override
+            List<Object?> get props => [affiliates,isLoading];
+            
 }

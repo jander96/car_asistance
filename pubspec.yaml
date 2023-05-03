@@ -46,6 +46,9 @@ dependencies:
 
   #Navegacion 
   go_router: ^7.0.0
+
+  #Arquitectura y flujos
+  equatable: ^2.0.5
   
 
 dev_dependencies:
