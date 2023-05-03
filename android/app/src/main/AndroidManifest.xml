@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.technicalassistance.car_assistance">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="car_assistance"
         android:name="${applicationName}"
