@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:car_assistance/src/ui/screens/map/map_view_state.dart';
@@ -7,8 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../../domain/model/affiliate_model.dart';
+
 class MapViewModel extends Cubit<MapViewState> {
   final WatchAllAffiliatesUsesCase _watchAllAffiliatesUsesCase;
+  StreamSubscription<List<Affiliate>>? _subscription;
   MapViewModel()
       : _watchAllAffiliatesUsesCase =
             injector.get<WatchAllAffiliatesUsesCase>(),
@@ -17,7 +22,7 @@ class MapViewModel extends Cubit<MapViewState> {
   }
 
   loadMarkers() async {
-    _watchAllAffiliatesUsesCase
+    _subscription = _watchAllAffiliatesUsesCase
         .watchAffiliates()
         .distinct()
         .listen((listAffiliate) {
@@ -29,5 +34,11 @@ class MapViewModel extends Cubit<MapViewState> {
 
       emit(const MapViewState().copyWith(isLoading: false, markers: markers));
     });
+  }
+
+  @override
+  Future<void> close() {
+    _subscription?.cancel();
+    return super.close();
   }
 }

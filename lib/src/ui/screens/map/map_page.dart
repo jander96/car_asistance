@@ -67,8 +67,8 @@ class _MapView extends StatelessWidget {
 
     return FlutterMap(
       options: MapOptions(
-        center: LatLng(53.3498, -6.2603),
-        zoom: 9.2,
+        center: LatLng(20.1182, -75.1217),
+        zoom: state.zoom,
       ),
       nonRotatedChildren: [
         AttributionWidget.defaultWidget(

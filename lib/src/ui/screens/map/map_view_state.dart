@@ -9,7 +9,7 @@ class MapViewState extends Equatable{
   const MapViewState({
     this.markers = const <Marker>[],
     this.isLoading = true,
-    this.zoom = 12.0 });
+    this.zoom = 9.0 });
 
   MapViewState copyWith(
           {List<Marker>? markers, bool? isLoading, double? zoom}) =>
