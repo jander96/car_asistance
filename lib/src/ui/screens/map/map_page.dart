@@ -81,30 +81,7 @@ class _MapView extends StatelessWidget {
       children: [
         
         tileLayer,
-        MarkerClusterLayerWidget(options:MarkerClusterLayerOptions(
-      maxClusterRadius: 45,
-      size: const Size(40, 40),
-      anchor: AnchorPos.align(AnchorAlign.center),
-      fitBoundsOptions: const FitBoundsOptions(
-        padding: EdgeInsets.all(50),
-        maxZoom: 15,
-      ),
-      markers: state.markers,
-      onClusterTap:(p0) => debugPrint("Este es un mensaje de depuración"),
-      onMarkerTap: (marker) => debugPrint("el identificador del marker es ${marker.key}"),
-      builder: (context, markers) {
-        return Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20), color: Colors.red),
-          child: Center(
-            child: Text(
-              markers.length.toString(),
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      },
-    ) )
+      markerClusterLayerWidget
         
         
       ],
