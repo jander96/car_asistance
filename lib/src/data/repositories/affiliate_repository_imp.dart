@@ -1,6 +1,6 @@
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/data/api/model/api_affiliate_model.dart';
-import 'package:car_assistance/src/data/database/local_datasource.dart';
+import 'package:car_assistance/src/data/database/affiliate_local_datasource.dart';
 import 'package:car_assistance/src/data/database/model/mapper/affiliate_mapper.dart';
 import 'package:car_assistance/src/data/repositories/stream_transformer.dart';
 import 'package:car_assistance/src/domain/affiliate_repository.dart';
@@ -41,7 +41,11 @@ class AffiliateRepositoryImp extends AffiliateRepository {
   @override
   Stream<List<Affiliate>> getBestRating(int top) {
     final transformer = ConvertToAffiliate().transformToDomain;
-    return _localDataSource
-        .getBestRating(top).transform(transformer);
+    return _localDataSource.getBestRating(top).transform(transformer);
+  }
+
+  @override
+  Future<Affiliate> getAffiliateById(String id) {
+    return _localDataSource.getAffiliateById(id).then((value) => value.toDomain());
   }
 }

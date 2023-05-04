@@ -27,14 +27,18 @@ class _MapView extends StatelessWidget {
     final state = context.watch<MapViewModel>().state;
     final viewModel = context.read<MapViewModel>();
     return Scaffold(
-      appBar: AppBar(title: Text("Map")),
+      appBar: AppBar(title: const Text("Map")),
       body: Stack(
-        children: [map(state)],
+        children: [
+          map(state,viewModel),
+
+          Text(state.affiliateSelected?.name ?? "null") 
+          ],
       ),
     );
   }
 
-  FlutterMap map(MapViewState state) {
+  FlutterMap map(MapViewState state, MapViewModel viewModel) {
     final tileLayer = TileLayer(
       userAgentPackageName: "com.technicalassistance.car_assistance",
       urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -48,7 +52,8 @@ class _MapView extends StatelessWidget {
         maxZoom: 15,
       ),
       markers: state.markers,onClusterTap:(p0) => debugPrint("Este es un mensaje de depuración"),
-      onMarkerTap: (p0) => debugPrint("Este es un mensaje de depuración"),
+      // ignore: unnecessary_null_comparison
+      onMarkerTap: (marker)=> marker != null ?viewModel.getAffiliateById(marker.key!) : null,
       builder: (context, markers) {
         return Container(
           decoration: BoxDecoration(

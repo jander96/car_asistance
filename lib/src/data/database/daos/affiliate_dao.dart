@@ -28,4 +28,9 @@ class AffiliateDao extends DatabaseAccessor<AppDatabase>
       ..limit(top);
     return result.watch();
   }
+
+  Future<AffiliatesEntity> getAffiliateById(String id) async {
+    return (select(affiliatesEntitys)..where((tbl) => tbl.id.equals(id)))
+        .getSingle();
+  }
 }
