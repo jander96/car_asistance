@@ -1,4 +1,4 @@
-import 'package:car_assistance/src/domain/model/affiliate_model.dart';
+
 import 'package:car_assistance/src/ui/screens/map/map_view_model.dart';
 import 'package:car_assistance/src/ui/screens/map/map_view_state.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
+
+import '../../widgets/custom_bottom_sheet.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
@@ -58,10 +60,7 @@ class _MapView extends StatelessWidget {
               .then((affiliate) => showModalBottomSheet(
                     context: context,
                     builder: (context) {
-                      return Container(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(affiliate.name ),
-                      );
+                      return CustomBottomSheet(affiliate: affiliate,);
                     },
                   ))
           : null,
