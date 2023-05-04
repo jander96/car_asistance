@@ -39,14 +39,15 @@ class MapViewModel extends Cubit<MapViewState> {
     });
   }
 
-  getAffiliateById(Key key) {
+  Future<Affiliate> getAffiliateById(Key key) async {
     final keyValue = key.toString();
     final id = keyValue.replaceAll(RegExp(r"[\[\]'<'>]"), "");
-    
-    _affiliateByIdUseCase.get(id).then((affiliate) {
+
+    return await _affiliateByIdUseCase.get(id).then((affiliate) {
       emit(state.copyWith(
         affiliateSelected: affiliate,
       ));
+      return affiliate;
     });
   }
 

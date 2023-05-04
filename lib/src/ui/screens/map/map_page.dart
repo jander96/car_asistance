@@ -1,4 +1,4 @@
-
+import 'package:car_assistance/src/domain/model/affiliate_model.dart';
 import 'package:car_assistance/src/ui/screens/map/map_view_model.dart';
 import 'package:car_assistance/src/ui/screens/map/map_view_state.dart';
 import 'package:flutter/material.dart';
@@ -30,15 +30,15 @@ class _MapView extends StatelessWidget {
       appBar: AppBar(title: const Text("Map")),
       body: Stack(
         children: [
-          map(state,viewModel),
-
-          Text(state.affiliateSelected?.name ?? "null") 
-          ],
+          map(context, state, viewModel),
+          Text(state.affiliateSelected?.name ?? "null")
+        ],
       ),
     );
   }
 
-  FlutterMap map(MapViewState state, MapViewModel viewModel) {
+  FlutterMap map(
+      BuildContext context, MapViewState state, MapViewModel viewModel) {
     final tileLayer = TileLayer(
       userAgentPackageName: "com.technicalassistance.car_assistance",
       urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -51,9 +51,20 @@ class _MapView extends StatelessWidget {
         padding: EdgeInsets.all(50),
         maxZoom: 15,
       ),
-      markers: state.markers,onClusterTap:(p0) => debugPrint("Este es un mensaje de depuración"),
-      // ignore: unnecessary_null_comparison
-      onMarkerTap: (marker)=> marker != null ?viewModel.getAffiliateById(marker.key!) : null,
+      markers: state.markers,
+      onMarkerTap: (marker) => marker.key != null
+          ? viewModel
+              .getAffiliateById(marker.key!)
+              .then((affiliate) => showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(affiliate.name ),
+                      );
+                    },
+                  ))
+          : null,
       builder: (context, markers) {
         return Container(
           decoration: BoxDecoration(
@@ -83,13 +94,7 @@ class _MapView extends StatelessWidget {
           onSourceTapped: () {},
         )
       ],
-      children: [
-        
-        tileLayer,
-      markerClusterLayerWidget
-        
-        
-      ],
+      children: [tileLayer, markerClusterLayerWidget],
     );
   }
 }
