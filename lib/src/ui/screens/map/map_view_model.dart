@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:car_assistance/src/ui/screens/map/map_view_state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
+
+
 import 'package:latlong2/latlong.dart';
 
 import '../../../domain/model/affiliate_model.dart';
@@ -28,6 +29,7 @@ class MapViewModel extends Cubit<MapViewState> {
         .listen((listAffiliate) {
       final markers = listAffiliate
           .map((affiliate) => Marker(
+              key: Key(affiliate.id),
               point: LatLng(affiliate.lat, affiliate.long),
               builder: (context) => const Icon(size: 34.0, Icons.pin_drop)))
           .toList();

@@ -1,3 +1,4 @@
+
 import 'package:car_assistance/src/ui/screens/map/map_view_model.dart';
 import 'package:car_assistance/src/ui/screens/map/map_view_state.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,8 @@ class _MapView extends StatelessWidget {
         padding: EdgeInsets.all(50),
         maxZoom: 15,
       ),
-      markers: state.markers,
+      markers: state.markers,onClusterTap:(p0) => debugPrint("Este es un mensaje de depuración"),
+      onMarkerTap: (p0) => debugPrint("Este es un mensaje de depuración"),
       builder: (context, markers) {
         return Container(
           decoration: BoxDecoration(
@@ -77,8 +79,34 @@ class _MapView extends StatelessWidget {
         )
       ],
       children: [
+        
         tileLayer,
-        markerClusterLayerWidget,
+        MarkerClusterLayerWidget(options:MarkerClusterLayerOptions(
+      maxClusterRadius: 45,
+      size: const Size(40, 40),
+      anchor: AnchorPos.align(AnchorAlign.center),
+      fitBoundsOptions: const FitBoundsOptions(
+        padding: EdgeInsets.all(50),
+        maxZoom: 15,
+      ),
+      markers: state.markers,
+      onClusterTap:(p0) => debugPrint("Este es un mensaje de depuración"),
+      onMarkerTap: (marker) => debugPrint("el identificador del marker es ${marker.key}"),
+      builder: (context, markers) {
+        return Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20), color: Colors.red),
+          child: Center(
+            child: Text(
+              markers.length.toString(),
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    ) )
+        
+        
       ],
     );
   }
