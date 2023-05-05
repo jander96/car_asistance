@@ -44,7 +44,7 @@ class CustomBottomSheet extends StatelessWidget {
                   ],
                 ),
                 Text("Abierto las 24 horas"),
-                Text(affiliate.rating.toString())
+                Text(affiliate.rating.toStringAsFixed(1))
               ],
             ),
            

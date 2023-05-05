@@ -33,10 +33,7 @@ class CustomCard extends StatelessWidget {
                 padding: const EdgeInsets.all(2.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
-                  child: Container(
-                    height: 75,
-                    width: 140,
-                    color:Colors.blue),
+                  child: Image.asset("assets/images/taller.jpeg"),
                 ),
               ),
               const SizedBox(height: 8),
