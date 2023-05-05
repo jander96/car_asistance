@@ -1,4 +1,3 @@
-
 import 'package:car_assistance/src/ui/screens/map/map_view_model.dart';
 import 'package:car_assistance/src/ui/screens/map/map_view_state.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +40,7 @@ class _MapView extends StatelessWidget {
 
   FlutterMap map(
       BuildContext context, MapViewState state, MapViewModel viewModel) {
+    final mapController = MapController();
     final tileLayer = TileLayer(
       userAgentPackageName: "com.technicalassistance.car_assistance",
       urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -60,7 +60,9 @@ class _MapView extends StatelessWidget {
               .then((affiliate) => showModalBottomSheet(
                     context: context,
                     builder: (context) {
-                      return CustomBottomSheet(affiliate: affiliate,);
+                      return CustomBottomSheet(
+                        affiliate: affiliate,
+                      );
                     },
                   ))
           : null,
@@ -83,7 +85,11 @@ class _MapView extends StatelessWidget {
         MarkerClusterLayerWidget(options: markerClusterLayerOptions);
 
     return FlutterMap(
+      mapController: mapController,
       options: MapOptions(
+        onMapReady: () {
+          
+        },
         center: LatLng(20.1182, -75.1217),
         zoom: state.zoom,
       ),
