@@ -11,6 +11,7 @@ class NetworkDataSourceImpl extends NetworkDataSource {
   @override
   Future<List<AffiliateNetwork>> getAllAffiliate() {
     return _apiservice.getAllAffiliates();
+    
   }
 
   @override

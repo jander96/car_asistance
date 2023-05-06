@@ -6,6 +6,8 @@ extension AffiliateMapper on AffiliatesEntity {
     return Affiliate(
         id: id,
         name: name,
+        openTime: openTime,
+        closeTime: closeTime,
         isFullTimeService: isFullTimeService,
         phoneNumber: phoneNumber,
         rating: rating,
@@ -22,6 +24,8 @@ AffiliatesEntity affiliatesEntityfromDomain(Affiliate affiliate) {
   return AffiliatesEntity(
       id: affiliate.id,
       name: affiliate.name,
+      openTime: affiliate.openTime ,
+      closeTime: affiliate.closeTime,
       isFullTimeService: affiliate.isFullTimeService,
       phoneNumber: affiliate.phoneNumber,
       rating: affiliate.rating,

@@ -81,7 +81,7 @@ class CustomBottomSheet extends StatelessWidget {
                     : Padding(
                         padding: const EdgeInsets.only(left: 16.0),
                         child: Text(
-                          "No Open 24 h",
+                          "${affiliate.openTime} - ${affiliate.closeTime}",
                           style: TextStyle(
                               color: Colors.blue, fontWeight: FontWeight.bold),
                         ),

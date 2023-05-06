@@ -23,13 +23,18 @@ class AffiliateRepositoryImp extends AffiliateRepository {
 
   @override
   Future<List<Affiliate>> getAllAffiliate() {
-    return _networkDataSource.getAllAffiliate().then((listOfAffiliateNetwork) =>
-        listOfAffiliateNetwork.map((network) => network.toDomain()).toList());
+    return _networkDataSource
+        .getAllAffiliate()
+        .then((listOfAffiliateNetwork) => listOfAffiliateNetwork.map((network) {
+              final affiliateDomain = network.toDomain();
+              return affiliateDomain;
+            }).toList());
   }
 
   @override
   Future<int> saveAffiliatesInDb(Affiliate affiliate) {
     final affiliateEntity = affiliatesEntityfromDomain(affiliate);
+    affiliateEntity;
     return _localDataSource.addAffiliate(affiliateEntity);
   }
 
@@ -46,6 +51,8 @@ class AffiliateRepositoryImp extends AffiliateRepository {
 
   @override
   Future<Affiliate> getAffiliateById(String id) {
-    return _localDataSource.getAffiliateById(id).then((value) => value.toDomain());
+    return _localDataSource
+        .getAffiliateById(id)
+        .then((value) => value.toDomain());
   }
 }

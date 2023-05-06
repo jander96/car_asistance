@@ -23,8 +23,8 @@ class AffiliateNetwork {
   AffiliateNetwork(
       {required this.id,
       required this.name,
-      this.openTime,
-      this.closeTime,
+      required this.openTime,
+      required this.closeTime,
       required this.isFullTimeService,
       required this.phoneNumber,
       required this.rating,
