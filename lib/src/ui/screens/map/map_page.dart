@@ -1,12 +1,9 @@
 import 'package:car_assistance/src/ui/screens/map/map_view_model.dart';
 import 'package:car_assistance/src/ui/screens/map/map_view_state.dart';
+import 'package:car_assistance/src/ui/widgets/custom_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
-import 'package:latlong2/latlong.dart';
-
-import '../../widgets/custom_bottom_sheet.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
@@ -27,79 +24,37 @@ class _MapView extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<MapViewModel>().state;
     final viewModel = context.read<MapViewModel>();
+    const LatLng center = LatLng(20.2965, -75.2111);
     return Scaffold(
       appBar: AppBar(title: const Text("Map")),
       body: Stack(
         children: [
-          map(context, state, viewModel),
+          GoogleMap(
+            initialCameraPosition:
+                CameraPosition(target: center, zoom: state.zoom),
+            markers: state.listOfAffiliate
+                .map((affiliate) => Marker(
+                      markerId: MarkerId(affiliate.id),
+                      position: LatLng(affiliate.lat,affiliate.long),
+                      onTap: () => _openBottomSheet(context, state, affiliate.id, viewModel),
+                    ))
+                .toSet(),
+            onMapCreated: (controller) {
+              
+            },
+          ),
           Text(state.affiliateSelected?.name ?? "null")
         ],
       ),
     );
   }
 
-  FlutterMap map(
-      BuildContext context, MapViewState state, MapViewModel viewModel) {
-    final mapController = MapController();
-    final tileLayer = TileLayer(
-      userAgentPackageName: "com.technicalassistance.car_assistance",
-      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-    );
-    var markerClusterLayerOptions = MarkerClusterLayerOptions(
-      maxClusterRadius: 45,
-      size: const Size(40, 40),
-      anchor: AnchorPos.align(AnchorAlign.center),
-      fitBoundsOptions: const FitBoundsOptions(
-        padding: EdgeInsets.all(50),
-        maxZoom: 15,
-      ),
-      markers: state.markers,
-      onMarkerTap: (marker) => marker.key != null
-          ? viewModel
-              .getAffiliateById(marker.key!)
-              .then((affiliate) => showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return CustomBottomSheet(
-                        affiliate: affiliate,
-                      );
-                    },
-                  ))
-          : null,
-      builder: (context, markers) {
-        return Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20), color: Colors.red),
-          child: Center(
-            child: Text(
-              markers.length.toString(),
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      },
-    );
-
-    // este me permite agrupar varios markers, aumenta la  eficiencia y belleza de los mismos
-    var markerClusterLayerWidget =
-        MarkerClusterLayerWidget(options: markerClusterLayerOptions);
-
-    return FlutterMap(
-      mapController: mapController,
-      options: MapOptions(
-        onMapReady: () {
-          
-        },
-        center: LatLng(20.1182, -75.1217),
-        zoom: state.zoom,
-      ),
-      nonRotatedChildren: [
-        AttributionWidget.defaultWidget(
-          source: ' OpenStreetMap contributors',
-          onSourceTapped: () {},
-        )
-      ],
-      children: [tileLayer, markerClusterLayerWidget],
-    );
+  _openBottomSheet(BuildContext context, MapViewState state, String id,
+      MapViewModel viewModel) {
+    viewModel.getAffiliateById(id).then((affiliate) => showModalBottomSheet(
+        context: context,
+        builder: (context) => CustomBottomSheet(
+              affiliate: affiliate,
+            )));
   }
 }

@@ -3,10 +3,7 @@ import 'dart:async';
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:car_assistance/src/ui/screens/map/map_view_state.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 
 import '../../../domain/model/affiliate_model.dart';
 import '../../../domain/usescases/get_affiliate_by_id.dart';
@@ -28,21 +25,11 @@ class MapViewModel extends Cubit<MapViewState> {
         .watchAffiliates()
         .distinct()
         .listen((listAffiliate) {
-      final markers = listAffiliate
-          .map((affiliate) => Marker(
-              key: Key(affiliate.id),
-              point: LatLng(affiliate.lat, affiliate.long),
-              builder: (context) => const Icon(size: 34.0, Icons.pin_drop)))
-          .toList();
-
-      emit(state.copyWith(isLoading: false, markers: markers));
+      emit(state.copyWith(isLoading: false, listOfAffiliate: listAffiliate));
     });
   }
 
-  Future<Affiliate> getAffiliateById(Key key) async {
-    final keyValue = key.toString();
-    final id = keyValue.replaceAll(RegExp(r"[\[\]'<'>]"), "");
-
+  Future<Affiliate> getAffiliateById(String id) async {
     return await _affiliateByIdUseCase.get(id).then((affiliate) {
       emit(state.copyWith(
         affiliateSelected: affiliate,

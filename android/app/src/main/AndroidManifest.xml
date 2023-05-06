@@ -5,6 +5,9 @@
         android:label="car_assistance"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- Api Key de prueba cambiar a la del cliente-->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyAsB9KbZz6cPgVTKwyml6v4jA5yzjyZZqc"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
