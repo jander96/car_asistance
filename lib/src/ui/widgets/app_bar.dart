@@ -1,3 +1,4 @@
+import 'package:car_assistance/src/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'dropdown.dart';
@@ -17,7 +18,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final theme = ThemeData();
+    final theme = MyAppTheme.light();
 
     return Stack(alignment: Alignment.center, children: [
       Container(
@@ -60,10 +61,9 @@ class CustomAppBar extends StatelessWidget {
               alignment: Alignment.center,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                
                 children: const [
                   Icon(Icons.edit_location_alt_outlined),
-                   CustomDropDown(),
+                  CustomDropDown(),
                 ],
               ),
             )),
@@ -73,7 +73,7 @@ class CustomAppBar extends StatelessWidget {
           top: 56.0,
           child: Text(
             "Hola $userName",
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16),
           )),
       const Positioned(
           left: 24.0,

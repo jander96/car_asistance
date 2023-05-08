@@ -12,6 +12,7 @@ import 'package:car_assistance/src/data/repositories/affiliate_repository_imp.da
 import 'package:car_assistance/src/data/repositories/rating_repository_imp.dart';
 import 'package:car_assistance/src/domain/affiliate_repository.dart';
 import 'package:car_assistance/src/domain/rating_repository.dart';
+import 'package:car_assistance/src/domain/usescases/_dowload_data_server.dart';
 import 'package:car_assistance/src/domain/usescases/get_affiliate_by_id.dart';
 import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:get_it/get_it.dart';
@@ -36,4 +37,7 @@ void inject() {
       () => WatchAllAffiliatesUsesCase());
   injector.registerFactory<GetAffiliateByIdUseCase>(
       () => GetAffiliateByIdUseCase());
+
+  injector.registerFactory<DowloadDataServerUseCase>(
+      () => DowloadDataServerUseCase());
 }

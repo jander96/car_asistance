@@ -38,6 +38,10 @@ class MapViewModel extends Cubit<MapViewState> {
     });
   }
 
+  void setZoom(double value) {
+    emit(state.copyWith(zoom: value));
+  }
+
   @override
   Future<void> close() {
     _subscription?.cancel();

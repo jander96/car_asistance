@@ -1,8 +1,13 @@
+import 'package:car_assistance/dependency_injection.dart';
+import 'package:car_assistance/src/domain/usescases/_dowload_data_server.dart';
+import 'package:car_assistance/src/ui/screens/nav_host_view_model.dart';
 import 'package:car_assistance/src/ui/screens/profile/profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'home/home_page.dart';
 import 'map/map_page.dart';
+
 class NavHost extends StatefulWidget {
   const NavHost({super.key});
 
@@ -12,11 +17,18 @@ class NavHost extends StatefulWidget {
 
 class _NavHostState extends State<NavHost> {
   var selectedIndex = 0;
-  final bottomNavigationOptions = <int,Widget>{0: HomePage(), 1 : MapPage(), 2: ProfilePage()};
+  final bottomNavigationOptions = <int, Widget>{
+    0: HomePage(),
+    1: MapPage(),
+    2: ProfilePage()
+  };
   @override
   Widget build(BuildContext context) {
+    final downloader = injector.get<DowloadDataServerUseCase>();
+    downloader.watchAffiliates();
     return Scaffold(
-      body: SafeArea(child: bottomNavigationOptions[selectedIndex]?? HomePage()),
+      body:
+          SafeArea(child: bottomNavigationOptions[selectedIndex] ?? HomePage()),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) => setState(() {
           selectedIndex = value;

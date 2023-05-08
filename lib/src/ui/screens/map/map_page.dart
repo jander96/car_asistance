@@ -34,16 +34,15 @@ class _MapView extends StatelessWidget {
                 CameraPosition(target: center, zoom: state.zoom),
             markers: state.listOfAffiliate
                 .map((affiliate) => Marker(
+                      infoWindow: InfoWindow(title: affiliate.name),
                       markerId: MarkerId(affiliate.id),
-                      position: LatLng(affiliate.lat,affiliate.long),
-                      onTap: () => _openBottomSheet(context, state, affiliate.id, viewModel),
+                      position: LatLng(affiliate.lat, affiliate.long),
+                      onTap: () => _openBottomSheet(
+                          context, state, affiliate.id, viewModel),
                     ))
                 .toSet(),
-            onMapCreated: (controller) {
-              
-            },
+            onMapCreated: (controller) {},
           ),
-          Text(state.affiliateSelected?.name ?? "null")
         ],
       ),
     );
@@ -51,6 +50,7 @@ class _MapView extends StatelessWidget {
 
   _openBottomSheet(BuildContext context, MapViewState state, String id,
       MapViewModel viewModel) {
+    
     viewModel.getAffiliateById(id).then((affiliate) => showModalBottomSheet(
         context: context,
         builder: (context) => CustomBottomSheet(

@@ -62,6 +62,7 @@ class MyAppTheme {
 
   static ThemeData light() {
     return ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
       brightness: Brightness.light,
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith(
@@ -70,10 +71,11 @@ class MyAppTheme {
           },
         ),
       ),
-      colorSchemeSeed: Colors.red,
+      
+      
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.red,
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: Colors.white,

@@ -23,8 +23,6 @@ class _HomeView extends StatelessWidget {
     final state = context.watch<HomeCubit>().state;
     final viewModel = context.read<HomeCubit>();
     
-    print("Se actualizó vista");
-
     return Scaffold(
         body: Column(
       mainAxisAlignment: MainAxisAlignment.start,
