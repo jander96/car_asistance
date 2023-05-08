@@ -4,20 +4,25 @@ import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:car_assistance/src/ui/screens/map/map_view_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../domain/model/affiliate_model.dart';
 import '../../../domain/usescases/get_affiliate_by_id.dart';
+import '../../../domain/usescases/get_location_use_case.dart';
 
 class MapViewModel extends Cubit<MapViewState> {
   final WatchAllAffiliatesUsesCase _watchAllAffiliatesUsesCase;
   final GetAffiliateByIdUseCase _affiliateByIdUseCase;
+  final GetLocationUseCase _getLocationUseCase;
   StreamSubscription<List<Affiliate>>? _subscription;
   MapViewModel()
       : _watchAllAffiliatesUsesCase =
             injector.get<WatchAllAffiliatesUsesCase>(),
         _affiliateByIdUseCase = injector.get<GetAffiliateByIdUseCase>(),
+        _getLocationUseCase = injector.get<GetLocationUseCase>(),
         super(const MapViewState()) {
     loadMarkers();
+    getCurrentPosition();
   }
 
   loadMarkers() async {
@@ -36,6 +41,18 @@ class MapViewModel extends Cubit<MapViewState> {
       ));
       return affiliate;
     });
+  }
+
+  Future<void> getCurrentPosition() async {
+    try {
+       _getLocationUseCase.getMyCurrentPosition().then((position) =>  emit(state.copyWith(
+          currentPosition: LatLng(position.latitude, position.longitude),isSearching: false)));
+     
+      
+    } on Exception catch (error) {
+      emit(state.copyWith(error: error));
+      
+    }
   }
 
   void setZoom(double value) {
