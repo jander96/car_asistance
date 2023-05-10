@@ -44,15 +44,13 @@ class MapViewModel extends Cubit<MapViewState> {
   }
 
   Future<void> getCurrentPosition() async {
-    try {
-       _getLocationUseCase.getMyCurrentPosition().then((position) =>  emit(state.copyWith(
-          currentPosition: LatLng(position.latitude, position.longitude),isSearching: false)));
-     
-      
-    } on Exception catch (error) {
-      emit(state.copyWith(error: error));
-      
-    }
+    _getLocationUseCase.getMyCurrentPosition().then((position) {
+      emit(state.copyWith(
+          currentPosition: LatLng(position.latitude, position.longitude),
+          isSearching: false));
+    }, onError: (e) {
+      print('esta pasado por aqui el error');
+    });
   }
 
   void setZoom(double value) {
