@@ -14,6 +14,7 @@ class MapViewModel extends Cubit<MapViewState> {
   final WatchAllAffiliatesUsesCase _watchAllAffiliatesUsesCase;
   final GetAffiliateByIdUseCase _affiliateByIdUseCase;
   final GetLocationUseCase _getLocationUseCase;
+  bool _isStateAlive = true;
   StreamSubscription<List<Affiliate>>? _subscription;
   MapViewModel()
       : _watchAllAffiliatesUsesCase =
@@ -30,26 +31,28 @@ class MapViewModel extends Cubit<MapViewState> {
         .watchAffiliates()
         .distinct()
         .listen((listAffiliate) {
-      emit(state.copyWith(isLoading: false, listOfAffiliate: listAffiliate));
+      if (_isStateAlive) emit(state.copyWith(isLoading: false, listOfAffiliate: listAffiliate));
     });
   }
 
   Future<Affiliate> getAffiliateById(String id) async {
     return await _affiliateByIdUseCase.get(id).then((affiliate) {
-      emit(state.copyWith(
+      if (_isStateAlive) {emit(state.copyWith(
         affiliateSelected: affiliate,
-      ));
+      ));}
       return affiliate;
     });
   }
 
   Future<void> getCurrentPosition() async {
     _getLocationUseCase.getMyCurrentPosition().then((position) {
-      emit(state.copyWith(
-          currentPosition: LatLng(position.latitude, position.longitude),
-          isSearching: false));
+      if (_isStateAlive) {
+        emit(state.copyWith(
+            currentPosition: LatLng(position.latitude, position.longitude),
+            isSearching: false));
+      }
     }, onError: (e) {
-      print('esta pasado por aqui el error');
+      if (_isStateAlive) emit(state.copyWith(error: e as Exception));
     });
   }
 
@@ -60,6 +63,7 @@ class MapViewModel extends Cubit<MapViewState> {
   @override
   Future<void> close() {
     _subscription?.cancel();
+    _isStateAlive = false;
     return super.close();
   }
 }
