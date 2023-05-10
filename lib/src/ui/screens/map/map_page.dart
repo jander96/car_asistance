@@ -30,34 +30,29 @@ class _MapView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text("Map")),
-      body: Stack(
-        children: [
-          GoogleMap(
-            myLocationButtonEnabled: true,
-            myLocationEnabled: true,
-            initialCameraPosition: CameraPosition(
-                target: const LatLng(20.2965, -75.2111), zoom: state.zoom),
-            markers: state.listOfAffiliate
-                .map((affiliate) => Marker(
-                      infoWindow: InfoWindow(title: affiliate.name),
-                      markerId: MarkerId(affiliate.id),
-                      position: LatLng(affiliate.lat, affiliate.long),
-                      onTap: () => _openBottomSheet(
-                          context, state, affiliate.id, viewModel),
-                    ))
-                .toSet(),
-            onMapCreated: (controller) {
-              controller.setMapStyle(mapStyle);
-            },
-          ),
-          if (state.isSearching)
-           const Positioned(
-              top: 4,
-              right: 4,
-              child: CircleProgressWidget()
-            ),
-        ],
-      ),
+      body: _renderView(state, context, viewModel)
+    );
+  }
+
+  GoogleMap _map(
+      MapViewState state, BuildContext context, MapViewModel viewModel) {
+    return GoogleMap(
+      myLocationButtonEnabled: true,
+      myLocationEnabled: true,
+      initialCameraPosition: CameraPosition(
+          target: const LatLng(20.2965, -75.2111), zoom: state.zoom),
+      markers: state.listOfAffiliate
+          .map((affiliate) => Marker(
+                infoWindow: InfoWindow(title: affiliate.name),
+                markerId: MarkerId(affiliate.id),
+                position: LatLng(affiliate.lat, affiliate.long),
+                onTap: () =>
+                    _openBottomSheet(context, state, affiliate.id, viewModel),
+              ))
+          .toSet(),
+      onMapCreated: (controller) {
+        controller.setMapStyle(mapStyle);
+      },
     );
   }
 
@@ -68,5 +63,18 @@ class _MapView extends StatelessWidget {
         builder: (context) => CustomBottomSheet(
               affiliate: affiliate,
             )));
+  }
+
+  Widget _renderView(
+      MapViewState state, BuildContext context, MapViewModel viewModel) {
+    return Stack(
+      children: [
+        _map(state, context, viewModel),
+        if (state.isSearching)
+          const Positioned(top: 4, right: 4, child: CircleProgressWidget()),
+        if(state.error != null) Container(color: Colors.white,child: Center(child: Text(state.error.toString())),)
+        
+      ],
+    );
   }
 }
