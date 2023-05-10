@@ -1,10 +1,7 @@
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/domain/usescases/_dowload_data_server.dart';
-import 'package:car_assistance/src/ui/screens/nav_host_view_model.dart';
 import 'package:car_assistance/src/ui/screens/profile/profile_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'home/home_page.dart';
 import 'map/map_page.dart';
 
@@ -30,9 +27,12 @@ class _NavHostState extends State<NavHost> {
       body:
           SafeArea(child: bottomNavigationOptions[selectedIndex] ?? HomePage()),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (value) => setState(() {
+        onTap: (value) {
           selectedIndex = value;
-        }),
+          setState(() {
+            
+          });
+        },
         currentIndex: selectedIndex,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
