@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../utils/map_style.dart';
+import '../../widgets/position_loader.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
@@ -50,15 +51,10 @@ class _MapView extends StatelessWidget {
             },
           ),
           if (state.isSearching)
-            Positioned(
-              top: 7,
-              right: 8,
-              child: ElevatedButton.icon(
-
-                onPressed: () async {},
-                icon: Icon(Icons.location_searching),
-                label: Text(state.isSearching ? "searching" : ""),
-              ),
+           const Positioned(
+              top: 4,
+              right: 4,
+              child: CircleProgressWidget()
             ),
         ],
       ),

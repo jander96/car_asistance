@@ -24,7 +24,7 @@ import 'package:get_it/get_it.dart';
 final injector = GetIt.instance;
 void inject() {
   injector.registerSingleton<ApiService>(ApiService());
-  injector.registerSingleton<LocationService>(LocationService());
+  injector.registerLazySingleton<LocationService>(()=> LocationService());
 
   injector.registerFactory<NetworkDataSource>(() => NetworkDataSourceImpl());
   injector.registerFactory<AffiliateLocalDataSource>(
