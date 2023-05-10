@@ -24,6 +24,7 @@ class _HomeView extends StatelessWidget {
     final viewModel = context.read<HomeCubit>();
     
     return Scaffold(
+      
         body: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

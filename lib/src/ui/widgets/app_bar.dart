@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
     return Stack(alignment: Alignment.center, children: [
       Container(
         margin: const EdgeInsets.only(top: 32.0, right: 4.0, left: 4.0),
-        height: 128,
+        height: 120,
         width: size.width,
         decoration: BoxDecoration(boxShadow: const [
           BoxShadow(
@@ -83,7 +83,7 @@ class CustomAppBar extends StatelessWidget {
             style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
           )),
       Positioned(
-        bottom: 24,
+        bottom: 16,
         child: Padding(
           padding: const EdgeInsets.only(left: 64, right: 64),
           child: Container(

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../utils/map_style.dart';
+import '../../widgets/app_bar.dart';
 import '../../widgets/position_loader.dart';
 
 class MapPage extends StatelessWidget {
@@ -28,10 +29,7 @@ class _MapView extends StatelessWidget {
     final state = context.watch<MapViewModel>().state;
     final viewModel = context.read<MapViewModel>();
 
-    return Scaffold(
-      appBar: AppBar(title: const Text("Map")),
-      body: _renderView(state, context, viewModel)
-    );
+    return Scaffold(body: _renderView(state, context, viewModel));
   }
 
   GoogleMap _map(
@@ -58,7 +56,12 @@ class _MapView extends StatelessWidget {
 
   _openBottomSheet(BuildContext context, MapViewState state, String id,
       MapViewModel viewModel) {
-    viewModel.getAffiliateById(id).then((affiliate) => showModalBottomSheet(
+    viewModel.getAffiliateById(id).then((affiliate) => showBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+            )),
         context: context,
         builder: (context) => CustomBottomSheet(
               affiliate: affiliate,
@@ -70,10 +73,13 @@ class _MapView extends StatelessWidget {
     return Stack(
       children: [
         _map(state, context, viewModel),
-        if (state.isSearching)
+        if (state.isSearching && !state.isLoading)
           const Positioned(top: 4, right: 4, child: CircleProgressWidget()),
-        if(state.error != null) Container(color: Colors.white,child: Center(child: Text(state.error.toString())),)
-        
+        if (state.error != null)
+          Container(
+            color: Colors.white,
+            child: Center(child: Text(state.error.toString())),
+          )
       ],
     );
   }
