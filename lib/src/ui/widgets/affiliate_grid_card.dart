@@ -1,65 +1,105 @@
 import 'package:flutter/material.dart';
 
-class CustomCard extends StatelessWidget {
-  final String affiliateName;
-  final String address;
-  final double rating;
+import '../../domain/model/affiliate_model.dart';
+import 'custom_bottom_sheet.dart';
 
-  const CustomCard({super.key, required this.affiliateName, required this.address, required this.rating});
+class CustomCard extends StatelessWidget {
+  final Affiliate affiliate;
+  
+
+  const CustomCard({super.key, required this.affiliate});
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    final double cardWidth = size.width / 2 -
-        64; // ajusta el ancho de la tarjeta al tamaño de la pantalla
-    final double cardHeight = cardWidth *
-        1.5; // establece la relación de aspecto de 1:1.5 para la tarjeta
+    final textStyles = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
 
-    return Card(
-      elevation: 2,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            height: cardHeight,
-            width: cardWidth,
-            decoration: BoxDecoration(
-                boxShadow: const [], borderRadius: BorderRadius.circular(4)),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(2.0),
+    return Container(
+      decoration: BoxDecoration(
+          boxShadow: const [BoxShadow(blurRadius: 5, offset: Offset(0, 2))],
+          borderRadius: BorderRadius.circular(4),
+          color: colors.onPrimary),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //* Imagen
+            GestureDetector(
+              onTap: () => _openBottomSheet(context, affiliate),
+              child: SizedBox(
+                width: 150,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
-                  child: Image.asset("assets/images/taller.jpeg"),
+                  child: Image.asset(
+                    "assets/images/taller.jpeg",
+                    fit: BoxFit.cover,
+                    width: 148,
+                  ),
                 ),
               ),
-              const SizedBox(height: 8),
-              Padding(
+            ),
 
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: Text(maxLines: 2,overflow: TextOverflow.ellipsis,
-                  affiliateName,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+            const SizedBox(height: 5),
+
+            //* Title
+            SizedBox(
+              width: 150,
+              child: Text(
+                affiliate.name,
+                maxLines: 2,
+                style: textStyles.bodyLarge,
               ),
-              const SizedBox(height: 4),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: Text(address,maxLines: 2,overflow: TextOverflow.ellipsis,),
-              ),
-              Row(
+            ),
+            const Spacer(),
+
+            //* Address
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: SizedBox(
+                  height: 48,
+                  child: Text(
+                    affiliate.address,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: textStyles.bodySmall,
+                  )),
+            ),
+            const Spacer(),
+
+            //* Rating
+            SizedBox(
+              width: 150,
+              child: Row(
                 children: [
-                  const Icon(Icons.star,color: Color.fromARGB(255, 218, 202, 59)),
-                  Expanded(child: Text(rating.toStringAsFixed(1))),
+                  Icon(Icons.star_half_outlined, color: Colors.yellow.shade800),
+                  const SizedBox(width: 3),
+                  Text('${affiliate.rating.toStringAsFixed(1)}',
+                      style: textStyles.bodyMedium
+                          ?.copyWith(color: Colors.yellow.shade800)),
+                  const Spacer(),
+                  Icon(Icons.favorite_border),
                 ],
               ),
-            ],
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
+  }
+  _openBottomSheet(BuildContext context,Affiliate affiliate) {
+     showBottomSheet(
+
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+            )),
+        context: context,
+        builder: (context) => CustomBottomSheet(
+              affiliate: affiliate,
+            ));
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/affiliate_grid_card.dart';
 import '../../widgets/app_bar.dart';
+import '../../widgets/custom_bottom_sheet.dart';
 import 'home_view_model.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,7 +25,7 @@ class _HomeView extends StatelessWidget {
     final viewModel = context.read<HomeCubit>();
     
     return Scaffold(
-      
+      backgroundColor: Colors.blueGrey,
         body: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -46,16 +47,18 @@ class _HomeView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, // número de columnas
-            mainAxisSpacing: 8.0, // espacio entre filas
-            crossAxisSpacing: 8.0,
-            childAspectRatio: 0.75 // espacio entre columnas
+            mainAxisSpacing: 16.0, // espacio entre filas
+            
+            childAspectRatio: 0.78 // espacio entre columnas
             ),
         itemBuilder: (context, index) {
           final currentAffiliate = affiliates[index];
           return CustomCard(
-              affiliateName: currentAffiliate.name,
-              address: currentAffiliate.address,
-              rating: currentAffiliate.rating);
+            affiliate: currentAffiliate,
+            
+          );
         });
   }
+
+   
 }
