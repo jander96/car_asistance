@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/model/affiliate_model.dart';
@@ -15,6 +16,7 @@ class CustomCard extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     return Container(
+width: 150,
       decoration: BoxDecoration(
           boxShadow: const [BoxShadow(blurRadius: 5, offset: Offset(0, 2))],
           borderRadius: BorderRadius.circular(4),
@@ -32,10 +34,12 @@ class CustomCard extends StatelessWidget {
                 width: 150,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
-                  child: Image.asset(
-                    "assets/images/taller.jpeg",
-                    fit: BoxFit.cover,
-                    width: 148,
+                  child: FadeIn(
+                    child: Image.asset(
+                      "assets/images/taller.jpeg",
+                      fit: BoxFit.cover,
+                      width: 148,
+                    ),
                   ),
                 ),
               ),
@@ -76,11 +80,11 @@ class CustomCard extends StatelessWidget {
                 children: [
                   Icon(Icons.star_half_outlined, color: Colors.yellow.shade800),
                   const SizedBox(width: 3),
-                  Text('${affiliate.rating.toStringAsFixed(1)}',
+                  Text(affiliate.rating.toStringAsFixed(1),
                       style: textStyles.bodyMedium
                           ?.copyWith(color: Colors.yellow.shade800)),
                   const Spacer(),
-                  Icon(Icons.favorite_border),
+                  const Icon(Icons.favorite_border),
                 ],
               ),
             )

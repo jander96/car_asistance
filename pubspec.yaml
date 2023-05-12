@@ -50,8 +50,11 @@ dependencies:
   #Arquitectura y flujos
   equatable: ^2.0.5
 
-  # Vistas y diseños 
+  # Vistas ,diseños  y animaciones
   flutter_rating_bar: ^4.0.1
+  card_swiper: ^2.0.4
+  animate_do: ^3.0.2
+  lottie: ^2.3.2
 
   #Maps
   google_maps_flutter: ^2.2.6

@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 List<String> _states = [
@@ -72,8 +73,14 @@ class _CustomDropDownState extends State<CustomDropDown> {
       value: _selectedState,
       items: _states.map((String state) {
         return DropdownMenuItem<String>(
+         
           value: state,
-          child: Text(state),
+          child: Column(
+            children: [
+              FadeIn(child: Text(state)),
+              
+            ],
+          ),
         );
       }).toList(),
       onChanged: (value) {

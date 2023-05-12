@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/affiliate_grid_card.dart';
 import '../../widgets/app_bar.dart';
-import '../../widgets/custom_bottom_sheet.dart';
+import '../../widgets/slider_top_rating.dart';
 import 'home_view_model.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -23,42 +24,71 @@ class _HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<HomeCubit>().state;
     final viewModel = context.read<HomeCubit>();
-    
+
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        CustomAppBar(
-          userName: "Jander",
-          userPhotoUrl: "assets/images/jhon_wick.jpg",
-          onSubmmit: (p0) {},
-          onStatePicked: (p0) {},
-        ),
-        Expanded(
-            child:state.isLoading ? const Center(child:  CircularProgressIndicator()):  _gridView(state.affiliates)),
-      ],
-    ));
+        backgroundColor: Colors.blueGrey,
+        body: CustomScrollView(
+          slivers: [
+            SliverList(
+                delegate: SliverChildBuilderDelegate(
+              childCount: 1,
+              (context, index) => Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustomAppBar(
+                    userName: "Jander",
+                    userPhotoUrl: "assets/images/jhon_wick.jpg",
+                    onSubmmit: (p0) {},
+                    onStatePicked: (p0) {},
+                    onAvatarTap: () {},
+                    onCrowTap: () {},
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  SliderAffiliates(affiliate: state.affiliates),
+                  SizedBox(
+                      height: 220,
+                      child: state.isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : _listView(state.affiliates)),
+                           SizedBox(
+                    height: 16,
+                  ),
+                  SizedBox(
+                      height: 220,
+                      child: state.isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : _listView(state.affiliates)),
+                           SizedBox(
+                    height: 16,
+                  ),
+                  SizedBox(
+                      height: 220,
+                      child: state.isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : _listView(state.affiliates)),
+                  SizedBox(
+                    height: 16,
+                  )
+                ],
+              ),
+            ))
+          ],
+        ));
   }
 
-  Widget _gridView(List<Affiliate> affiliates) {
-    return GridView.builder(
+  Widget _listView(List<Affiliate> affiliates) {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
         itemCount: affiliates.length,
+         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // número de columnas
-            mainAxisSpacing: 16.0, // espacio entre filas
-            
-            childAspectRatio: 0.78 // espacio entre columnas
-            ),
         itemBuilder: (context, index) {
           final currentAffiliate = affiliates[index];
           return CustomCard(
             affiliate: currentAffiliate,
-            
           );
         });
   }
-
-   
 }
