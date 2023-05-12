@@ -62,6 +62,7 @@ class MyAppTheme {
 
   static ThemeData light() {
     return ThemeData(
+      useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
       brightness: Brightness.light,
       checkboxTheme: CheckboxThemeData(
