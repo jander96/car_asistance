@@ -1,10 +1,18 @@
+import 'package:flutter/material.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/routes.dart';
 
 import 'package:car_assistance/src/ui/theme/app_theme.dart';
-import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   inject();
   runApp(const MyApp());
 }

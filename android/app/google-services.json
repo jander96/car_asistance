@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1081692184128",
+    "project_id": "car-service-app-247d6",
+    "storage_bucket": "car-service-app-247d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081692184128:android:bdbaf37fd071a4bbd689a5",
+        "android_client_info": {
+          "package_name": "com.technicalassistance.car_assistance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081692184128-6bggjf3h40fv013lbqo90teflv9vbpgi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_KZjresMyutYLe7zuudsxU50CsDkuQfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081692184128-6bggjf3h40fv013lbqo90teflv9vbpgi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
