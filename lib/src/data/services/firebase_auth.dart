@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
   final firebaseAuth = FirebaseAuth.instance;
@@ -41,16 +42,17 @@ class FirebaseAuthService {
       return firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      
       switch (e.code) {
         case 'user-disabled':
-          return Future.error('user corresponding to the given email has been disabled');
+          return Future.error(
+              'user corresponding to the given email has been disabled');
 
         case 'invalid-email':
           return Future.error('email address is not valid');
 
         case 'user-not-found':
-          return Future.error('there is no user corresponding to the given email');
+          return Future.error(
+              'there is no user corresponding to the given email');
 
         case 'wrong-password':
           return Future.error('wrong-password');
@@ -58,6 +60,36 @@ class FirebaseAuthService {
         default:
           return Future.error('unknow server error');
       }
+    } on Exception catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
+  Future<UserCredential> accessWithGoogle() async {
+    // Trigger the authentication flow
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      return await firebaseAuth.signInWithCredential(credential);
+    } on Exception catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
+  Future<void> logOut() {
+    try {
+      return firebaseAuth.signOut();
     } on Exception catch (e) {
       return Future.error(e.toString());
     }

@@ -11,6 +11,7 @@ import 'package:car_assistance/src/data/database/rating_local_datasource_imp.dar
 import 'package:car_assistance/src/data/repositories/affiliate_repository_imp.dart';
 import 'package:car_assistance/src/data/repositories/location_repository_imp.dart';
 import 'package:car_assistance/src/data/repositories/rating_repository_imp.dart';
+import 'package:car_assistance/src/data/services/firebase_auth.dart';
 import 'package:car_assistance/src/data/services/geolocator_service.dart';
 import 'package:car_assistance/src/domain/affiliate_repository.dart';
 import 'package:car_assistance/src/domain/location_repository.dart';
@@ -24,7 +25,8 @@ import 'package:get_it/get_it.dart';
 final injector = GetIt.instance;
 void inject() {
   injector.registerSingleton<ApiService>(ApiService());
-  injector.registerLazySingleton<LocationService>(()=> LocationService());
+  injector.registerLazySingleton<LocationService>(() => LocationService());
+  injector.registerSingleton<FirebaseAuthService>(FirebaseAuthService());
 
   injector.registerFactory<NetworkDataSource>(() => NetworkDataSourceImpl());
   injector.registerFactory<AffiliateLocalDataSource>(
@@ -51,5 +53,4 @@ void inject() {
       () => DowloadDataServerUseCase());
 
   injector.registerFactory<GetLocationUseCase>(() => GetLocationUseCase());
- 
 }
