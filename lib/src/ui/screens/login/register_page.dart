@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -73,16 +73,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 104,
-                    child: Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('Do you have an account?'),
-                        GestureDetector(
-                            onTap: () => context.push('/register'),
-                            child: const Text('Create Account'))
-                      ],
-                    )),
+                    
                   ),
                   SizedBox(
                     height: 48,
@@ -95,7 +86,7 @@ class LoginPage extends StatelessWidget {
                         context.pushReplacement('/');
                       },
                       child: const Text(
-                        'Login',
+                        'Create Account',
                         style: TextStyle(color: Colors.black),
                       ),
                     ),
