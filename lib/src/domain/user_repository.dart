@@ -1,10 +1,12 @@
-import 'package:car_assistance/src/domain/model/app_user.dart';
+
+
+import 'model/user_model.dart';
 
 abstract class UserRepository {
-  Stream<AppUser?> authUserStatus();
-  Future<bool> registbyEmail(String email, String password);
-  Future<bool> loginbyEmail(String email, String password);
-  Future<bool> accessWithGoogle();
+  Stream<AppUser?> watchUserStatusChanges();
+  Future<AppUser?> registbyEmail(String email, String password);
+  Future<AppUser?> loginbyEmail(String email, String password);
+  Future<AppUser?> accessWithGoogle();
   Future<void> logout();
   Future<bool> saveDataUserInServer();
   Future<bool> saveDataUserLocally();

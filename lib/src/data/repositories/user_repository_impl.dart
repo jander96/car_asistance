@@ -1,35 +1,42 @@
 import 'package:car_assistance/dependency_injection.dart';
-import 'package:car_assistance/src/data/repositories/stream_transformer.dart';
-import 'package:car_assistance/src/data/services/firebase_auth.dart';
-import 'package:car_assistance/src/domain/model/app_user.dart';
+import 'package:car_assistance/src/data/services/models/user_mapper.dart';
 import 'package:car_assistance/src/domain/user_repository.dart';
+import '../../domain/model/user_model.dart';
+import '../services/auth_datasource.dart';
 
 class UserRepositoryImp extends UserRepository {
-  final FirebaseAuthService _firebaseAuth;
-  UserRepositoryImp() : _firebaseAuth = injector.get<FirebaseAuthService>();
+  final AuthDataSource _authDataSource;
+
+  UserRepositoryImp() : _authDataSource = injector.get<AuthDataSource>();
+
   @override
-  Future<bool> accessWithGoogle() async {
-    final result = await _firebaseAuth.accessWithGoogle();
-    return result.user != null;
+  Future<AppUser?> accessWithGoogle() async {
+    final user = await _authDataSource.googleAccess();
+    return user?.toDomain();
   }
 
   @override
-  Future<bool> loginbyEmail(String email, String password) async {
-    final result =
-        await _firebaseAuth.signInWithEmailAndPassword(email, password);
-    return result.user != null;
+  Stream<AppUser?> watchUserStatusChanges() {
+    return _authDataSource
+        .watchUserStatusChanges()
+        .transform(AppUserTransformer.transformToDomain);
+  }
+
+  @override
+  Future<AppUser?> loginbyEmail(String email, String password) async {
+    final user = await _authDataSource.emailLogin(email, password);
+    return user?.toDomain();
   }
 
   @override
   Future<void> logout() {
-    return _firebaseAuth.logOut();
+    return _authDataSource.logOut();
   }
 
   @override
-  Future<bool> registbyEmail(String email, String password) async {
-    final result =
-        await _firebaseAuth.createUserWithEmailAndPassword(email, password);
-    return result.user != null;
+  Future<AppUser?> registbyEmail(String email, String password) async {
+    final user = await _authDataSource.emailRegister(email, password);
+    return user?.toDomain();
   }
 
   @override
@@ -42,11 +49,5 @@ class UserRepositoryImp extends UserRepository {
   Future<bool> saveDataUserLocally() {
     // TODO: implement saveDataUserLocally
     throw UnimplementedError();
-  }
-
-  @override
-  Stream<AppUser?> authUserStatus() {
-    final transformer = ConvertToAppUser();
-    return _firebaseAuth.authUserStatus().transform(transformer.transformToDomain);
   }
 }

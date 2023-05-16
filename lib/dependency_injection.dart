@@ -11,6 +11,8 @@ import 'package:car_assistance/src/data/database/rating_local_datasource_imp.dar
 import 'package:car_assistance/src/data/repositories/affiliate_repository_imp.dart';
 import 'package:car_assistance/src/data/repositories/location_repository_imp.dart';
 import 'package:car_assistance/src/data/repositories/rating_repository_imp.dart';
+import 'package:car_assistance/src/data/services/auth_datasource.dart';
+import 'package:car_assistance/src/data/services/auth_datasource_imp.dart';
 import 'package:car_assistance/src/data/services/firebase_auth.dart';
 import 'package:car_assistance/src/data/services/geolocator_service.dart';
 import 'package:car_assistance/src/domain/affiliate_repository.dart';
@@ -34,6 +36,7 @@ void inject() {
   injector
       .registerFactory<RatingLocalDataSource>(() => RatingLocalDataSourceImp());
   injector.registerLazySingleton<AppDatabase>(() => AppDatabase());
+  injector.registerFactory<AuthDataSource>(() => FirebaseAuthDatasource());
 
   final db = injector.get<AppDatabase>();
   injector.registerLazySingleton<AffiliateDao>(() => AffiliateDao(db));

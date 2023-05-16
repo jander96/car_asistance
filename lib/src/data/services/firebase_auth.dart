@@ -9,11 +9,12 @@ class FirebaseAuthService {
     return firebaseAuth.authStateChanges();
   }
 
-  Future<UserCredential> createUserWithEmailAndPassword(
-      String email, String password) {
+  Future<User?> createUserWithEmailAndPassword(
+      String email, String password) async {
     try {
-      return firebaseAuth.createUserWithEmailAndPassword(
+      final credencial = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+      return credencial.user;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'email-already-in-use':
@@ -36,11 +37,12 @@ class FirebaseAuthService {
     }
   }
 
-  Future<UserCredential> signInWithEmailAndPassword(
-      String email, String password) {
+  Future<User?> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
-      return firebaseAuth.signInWithEmailAndPassword(
+      final credencial = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      return credencial.user;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'user-disabled':
@@ -65,7 +67,7 @@ class FirebaseAuthService {
     }
   }
 
-  Future<UserCredential> accessWithGoogle() async {
+  Future<User?> accessWithGoogle() async {
     // Trigger the authentication flow
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -75,13 +77,14 @@ class FirebaseAuthService {
           await googleUser?.authentication;
 
       // Create a new credential
-      final credential = GoogleAuthProvider.credential(
+      final googleCredential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
 
       // Once signed in, return the UserCredential
-      return await firebaseAuth.signInWithCredential(credential);
+      final credential = await firebaseAuth.signInWithCredential(googleCredential);
+      return credential.user;
     } on Exception catch (e) {
       return Future.error(e.toString());
     }
