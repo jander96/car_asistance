@@ -19,22 +19,22 @@ class FirebaseAuthService {
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'email-already-in-use':
-          return Future.error('exists an account with the given email address');
+          return Future.error(Exception('exists an account with the given email address'));
 
         case 'invalid-email':
-          return Future.error('email address is not valid');
+          return Future.error(Exception('email address is not valid'));
 
         case 'invalid-operation-not-allowed':
-          return Future.error('email/password accounts are not enabled');
+          return Future.error(Exception('email/password accounts are not enabled'));
 
         case 'weak-password':
-          return Future.error('password is not strong enough');
+          return Future.error(Exception('password is not strong enough'));
 
         default:
-          return Future.error('unknow server error');
+          return Future.error(Exception('unknow server error'));
       }
     } on Exception catch (e) {
-      return Future.error(e.toString());
+      return Future.error(Exception(e.toString()));
     }
   }
 
@@ -72,6 +72,7 @@ class FirebaseAuthService {
     // Trigger the authentication flow
     try {
       _googleSignIn.signOut();
+      
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       // This line fixes the crash
@@ -87,9 +88,9 @@ class FirebaseAuthService {
         idToken: googleAuth.idToken,
       );
 
-      final result = await firebaseAuth.signInWithCredential(credential);
+      final userCredential = await firebaseAuth.signInWithCredential(credential);
 
-      return result.user;
+      return userCredential.user;
     } catch (e) {
       return null;
     }

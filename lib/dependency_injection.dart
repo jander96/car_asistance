@@ -20,9 +20,12 @@ import 'package:car_assistance/src/domain/affiliate_repository.dart';
 import 'package:car_assistance/src/domain/location_repository.dart';
 import 'package:car_assistance/src/domain/rating_repository.dart';
 import 'package:car_assistance/src/domain/user_repository.dart';
-import 'package:car_assistance/src/domain/usescases/_dowload_data_server.dart';
+import 'package:car_assistance/src/domain/usescases/create_account.dart';
+import 'package:car_assistance/src/domain/usescases/dowload_data_server.dart';
 import 'package:car_assistance/src/domain/usescases/get_affiliate_by_id.dart';
 import 'package:car_assistance/src/domain/usescases/get_location_use_case.dart';
+import 'package:car_assistance/src/domain/usescases/login_user.dart';
+import 'package:car_assistance/src/domain/usescases/signout.dart';
 import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:get_it/get_it.dart';
 
@@ -60,4 +63,8 @@ void inject() {
       () => DowloadDataServerUseCase());
 
   injector.registerFactory<GetLocationUseCase>(() => GetLocationUseCase());
+  injector.registerFactory<LoginUserUseCase>(() => LoginUserUseCase());
+  injector.registerFactory<CreateAccountUseCase>(() => CreateAccountUseCase());
+  injector.registerFactory<SingOutUseCase>(() => SingOutUseCase());
+
 }
