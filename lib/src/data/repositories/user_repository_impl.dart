@@ -23,9 +23,10 @@ class UserRepositoryImp extends UserRepository {
   }
 
   @override
-  Future<AppUser?> loginbyEmail(String email, String password) async {
-    final user = await _authDataSource.emailLogin(email, password);
-    return user?.toDomain();
+  Future<AppUser?> loginbyEmail(String email, String password){
+     return _authDataSource
+        .emailLogin(email, password)
+        .then((user) => user?.toDomain());
   }
 
   @override
@@ -35,8 +36,9 @@ class UserRepositoryImp extends UserRepository {
 
   @override
   Future<AppUser?> registbyEmail(String email, String password) async {
-    final user = await _authDataSource.emailRegister(email, password);
-    return user?.toDomain();
+    return _authDataSource
+        .emailRegister(email, password)
+        .then((user) => user?.toDomain());
   }
 
   @override

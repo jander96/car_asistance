@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../widgets/formfield_login.dart';
+
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -23,6 +25,9 @@ class _LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.read<LoginViewModel>();
     final state = context.watch<LoginViewModel>().state;
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final colors = Theme.of(context).colorScheme;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -76,26 +81,22 @@ class _LoginView extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 48,
-                    child: TextFormField(
-                        decoration: const InputDecoration(
-                            label: Text('email'),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4))),
-                            hintText: 'email')),
+                    child: FormFieldLogin(
+                      controller: emailController,
+                      hint: 'email',
+                      onSubmit: (p0) {},
+                    ),
                   ),
                   const SizedBox(
                     height: 16,
                   ),
                   SizedBox(
                     height: 48,
-                    child: TextFormField(
-                        decoration: const InputDecoration(
-                            label: Text('password'),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4))),
-                            hintText: 'password')),
+                    child: FormFieldLogin(
+                      controller: passwordController,
+                      hint: 'password',
+                      onSubmit: (p0) {},
+                    ),
                   ),
                   SizedBox(
                     height: 104,
@@ -106,20 +107,29 @@ class _LoginView extends StatelessWidget {
                         const Text('Do you have an account?'),
                         GestureDetector(
                             onTap: () => context.push('/register'),
-                            child: const Text('Create Account'))
+                            child: const Text('Create Account',style: TextStyle(color: Colors.red),))
                       ],
                     )),
                   ),
                   SizedBox(
                     height: 48,
                     child: ElevatedButton(
-                      style: const ButtonStyle(
-                          fixedSize: MaterialStatePropertyAll(Size(274, 43)),
+                      style: ButtonStyle(
+                        overlayColor: MaterialStatePropertyAll(colors.secondary),
+                          fixedSize: const MaterialStatePropertyAll(Size(274, 43)),
                           backgroundColor:
-                              MaterialStatePropertyAll(Colors.red)),
-                      onPressed: () {
-                        context.pushReplacement('/');
-                      },
+                              MaterialStatePropertyAll(colors.primary)),
+                      onPressed: state.isLoading && state.error != null
+                          ? null
+                          : () {
+                              final email = emailController.value.text;
+                              final password = passwordController.value.text;
+                              viewModel
+                                  .login(email: email, password: password)
+                                  .then((isLogin) {
+                                if (isLogin) context.pushReplacement('/');
+                              });
+                            },
                       child: const Text(
                         'Login',
                         style: TextStyle(color: Colors.black),

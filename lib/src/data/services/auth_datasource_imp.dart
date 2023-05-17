@@ -12,17 +12,17 @@ class FirebaseAuthDatasource extends AuthDataSource {
       : _firebaseAuthService = injector.get<FirebaseAuthService>();
 
   @override
-  Future<UserNetwork?> emailLogin(String email, String password) async {
-    final user =
-        await _firebaseAuthService.signInWithEmailAndPassword(email, password);
-    return user?.toNetwork();
+  Future<UserNetwork?> emailLogin(String email, String password) {
+    return _firebaseAuthService
+        .signInWithEmailAndPassword(email, password)
+        .then((user) => user?.toNetwork());
   }
 
   @override
-  Future<UserNetwork?> emailRegister(String email, String password) async {
-    final user = await _firebaseAuthService.createUserWithEmailAndPassword(
-        email, password);
-    return user?.toNetwork();
+  Future<UserNetwork?> emailRegister(String email, String password){
+    return _firebaseAuthService
+        .createUserWithEmailAndPassword(email, password)
+        .then((user) => user?.toNetwork());
   }
 
   @override

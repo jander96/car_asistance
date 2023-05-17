@@ -23,7 +23,7 @@ class LoginViewModel extends Cubit<LoginViewState> {
          return state.isLogin;
       }
     }).onError((error, stackTrace) {
-      emit(state.copyWith(error: error as FirebaseException));
+      emit(state.copyWith(error: error as FirebaseException,isLoading: false));
        return state.isLogin;
     });
   }

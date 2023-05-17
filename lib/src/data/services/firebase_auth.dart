@@ -17,24 +17,9 @@ class FirebaseAuthService {
           email: email, password: password);
       return credencial.user;
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'email-already-in-use':
-          return Future.error(Exception('exists an account with the given email address'));
-
-        case 'invalid-email':
-          return Future.error(Exception('email address is not valid'));
-
-        case 'invalid-operation-not-allowed':
-          return Future.error(Exception('email/password accounts are not enabled'));
-
-        case 'weak-password':
-          return Future.error(Exception('password is not strong enough'));
-
-        default:
-          return Future.error(Exception('unknow server error'));
-      }
+      return Future.error(e);
     } on Exception catch (e) {
-      return Future.error(Exception(e.toString()));
+      return Future.error(Exception(e));
     }
   }
 
@@ -45,26 +30,9 @@ class FirebaseAuthService {
           email: email, password: password);
       return credencial.user;
     } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'user-disabled':
-          return Future.error(
-              'user corresponding to the given email has been disabled');
-
-        case 'invalid-email':
-          return Future.error('email address is not valid');
-
-        case 'user-not-found':
-          return Future.error(
-              'there is no user corresponding to the given email');
-
-        case 'wrong-password':
-          return Future.error('wrong-password');
-
-        default:
-          return Future.error('unknow server error');
-      }
+      return Future.error(e);
     } on Exception catch (e) {
-      return Future.error(e.toString());
+      return Future.error(e);
     }
   }
 
@@ -72,7 +40,7 @@ class FirebaseAuthService {
     // Trigger the authentication flow
     try {
       _googleSignIn.signOut();
-      
+
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       // This line fixes the crash
@@ -88,7 +56,8 @@ class FirebaseAuthService {
         idToken: googleAuth.idToken,
       );
 
-      final userCredential = await firebaseAuth.signInWithCredential(credential);
+      final userCredential =
+          await firebaseAuth.signInWithCredential(credential);
 
       return userCredential.user;
     } catch (e) {
