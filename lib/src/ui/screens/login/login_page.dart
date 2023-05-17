@@ -1,5 +1,8 @@
+import 'package:car_assistance/dependency_injection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../domain/user_repository.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -34,7 +37,15 @@ class LoginPage extends StatelessWidget {
                     child: SizedBox(
                       height: 48,
                       child: OutlinedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            try {
+                              await injector
+                                  .get<UserRepository>()
+                                  .accessWithGoogle();
+                            } catch (e) {
+                              debugPrint('esto revienta');
+                            }
+                          },
                           icon: Image.asset('assets/images/ic_google.png'),
                           label: const Text(
                             'Access with google',

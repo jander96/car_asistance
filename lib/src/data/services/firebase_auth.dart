@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
   final firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Stream<User?> authUserStatus() {
     //* if null -> signout else signin
@@ -70,23 +71,27 @@ class FirebaseAuthService {
   Future<User?> accessWithGoogle() async {
     // Trigger the authentication flow
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      _googleSignIn.signOut();
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      // This line fixes the crash
+      if (googleUser == null) throw Exception("Not logged in");
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
       // Create a new credential
-      final googleCredential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
 
-      // Once signed in, return the UserCredential
-      final credential = await firebaseAuth.signInWithCredential(googleCredential);
-      return credential.user;
-    } on Exception catch (e) {
-      return Future.error(e.toString());
+      final result = await firebaseAuth.signInWithCredential(credential);
+
+      return result.user;
+    } catch (e) {
+      return null;
     }
   }
 

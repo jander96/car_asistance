@@ -2,7 +2,6 @@ import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/data/services/models/user_mapper.dart';
 import 'package:car_assistance/src/data/services/models/user_service.dart';
 
-
 import 'auth_datasource.dart';
 import 'firebase_auth.dart';
 
@@ -28,8 +27,9 @@ class FirebaseAuthDatasource extends AuthDataSource {
 
   @override
   Future<UserNetwork?> googleAccess() async {
-    final user = await _firebaseAuthService.accessWithGoogle();
-    return user?.toNetwork();
+    return _firebaseAuthService
+        .accessWithGoogle()
+        .then((user) => user?.toNetwork());
   }
 
   @override

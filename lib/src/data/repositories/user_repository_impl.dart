@@ -10,9 +10,9 @@ class UserRepositoryImp extends UserRepository {
   UserRepositoryImp() : _authDataSource = injector.get<AuthDataSource>();
 
   @override
-  Future<AppUser?> accessWithGoogle() async {
-    final user = await _authDataSource.googleAccess();
-    return user?.toDomain();
+  Future<AppUser?> accessWithGoogle()  {
+   return _authDataSource.googleAccess().then((user) => user?.toDomain());
+    
   }
 
   @override
