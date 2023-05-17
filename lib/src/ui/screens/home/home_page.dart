@@ -6,7 +6,6 @@ import '../../widgets/app_bar.dart';
 import '../../widgets/slider_top_rating.dart';
 import 'home_view_model.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -52,7 +51,7 @@ class _HomeView extends StatelessWidget {
                       child: state.isLoading
                           ? const Center(child: CircularProgressIndicator())
                           : _listView(state.affiliates)),
-                           SizedBox(
+                  SizedBox(
                     height: 16,
                   ),
                   SizedBox(
@@ -60,7 +59,7 @@ class _HomeView extends StatelessWidget {
                       child: state.isLoading
                           ? const Center(child: CircularProgressIndicator())
                           : _listView(state.affiliates)),
-                           SizedBox(
+                  SizedBox(
                     height: 16,
                   ),
                   SizedBox(
@@ -82,7 +81,7 @@ class _HomeView extends StatelessWidget {
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: affiliates.length,
-         physics: const BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 16),
         itemBuilder: (context, index) {
           final currentAffiliate = affiliates[index];

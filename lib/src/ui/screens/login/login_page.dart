@@ -1,14 +1,28 @@
-import 'package:car_assistance/dependency_injection.dart';
+import 'package:animate_do/animate_do.dart';
+import 'package:car_assistance/src/ui/screens/login/login_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../domain/user_repository.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (context) => LoginViewModel(), child: _LoginView());
+  }
+}
+
+class _LoginView extends StatelessWidget {
+  const _LoginView({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.read<LoginViewModel>();
+    final state = context.watch<LoginViewModel>().state;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -38,15 +52,16 @@ class LoginPage extends StatelessWidget {
                       height: 48,
                       child: OutlinedButton.icon(
                           onPressed: () async {
-                            try {
-                              await injector
-                                  .get<UserRepository>()
-                                  .accessWithGoogle();
-                            } catch (e) {
-                              debugPrint('esto revienta');
-                            }
+                            viewModel.login().then((isLogin) {
+                              if (isLogin) context.pushReplacement('/');
+                            });
                           },
-                          icon: Image.asset('assets/images/ic_google.png'),
+                          icon: state.isLoading
+                              ? SpinPerfect(
+                                  infinite: true,
+                                  child: Image.asset(
+                                      'assets/images/ic_google.png'))
+                              : Image.asset('assets/images/ic_google.png'),
                           label: const Text(
                             'Access with google',
                             style: TextStyle(color: Colors.black45),
@@ -110,7 +125,8 @@ class LoginPage extends StatelessWidget {
                         style: TextStyle(color: Colors.black),
                       ),
                     ),
-                  )
+                  ),
+                  if (state.error != null) Text('Error ${state.error!.code}')
                 ]),
           ),
         ),

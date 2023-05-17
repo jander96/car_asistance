@@ -92,7 +92,7 @@ class FirebaseAuthService {
 
       return userCredential.user;
     } catch (e) {
-      return null;
+      return Future.error(e);
     }
   }
 
@@ -100,7 +100,7 @@ class FirebaseAuthService {
     try {
       return firebaseAuth.signOut();
     } on Exception catch (e) {
-      return Future.error(e.toString());
+      return Future.error(e);
     }
   }
 }
