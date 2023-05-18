@@ -10,11 +10,11 @@ class CreateAccountUseCase {
     if (email.isNotEmpty && password.isNotEmpty) {
       // create con Email
       return _userRepository.registbyEmail(email, password);
-      //TODO hacer enciptacion y proceso de guardar datos del usuario en server
+     
     } else {
       // access con Google
       return _userRepository.accessWithGoogle();
-      //TODO hacer enciptacion y proceso de guardar datos del usuario en server
+      
     }
   }
 }

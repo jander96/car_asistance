@@ -10,4 +10,5 @@ abstract class UserRepository {
   Future<void> logout();
   Future<bool> saveDataUserInServer();
   Future<bool> saveDataUserLocally();
+   Future<bool> verifyUserLog();
 }

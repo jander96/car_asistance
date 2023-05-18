@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => LoginViewModel(), child: _LoginView());
+        create: (context) => LoginViewModel(), child: const _LoginView());
   }
 }
 
@@ -52,8 +52,8 @@ class _LoginView extends StatelessWidget {
                       emailController: emailController,
                       passwordController: passwordController,
                       viewModel: viewModel),
-                  if (state.error != null) Text('Error ${state.error!.code}'),
-                  if (state.isLogin) Text('Login success',style: TextStyle(color: Colors.green),)
+                  if (state.error != null && !state.isLogin) FadeInUp(child: Text('Error ${state.error!.code}')),
+                  if (state.isLogin) FadeInUp(child: const Text('Login success',style: TextStyle(color: Colors.green),))
                 ]),
           ),
         ),

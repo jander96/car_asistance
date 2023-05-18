@@ -52,4 +52,10 @@ class UserRepositoryImp extends UserRepository {
     // TODO: implement saveDataUserLocally
     throw UnimplementedError();
   }
+  
+  @override
+  Future<bool> verifyUserLog() {
+    // TODO: implement verifyUserLog
+    throw UnimplementedError();
+  }
 }

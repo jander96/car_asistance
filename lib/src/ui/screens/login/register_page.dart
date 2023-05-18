@@ -13,7 +13,7 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => RegisterViewModel(), child: _RegisterView());
+        create: (context) => RegisterViewModel(), child: const _RegisterView());
   }
 }
 
@@ -50,8 +50,8 @@ class _RegisterView extends StatelessWidget {
                       emailController: emailController,
                       passwordController: passwordController,
                       viewModel: viewModel),
-                  if (state.error != null) Text('Error ${state.error!.code}'),
-                  if (state.isRegistered) Text('Sign in success',style: TextStyle(color: Colors.green),)
+                  if (state.error != null && !state.isRegistered) FadeInUp(child: Text('Error ${state.error!.code}')),
+                  if (state.isRegistered) FadeInUp(child: const Text('Sign in success',style: TextStyle(color: Colors.green),))
                 ]),
           ),
         ),
