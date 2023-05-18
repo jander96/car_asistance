@@ -9,12 +9,15 @@ class CreateAccountUseCase {
   Future<AppUser?> createAccount({String email = '', String password = ''}) {
     if (email.isNotEmpty && password.isNotEmpty) {
       // create con Email
-      return _userRepository.registbyEmail(email, password);
-     
+      return _userRepository.registbyEmail(email, password)
+        ..then((user) {
+         if(user != null) _userRepository.storeUserSessionState(true);
+        });
     } else {
       // access con Google
-      return _userRepository.accessWithGoogle();
-      
+      return _userRepository.accessWithGoogle()..then((user) {
+           if(user != null) _userRepository.storeUserSessionState(true);
+        });
     }
   }
 }

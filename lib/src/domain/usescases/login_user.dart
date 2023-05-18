@@ -9,10 +9,14 @@ class LoginUserUseCase {
   Future<AppUser?> login({String email = '', String password = ''}) {
     if (email.isNotEmpty && password.isNotEmpty) {
       // log con Email
-      return _userRepository.loginbyEmail(email, password);
+      return _userRepository.loginbyEmail(email, password)..then((user) {
+         if(user != null) _userRepository.storeUserSessionState(true);
+        });
     } else {
       // log con Google
-      return _userRepository.accessWithGoogle();
+      return _userRepository.accessWithGoogle()..then((user) {
+         if(user != null) _userRepository.storeUserSessionState(true);
+        });
     }
   }
 }

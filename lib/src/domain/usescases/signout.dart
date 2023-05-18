@@ -6,6 +6,8 @@ class SingOutUseCase {
   SingOutUseCase() : _userRepository = injector.get<UserRepository>();
 
   Future<void> signout() {
-    return _userRepository.logout();
+    return _userRepository.logout().then((_) {
+      _userRepository.storeUserSessionState(false);
+    });
   }
 }

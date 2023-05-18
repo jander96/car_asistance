@@ -40,9 +40,10 @@ dependencies:
   json_annotation: ^4.8.0
   cupertino_icons: ^1.0.2
 
-  #Drift Database dependencies
+  #Drift Database dependencies and preference
   drift: ^2.7.0
   sqlite3_flutter_libs: ^0.5.0
+  shared_preferences: ^2.1.1
 
   #Navegacion 
   go_router: ^7.0.0
