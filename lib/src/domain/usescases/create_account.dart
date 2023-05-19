@@ -6,18 +6,33 @@ class CreateAccountUseCase {
   final UserRepository _userRepository;
   CreateAccountUseCase() : _userRepository = injector.get<UserRepository>();
 
-  Future<AppUser?> createAccount({String email = '', String password = ''}) {
+  Future<AppUser?> createAccount({String email = '', String password = ''})async {
     if (email.isNotEmpty && password.isNotEmpty) {
       // create con Email
-      return _userRepository.registbyEmail(email, password)
-        ..then((user) {
-         if(user != null) _userRepository.storeUserSessionState(true);
-        });
+       try {
+        final user = await _userRepository.registbyEmail(email, password);
+        if (user != null) {
+          _userRepository.storeUserSessionState(true);
+        } else {
+          _userRepository.storeUserSessionState(false);
+        }
+        return user;
+      } on Exception catch (e) {
+        return Future.error(e);
+      }
     } else {
       // access con Google
-      return _userRepository.accessWithGoogle()..then((user) {
-           if(user != null) _userRepository.storeUserSessionState(true);
-        });
+        try {
+        final user = await _userRepository.accessWithGoogle();
+        if (user != null) {
+          _userRepository.storeUserSessionState(true);
+        } else {
+          _userRepository.storeUserSessionState(false);
+        }
+        return user;
+      } on Exception catch (e) {
+        return Future.error(e);
+      }
     }
   }
 }

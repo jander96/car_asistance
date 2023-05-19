@@ -4,6 +4,7 @@ import 'package:car_assistance/src/ui/screens/login/login_view_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
 class LoginViewModel extends Cubit<LoginViewState> {
   final LoginUserUseCase _loginUserUseCase;
   LoginViewModel()
@@ -20,11 +21,11 @@ class LoginViewModel extends Cubit<LoginViewState> {
         return state.isLogin;
       } else {
         emit(state.copyWith(isLoading: false, isLogin: false));
-         return state.isLogin;
+        return state.isLogin;
       }
     }).onError((error, stackTrace) {
-      emit(state.copyWith(error: error as FirebaseException,isLoading: false));
-       return state.isLogin;
+      emit(state.copyWith(error: error as FirebaseException, isLoading: false));
+      return state.isLogin;
     });
   }
 }

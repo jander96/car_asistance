@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:car_assistance/src/ui/screens/login/login_view_model.dart';
 import 'package:car_assistance/src/ui/screens/login/login_view_state.dart';
+import 'package:car_assistance/src/ui/screens/nav_host.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -29,6 +30,7 @@ class _LoginView extends StatelessWidget {
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
     final colors = Theme.of(context).colorScheme;
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -52,8 +54,14 @@ class _LoginView extends StatelessWidget {
                       emailController: emailController,
                       passwordController: passwordController,
                       viewModel: viewModel),
-                  if (state.error != null && !state.isLogin) FadeInUp(child: Text('Error ${state.error!.code}')),
-                  if (state.isLogin) FadeInUp(child: const Text('Login success',style: TextStyle(color: Colors.green),))
+                  if (state.error != null && !state.isLogin)
+                    FadeInUp(child: Text('Error ${state.error!.code}')),
+                  if (state.isLogin)
+                    FadeInUp(
+                        child: const Text(
+                      'Login success',
+                      style: TextStyle(color: Colors.green),
+                    ))
                 ]),
           ),
         ),
