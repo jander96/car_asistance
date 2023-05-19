@@ -7,9 +7,10 @@ class LoginViewState extends Equatable {
   final FirebaseException? error;
 
   const LoginViewState(
-      {this.isLoading = false, this.isLogin = false,  this.error});
+      {this.isLoading = false, this.isLogin = false, this.error});
 
-  LoginViewState copyWith({bool? isLoading, bool? isLogin, FirebaseException? error}) =>
+  LoginViewState copyWith(
+          {bool? isLoading, bool? isLogin, FirebaseException? error}) =>
       LoginViewState(
         isLoading: isLoading ?? this.isLoading,
         isLogin: isLogin ?? this.isLogin,

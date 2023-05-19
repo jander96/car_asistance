@@ -9,9 +9,10 @@ import '../../../domain/usescases/restore_password.dart';
 class LoginViewModel extends Cubit<LoginViewState> {
   final LoginUserUseCase _loginUserUseCase;
   final RestorePasswordUseCase _passwordUseCase;
+  var emailSend = false;
   LoginViewModel()
       : _loginUserUseCase = injector.get<LoginUserUseCase>(),
-      _passwordUseCase = injector.get<RestorePasswordUseCase>(),
+        _passwordUseCase = injector.get<RestorePasswordUseCase>(),
         super(const LoginViewState());
 
   Future<bool> login({String email = '', String password = ''}) {
@@ -34,12 +35,11 @@ class LoginViewModel extends Cubit<LoginViewState> {
 
   Future<void> restorePassword(String email) {
     emit(state.copyWith(isLoading: true));
-    return _passwordUseCase
-        .restorePassword(email)
-        .then((_) {
-        emit(state.copyWith(isLoading: false));
-       
+    return _passwordUseCase.restorePassword(email).then((_) {
+      emailSend = true;
+      emit(state.copyWith(isLoading: false));
     }).onError((error, stackTrace) {
+      emailSend = false;
       emit(state.copyWith(error: error as FirebaseException, isLoading: false));
     });
   }

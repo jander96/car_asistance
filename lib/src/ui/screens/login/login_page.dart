@@ -47,7 +47,7 @@ class _LoginView extends StatelessWidget {
                   _Formulary(
                       emailController: emailController,
                       passwordController: passwordController),
-                  _HelperText(viewModel,emailController),
+                  _HelperText(viewModel, emailController),
                   _LoginButton(
                       colors: colors,
                       state: state,
@@ -129,7 +129,21 @@ class _HelperText extends StatelessWidget {
         children: [
           const Text('Have you fogotten yuor password?'),
           GestureDetector(
-              onTap: () => viewModel.restorePassword(emailController.value.text),
+              onTap: () {
+                if (emailController.value.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Please enter your email ')));
+                  return;
+                }
+                viewModel
+                    .restorePassword(emailController.value.text)
+                    .whenComplete(() {
+                  if (viewModel.emailSend) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Check your email')));
+                  }
+                });
+              },
               child: const Text(
                 'Restore password',
                 style: TextStyle(color: Colors.red),
