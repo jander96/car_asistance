@@ -6,4 +6,5 @@ abstract class AuthDataSource {
   Future<UserNetwork?> emailLogin(String email, String password);
   Future<UserNetwork?> googleAccess();
   Future<void> logOut();
+  Future<void> restorePassword(String email);
 }

@@ -19,7 +19,7 @@ class FirebaseAuthDatasource extends AuthDataSource {
   }
 
   @override
-  Future<UserNetwork?> emailRegister(String email, String password){
+  Future<UserNetwork?> emailRegister(String email, String password) {
     return _firebaseAuthService
         .createUserWithEmailAndPassword(email, password)
         .then((user) => user?.toNetwork());
@@ -42,5 +42,10 @@ class FirebaseAuthDatasource extends AuthDataSource {
     return _firebaseAuthService
         .authUserStatus()
         .transform(UserNetworkTransformer.transformToNetwork);
+  }
+
+  @override
+  Future<void> restorePassword(String email) {
+    return _firebaseAuthService.restorePassword(email);
   }
 }

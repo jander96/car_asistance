@@ -47,7 +47,7 @@ class _LoginView extends StatelessWidget {
                   _Formulary(
                       emailController: emailController,
                       passwordController: passwordController),
-                  const _HelperText(),
+                  _HelperText(viewModel,emailController),
                   _LoginButton(
                       colors: colors,
                       state: state,
@@ -115,7 +115,9 @@ class _LoginButton extends StatelessWidget {
 }
 
 class _HelperText extends StatelessWidget {
-  const _HelperText();
+  final LoginViewModel viewModel;
+  final TextEditingController emailController;
+  const _HelperText(this.viewModel, this.emailController);
 
   @override
   Widget build(BuildContext context) {
@@ -125,13 +127,28 @@ class _HelperText extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Do you have an account?'),
+          const Text('Have you fogotten yuor password?'),
           GestureDetector(
-              onTap: () => context.push('/register'),
+              onTap: () => viewModel.restorePassword(emailController.value.text),
               child: const Text(
-                'Create Account',
+                'Restore password',
                 style: TextStyle(color: Colors.red),
-              ))
+              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('or can'),
+              const SizedBox(
+                width: 8,
+              ),
+              GestureDetector(
+                  onTap: () => context.push('/register'),
+                  child: const Text(
+                    'Create Account',
+                    style: TextStyle(color: Colors.red),
+                  )),
+            ],
+          )
         ],
       )),
     );

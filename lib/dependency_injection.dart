@@ -28,6 +28,7 @@ import 'package:car_assistance/src/domain/usescases/get_affiliate_by_id.dart';
 import 'package:car_assistance/src/domain/usescases/get_location_use_case.dart';
 import 'package:car_assistance/src/domain/usescases/get_log_state.dart';
 import 'package:car_assistance/src/domain/usescases/login_user.dart';
+import 'package:car_assistance/src/domain/usescases/restore_password.dart';
 import 'package:car_assistance/src/domain/usescases/signout.dart';
 import 'package:car_assistance/src/domain/usescases/watch_affiliatess.dart';
 import 'package:get_it/get_it.dart';
@@ -71,5 +72,6 @@ void inject() {
   injector.registerFactory<CreateAccountUseCase>(() => CreateAccountUseCase());
   injector.registerFactory<SingOutUseCase>(() => SingOutUseCase());
   injector.registerFactory<GetLogStateUseCase>(() => GetLogStateUseCase());
+  injector.registerFactory<RestorePasswordUseCase>(() => RestorePasswordUseCase());
 
 }

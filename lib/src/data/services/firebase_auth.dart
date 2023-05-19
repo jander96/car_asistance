@@ -72,4 +72,13 @@ class FirebaseAuthService {
       return Future.error(e);
     }
   }
+
+ Future<void> restorePassword(String email) {
+    try {
+     return firebaseAuth.sendPasswordResetEmail(email: email);
+
+    } on Exception catch (e) {
+     return Future.error(e);
+    }
+  }
 }

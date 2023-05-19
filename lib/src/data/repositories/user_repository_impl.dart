@@ -73,4 +73,9 @@ class UserRepositoryImp extends UserRepository {
     return _keyValueStorageDatasource.setKeyValue(
         USER_SESSION_STATE, isSessionActive);
   }
+
+  @override
+  Future<void> restorePassword(String email) {
+    return _authDataSource.restorePassword(email);
+  }
 }
