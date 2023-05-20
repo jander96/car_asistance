@@ -7,18 +7,7 @@ import 'package:flutter/services.dart';
 class ApiService {
   ApiService();
 
-  Future<List<AffiliateNetwork>> getAllAffiliates() async {
-    final jsonResponse = await rootBundle
-        .loadString("assets/jsons/affiliate_response_example.json");
-    final Map<String, dynamic> mapResponse = json.decode(jsonResponse);
-    final List<dynamic> listOfAffiliateMap = mapResponse["affiliates"]!;
-    final List<AffiliateNetwork> allAffiliates = [];
-    for (var affiliateMap in listOfAffiliateMap) {
-      final affiliate = AffiliateNetwork.fromJson(affiliateMap);
-      allAffiliates.add(affiliate);
-    }
-    return allAffiliates;
-  }
+  
 
   Future<List<RatingNetwork>> getAllRatings() async {
     final jsonResponse = await rootBundle
