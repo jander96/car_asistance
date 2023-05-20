@@ -76,6 +76,11 @@ class $AffiliatesEntitysTable extends AffiliatesEntitys
   late final GeneratedColumn<String> services = GeneratedColumn<String>(
       'services', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _stateMeta = const VerificationMeta('state');
+  @override
+  late final GeneratedColumn<String> state = GeneratedColumn<String>(
+      'state', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -88,7 +93,8 @@ class $AffiliatesEntitysTable extends AffiliatesEntitys
         lat,
         long,
         address,
-        services
+        services,
+        state
       ];
   @override
   String get aliasedName => _alias ?? 'affiliates_entitys';
@@ -164,6 +170,12 @@ class $AffiliatesEntitysTable extends AffiliatesEntitys
     } else if (isInserting) {
       context.missing(_servicesMeta);
     }
+    if (data.containsKey('state')) {
+      context.handle(
+          _stateMeta, state.isAcceptableOrUnknown(data['state']!, _stateMeta));
+    } else if (isInserting) {
+      context.missing(_stateMeta);
+    }
     return context;
   }
 
@@ -195,6 +207,8 @@ class $AffiliatesEntitysTable extends AffiliatesEntitys
           .read(DriftSqlType.string, data['${effectivePrefix}address'])!,
       services: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}services'])!,
+      state: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}state'])!,
     );
   }
 
@@ -217,6 +231,7 @@ class AffiliatesEntity extends DataClass
   final double long;
   final String address;
   final String services;
+  final String state;
   const AffiliatesEntity(
       {required this.id,
       required this.name,
@@ -228,7 +243,8 @@ class AffiliatesEntity extends DataClass
       required this.lat,
       required this.long,
       required this.address,
-      required this.services});
+      required this.services,
+      required this.state});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -247,6 +263,7 @@ class AffiliatesEntity extends DataClass
     map['long'] = Variable<double>(long);
     map['address'] = Variable<String>(address);
     map['services'] = Variable<String>(services);
+    map['state'] = Variable<String>(state);
     return map;
   }
 
@@ -267,6 +284,7 @@ class AffiliatesEntity extends DataClass
       long: Value(long),
       address: Value(address),
       services: Value(services),
+      state: Value(state),
     );
   }
 
@@ -285,6 +303,7 @@ class AffiliatesEntity extends DataClass
       long: serializer.fromJson<double>(json['long']),
       address: serializer.fromJson<String>(json['address']),
       services: serializer.fromJson<String>(json['services']),
+      state: serializer.fromJson<String>(json['state']),
     );
   }
   @override
@@ -302,6 +321,7 @@ class AffiliatesEntity extends DataClass
       'long': serializer.toJson<double>(long),
       'address': serializer.toJson<String>(address),
       'services': serializer.toJson<String>(services),
+      'state': serializer.toJson<String>(state),
     };
   }
 
@@ -316,7 +336,8 @@ class AffiliatesEntity extends DataClass
           double? lat,
           double? long,
           String? address,
-          String? services}) =>
+          String? services,
+          String? state}) =>
       AffiliatesEntity(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -329,6 +350,7 @@ class AffiliatesEntity extends DataClass
         long: long ?? this.long,
         address: address ?? this.address,
         services: services ?? this.services,
+        state: state ?? this.state,
       );
   @override
   String toString() {
@@ -343,14 +365,26 @@ class AffiliatesEntity extends DataClass
           ..write('lat: $lat, ')
           ..write('long: $long, ')
           ..write('address: $address, ')
-          ..write('services: $services')
+          ..write('services: $services, ')
+          ..write('state: $state')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name, openTime, closeTime,
-      isFullTimeService, phoneNumber, rating, lat, long, address, services);
+  int get hashCode => Object.hash(
+      id,
+      name,
+      openTime,
+      closeTime,
+      isFullTimeService,
+      phoneNumber,
+      rating,
+      lat,
+      long,
+      address,
+      services,
+      state);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -365,7 +399,8 @@ class AffiliatesEntity extends DataClass
           other.lat == this.lat &&
           other.long == this.long &&
           other.address == this.address &&
-          other.services == this.services);
+          other.services == this.services &&
+          other.state == this.state);
 }
 
 class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
@@ -380,6 +415,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
   final Value<double> long;
   final Value<String> address;
   final Value<String> services;
+  final Value<String> state;
   final Value<int> rowid;
   const AffiliatesEntitysCompanion({
     this.id = const Value.absent(),
@@ -393,6 +429,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
     this.long = const Value.absent(),
     this.address = const Value.absent(),
     this.services = const Value.absent(),
+    this.state = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   AffiliatesEntitysCompanion.insert({
@@ -407,6 +444,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
     required double long,
     required String address,
     required String services,
+    required String state,
     this.rowid = const Value.absent(),
   })  : id = Value(id),
         name = Value(name),
@@ -416,7 +454,8 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
         lat = Value(lat),
         long = Value(long),
         address = Value(address),
-        services = Value(services);
+        services = Value(services),
+        state = Value(state);
   static Insertable<AffiliatesEntity> custom({
     Expression<String>? id,
     Expression<String>? name,
@@ -429,6 +468,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
     Expression<double>? long,
     Expression<String>? address,
     Expression<String>? services,
+    Expression<String>? state,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -443,6 +483,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
       if (long != null) 'long': long,
       if (address != null) 'address': address,
       if (services != null) 'services': services,
+      if (state != null) 'state': state,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -459,6 +500,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
       Value<double>? long,
       Value<String>? address,
       Value<String>? services,
+      Value<String>? state,
       Value<int>? rowid}) {
     return AffiliatesEntitysCompanion(
       id: id ?? this.id,
@@ -472,6 +514,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
       long: long ?? this.long,
       address: address ?? this.address,
       services: services ?? this.services,
+      state: state ?? this.state,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -512,6 +555,9 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
     if (services.present) {
       map['services'] = Variable<String>(services.value);
     }
+    if (state.present) {
+      map['state'] = Variable<String>(state.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -532,6 +578,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
           ..write('long: $long, ')
           ..write('address: $address, ')
           ..write('services: $services, ')
+          ..write('state: $state, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();

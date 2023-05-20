@@ -19,6 +19,7 @@ class AffiliateNetwork {
   final double long;
   final String address;
   final List<String> services;
+  final String state;
 
   AffiliateNetwork(
       {required this.id,
@@ -31,7 +32,8 @@ class AffiliateNetwork {
       required this.lat,
       required this.long,
       required this.address,
-      required this.services});
+      required this.services,
+      required this.state});
 
   factory AffiliateNetwork.fromJson(Map<String, dynamic> json) =>
       _$AffiliateNetworkFromJson(json);
@@ -49,5 +51,6 @@ extension AffilateExtensions on AffiliateNetwork {
       lat: lat,
       long: long,
       address: address,
-      services: services);
+      services: services,
+      state: state);
 }
