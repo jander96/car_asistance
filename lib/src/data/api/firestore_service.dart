@@ -1,8 +1,4 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
-
 import 'model/api_affiliate_model.dart';
 import 'model/api_rating_model.dart';
 
@@ -22,7 +18,7 @@ class FirestoreService {
     }
   }
 
-// ------------------------------------- esto es mockeado---------------------------
+
     Future<List<RatingNetwork>> getAllRatings() async {
      try {
       final collections = await db.collection("ratings").get();
