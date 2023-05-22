@@ -156,7 +156,7 @@ class _HelperText extends StatelessWidget {
                 width: 8,
               ),
               GestureDetector(
-                  onTap: () => context.push('/register'),
+                  onTap: () => context.pushReplacement('/register'),
                   child: const Text(
                     'Create Account',
                     style: TextStyle(color: Colors.red),
