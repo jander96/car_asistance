@@ -24,17 +24,16 @@ class FirestoreService {
 
 // ------------------------------------- esto es mockeado---------------------------
     Future<List<RatingNetwork>> getAllRatings() async {
-    final jsonResponse = await rootBundle
-        .loadString("assets/jsons/rating_responde_example.json");
-    final Map<String, dynamic> mapResponse = json.decode(jsonResponse);
-    final List<dynamic> listOfRatings = mapResponse["ratings"]!;
+     try {
+      final collections = await db.collection("ratings").get();
 
-    final allRatings = <RatingNetwork>[];
-    for (final ratingMap in listOfRatings) {
-      allRatings.add( RatingNetwork.fromJson(ratingMap));
+      final listRatings = collections.docs
+          .map((doc) => RatingNetwork.fromJson(doc.id, doc.data()))
+          .toList();
+      return listRatings;
+    } on Exception catch (e) {
+      return Future.error(e);
     }
-
-    return allRatings;
   }
 
   Future postNewRating(RatingNetwork rating) async {

@@ -1,4 +1,3 @@
-import 'package:car_assistance/src/data/api/api_service.dart';
 import 'package:car_assistance/src/data/api/firestore_service.dart';
 import 'package:car_assistance/src/data/api/network_datasource.dart';
 import 'package:car_assistance/src/data/api/network_datasource_imp.dart';
@@ -36,7 +35,7 @@ import 'package:get_it/get_it.dart';
 
 final injector = GetIt.instance;
 void inject() {
-  injector.registerSingleton<ApiService>(ApiService());
+ 
   injector.registerSingleton<FirestoreService>(FirestoreService());
   injector.registerLazySingleton<LocationService>(() => LocationService());
   injector.registerSingleton<FirebaseAuthService>(FirebaseAuthService());

@@ -9,12 +9,12 @@ class RatingNetwork {
 
   RatingNetwork(this.id, this.affiliateId, this.rating);
 
-  factory RatingNetwork.fromJson(Map<String,dynamic> jsonMap) {
+  factory RatingNetwork.fromJson(String id,Map<String,dynamic> jsonMap) {
     
     return RatingNetwork(
-      jsonMap["id"],
+      id,
       jsonMap["affiliate_id"].toString(),
-      jsonMap["rating"] as double
+      jsonMap["rating"] /1 as double
 
     );
   }
