@@ -14,7 +14,8 @@ extension AffiliateMapper on AffiliatesEntity {
         lat: lat,
         long: long,
         address: address,
-        services: _servicesToList(services));
+        services: _servicesToList(services),
+        state: state);
   }
 
   List<String> _servicesToList(String services) => services.split(",").toList();
@@ -32,5 +33,6 @@ AffiliatesEntity affiliatesEntityfromDomain(Affiliate affiliate) {
       lat: affiliate.lat,
       long: affiliate.long,
       address: affiliate.address,
-      services: affiliate.services.join(","));
+      services: affiliate.services.join(","),
+      state: affiliate.state);
 }

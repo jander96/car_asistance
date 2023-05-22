@@ -19,6 +19,7 @@ class AffiliateNetwork {
   final double long;
   final String address;
   final List<String> services;
+  final String state;
 
   AffiliateNetwork(
       {required this.id,
@@ -31,10 +32,28 @@ class AffiliateNetwork {
       required this.lat,
       required this.long,
       required this.address,
-      required this.services});
+      required this.services,
+      required this.state});
 
-  factory AffiliateNetwork.fromJson(Map<String, dynamic> json) =>
-      _$AffiliateNetworkFromJson(json);
+  factory AffiliateNetwork.fromJson(String id ,Map<String, dynamic> json) => AffiliateNetwork(
+      id: id,
+      name: json['name'] as String,
+      openTime: json['open_time'] as String?,
+      closeTime: json['close_time'] as String?,
+      isFullTimeService: json['is_full_time_service'] as bool,
+      phoneNumber: json['phone_number'] as String,
+      rating: (json['rating'] as num).toDouble(),
+      lat: (json['lat'] as num).toDouble(),
+      long: (json['long'] as num).toDouble(),
+      address: json['address'] as String,
+      services:
+          (json['services'] as List<dynamic>).map((e) => e as String).toList(),
+      state: json['state'] as String,
+    );
+      
+
+
+    
 }
 
 extension AffilateExtensions on AffiliateNetwork {
@@ -49,5 +68,6 @@ extension AffilateExtensions on AffiliateNetwork {
       lat: lat,
       long: long,
       address: address,
-      services: services);
+      services: services,
+      state: state);
 }

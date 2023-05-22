@@ -10,8 +10,9 @@ class Affiliate {
   final double long;
   final String address;
   final List<String> services;
+  final String state;
 
-  Affiliate(
+  Affiliate( 
       {required this.id,
       required this.name,
       this.openTime,
@@ -22,7 +23,8 @@ class Affiliate {
       required this.lat,
       required this.long,
       required this.address,
-      required this.services});
+      required this.services,
+      required this.state});
 
   Affiliate copyWith({
     String? id,
@@ -36,6 +38,7 @@ class Affiliate {
     double? long,
     String? address,
     List<String>? services,
+    String? state,
   }) {
     return Affiliate(
       id: id ?? this.id,
@@ -49,6 +52,7 @@ class Affiliate {
       long: long ?? this.long,
       address: address ?? this.address,
       services: services ?? this.services,
+      state: state ?? this.state,
     );
   }
 }

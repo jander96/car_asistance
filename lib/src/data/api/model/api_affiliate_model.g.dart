@@ -20,6 +20,7 @@ AffiliateNetwork _$AffiliateNetworkFromJson(Map<String, dynamic> json) =>
       address: json['address'] as String,
       services:
           (json['services'] as List<dynamic>).map((e) => e as String).toList(),
+      state: json['state'] as String,
     );
 
 Map<String, dynamic> _$AffiliateNetworkToJson(AffiliateNetwork instance) =>
@@ -35,4 +36,5 @@ Map<String, dynamic> _$AffiliateNetworkToJson(AffiliateNetwork instance) =>
       'long': instance.long,
       'address': instance.address,
       'services': instance.services,
+      'state': instance.state,
     };

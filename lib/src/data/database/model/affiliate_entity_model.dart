@@ -1,4 +1,3 @@
-
 import 'package:drift/drift.dart';
 
 class AffiliatesEntitys extends Table {
@@ -13,6 +12,5 @@ class AffiliatesEntitys extends Table {
   RealColumn get long => real()();
   TextColumn get address => text()();
   TextColumn get services => text()();
+  TextColumn get state => text()();
 }
-
-
