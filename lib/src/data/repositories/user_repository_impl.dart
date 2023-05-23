@@ -89,4 +89,21 @@ class UserRepositoryImp extends UserRepository {
   Future<void> updateDataUserInServer(AppUser user) {
     return _networkDataSource.updateUser(UserNetwork.fromDomain(user));
   }
+
+  @override
+  Future<AppUser> getUserFromDB() {
+    return _userLocalDataSource.getUser().then((entity) => entity.toDomain());
+  }
+
+  @override
+  Future<AppUser> getUserFromServer(String userId) {
+    return _networkDataSource
+        .getUser(userId)
+        .then((network) => network.toDomain());
+  }
+
+  @override
+  Future<void> deleteUserInDb() {
+    return _userLocalDataSource.deleteUser();
+  }
 }

@@ -1,34 +1,41 @@
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/domain/model/user_model.dart';
 import 'package:car_assistance/src/domain/user_repository.dart';
+import 'package:car_assistance/src/domain/usescases/regist_user.dart';
 
 class CreateAccountUseCase {
   final UserRepository _userRepository;
-  CreateAccountUseCase() : _userRepository = injector.get<UserRepository>();
+  final RegistUserUseCase _registUserInSystem;
+  CreateAccountUseCase()
+      : _userRepository = injector.get<UserRepository>(),
+        _registUserInSystem = injector.get<RegistUserUseCase>();
 
-  Future<AppUser?> createAccount({String email = '', String password = ''})async {
+  Future<AppUser?> createAccount(
+      {String email = '', String password = ''}) async {
     if (email.isNotEmpty && password.isNotEmpty) {
       // create con Email
-       try {
+      try {
         final user = await _userRepository.registbyEmail(email, password);
         if (user != null) {
           _userRepository.storeUserSessionState(true);
         } else {
           _userRepository.storeUserSessionState(false);
         }
+        if (user != null) await _registUserInSystem.registUserInSystem(user);
         return user;
       } on Exception catch (e) {
         return Future.error(e);
       }
     } else {
       // access con Google
-        try {
+      try {
         final user = await _userRepository.accessWithGoogle();
         if (user != null) {
           _userRepository.storeUserSessionState(true);
         } else {
           _userRepository.storeUserSessionState(false);
         }
+        if (user != null) await _registUserInSystem.registUserInSystem(user);
         return user;
       } on Exception catch (e) {
         return Future.error(e);
