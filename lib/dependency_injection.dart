@@ -14,7 +14,9 @@ import 'package:car_assistance/src/data/database/rating_local_datasource.dart';
 import 'package:car_assistance/src/data/database/rating_local_datasource_imp.dart';
 import 'package:car_assistance/src/data/database/user_local_datasource.dart';
 import 'package:car_assistance/src/data/database/user_local_datasource_impl.dart';
+import 'package:car_assistance/src/data/framework/date_calculator_impl.dart';
 import 'package:car_assistance/src/data/repositories/affiliate_repository_imp.dart';
+import 'package:car_assistance/src/data/repositories/licence_repository_impl.dart';
 import 'package:car_assistance/src/data/repositories/location_repository_imp.dart';
 import 'package:car_assistance/src/data/repositories/rating_repository_imp.dart';
 import 'package:car_assistance/src/data/repositories/user_repository_impl.dart';
@@ -25,15 +27,19 @@ import 'package:car_assistance/src/data/services/geolocator_service.dart';
 import 'package:car_assistance/src/data/services/key_value_storage_datasource.dart';
 import 'package:car_assistance/src/data/services/shared_preference.dart';
 import 'package:car_assistance/src/domain/affiliate_repository.dart';
+import 'package:car_assistance/src/domain/date_calculator.dart';
+import 'package:car_assistance/src/domain/license_repository.dart';
 import 'package:car_assistance/src/domain/location_repository.dart';
 import 'package:car_assistance/src/domain/rating_repository.dart';
 import 'package:car_assistance/src/domain/user_repository.dart';
 import 'package:car_assistance/src/domain/usescases/create_account.dart';
 import 'package:car_assistance/src/domain/usescases/dowload_data_server.dart';
 import 'package:car_assistance/src/domain/usescases/get_affiliate_by_id.dart';
+import 'package:car_assistance/src/domain/usescases/get_end_of_free_period.dart';
 import 'package:car_assistance/src/domain/usescases/get_location_use_case.dart';
 import 'package:car_assistance/src/domain/usescases/get_log_state.dart';
 import 'package:car_assistance/src/domain/usescases/login_user.dart';
+import 'package:car_assistance/src/domain/usescases/regist_license.dart';
 import 'package:car_assistance/src/domain/usescases/regist_user.dart';
 import 'package:car_assistance/src/domain/usescases/restore_password.dart';
 import 'package:car_assistance/src/domain/usescases/signout.dart';
@@ -51,8 +57,8 @@ void inject() {
       () => AffiliateLocalDataSourceImp());
   injector
       .registerFactory<UserLocalDataSource>(() => UserLocalDatasourceImpl());
-  injector
-      .registerFactory<LicenseLocalDataSource>(() => LicenseLocalDatasourceImpl());
+  injector.registerFactory<LicenseLocalDataSource>(
+      () => LicenseLocalDatasourceImpl());
   injector
       .registerFactory<RatingLocalDataSource>(() => RatingLocalDataSourceImp());
   injector.registerLazySingleton<AppDatabase>(() => AppDatabase());
@@ -69,6 +75,7 @@ void inject() {
   injector.registerFactory<AffiliateRepository>(() => AffiliateRepositoryImp());
   injector.registerFactory<RatingRepository>(() => RatingRepositoryImp());
   injector.registerFactory<LocationRepository>(() => LocationRepositoryImpl());
+  injector.registerFactory<LicenseRepository>(() => LicenseRepositoryImpl());
 
   injector.registerFactory<UserRepository>(() => UserRepositoryImp());
 
@@ -81,6 +88,8 @@ void inject() {
   injector.registerFactory<DowloadDataServerUseCase>(
       () => DowloadDataServerUseCase());
 
+  injector.registerFactory<DateCaculator>(() => DartDateCalculator());
+
   injector.registerFactory<GetLocationUseCase>(() => GetLocationUseCase());
   injector.registerFactory<LoginUserUseCase>(() => LoginUserUseCase());
   injector.registerFactory<CreateAccountUseCase>(() => CreateAccountUseCase());
@@ -89,4 +98,6 @@ void inject() {
   injector
       .registerFactory<RestorePasswordUseCase>(() => RestorePasswordUseCase());
   injector.registerFactory<RegistUserUseCase>(() => RegistUserUseCase());
+  injector.registerFactory<GetEndOfFreePeriodUseCase>(() => GetEndOfFreePeriodUseCase());
+  injector.registerFactory<RegistLicenseUseCase>(() => RegistLicenseUseCase());
 }
