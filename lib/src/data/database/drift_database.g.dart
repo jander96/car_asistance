@@ -806,15 +806,758 @@ class RatingsEntitysCompanion extends UpdateCompanion<RatingsEntity> {
   }
 }
 
+class $UserEntitysTable extends UserEntitys
+    with TableInfo<$UserEntitysTable, UserEntity> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $UserEntitysTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _uidMeta = const VerificationMeta('uid');
+  @override
+  late final GeneratedColumn<String> uid = GeneratedColumn<String>(
+      'uid', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userNameMeta =
+      const VerificationMeta('userName');
+  @override
+  late final GeneratedColumn<String> userName = GeneratedColumn<String>(
+      'user_name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _emailMeta = const VerificationMeta('email');
+  @override
+  late final GeneratedColumn<String> email = GeneratedColumn<String>(
+      'email', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _phoneNumberMeta =
+      const VerificationMeta('phoneNumber');
+  @override
+  late final GeneratedColumn<String> phoneNumber = GeneratedColumn<String>(
+      'phone_number', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _emailVerifiedMeta =
+      const VerificationMeta('emailVerified');
+  @override
+  late final GeneratedColumn<bool> emailVerified =
+      GeneratedColumn<bool>('email_verified', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("email_verified" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _isAnonymousMeta =
+      const VerificationMeta('isAnonymous');
+  @override
+  late final GeneratedColumn<bool> isAnonymous =
+      GeneratedColumn<bool>('is_anonymous', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_anonymous" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _photoURLMeta =
+      const VerificationMeta('photoURL');
+  @override
+  late final GeneratedColumn<String> photoURL = GeneratedColumn<String>(
+      'photo_u_r_l', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _refreshTokenMeta =
+      const VerificationMeta('refreshToken');
+  @override
+  late final GeneratedColumn<String> refreshToken = GeneratedColumn<String>(
+      'refresh_token', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        uid,
+        userName,
+        email,
+        phoneNumber,
+        emailVerified,
+        isAnonymous,
+        photoURL,
+        refreshToken
+      ];
+  @override
+  String get aliasedName => _alias ?? 'user_entitys';
+  @override
+  String get actualTableName => 'user_entitys';
+  @override
+  VerificationContext validateIntegrity(Insertable<UserEntity> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('uid')) {
+      context.handle(
+          _uidMeta, uid.isAcceptableOrUnknown(data['uid']!, _uidMeta));
+    } else if (isInserting) {
+      context.missing(_uidMeta);
+    }
+    if (data.containsKey('user_name')) {
+      context.handle(_userNameMeta,
+          userName.isAcceptableOrUnknown(data['user_name']!, _userNameMeta));
+    } else if (isInserting) {
+      context.missing(_userNameMeta);
+    }
+    if (data.containsKey('email')) {
+      context.handle(
+          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
+    } else if (isInserting) {
+      context.missing(_emailMeta);
+    }
+    if (data.containsKey('phone_number')) {
+      context.handle(
+          _phoneNumberMeta,
+          phoneNumber.isAcceptableOrUnknown(
+              data['phone_number']!, _phoneNumberMeta));
+    } else if (isInserting) {
+      context.missing(_phoneNumberMeta);
+    }
+    if (data.containsKey('email_verified')) {
+      context.handle(
+          _emailVerifiedMeta,
+          emailVerified.isAcceptableOrUnknown(
+              data['email_verified']!, _emailVerifiedMeta));
+    } else if (isInserting) {
+      context.missing(_emailVerifiedMeta);
+    }
+    if (data.containsKey('is_anonymous')) {
+      context.handle(
+          _isAnonymousMeta,
+          isAnonymous.isAcceptableOrUnknown(
+              data['is_anonymous']!, _isAnonymousMeta));
+    } else if (isInserting) {
+      context.missing(_isAnonymousMeta);
+    }
+    if (data.containsKey('photo_u_r_l')) {
+      context.handle(_photoURLMeta,
+          photoURL.isAcceptableOrUnknown(data['photo_u_r_l']!, _photoURLMeta));
+    } else if (isInserting) {
+      context.missing(_photoURLMeta);
+    }
+    if (data.containsKey('refresh_token')) {
+      context.handle(
+          _refreshTokenMeta,
+          refreshToken.isAcceptableOrUnknown(
+              data['refresh_token']!, _refreshTokenMeta));
+    } else if (isInserting) {
+      context.missing(_refreshTokenMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  UserEntity map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return UserEntity(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      uid: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}uid'])!,
+      userName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_name'])!,
+      email: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}email'])!,
+      phoneNumber: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}phone_number'])!,
+      emailVerified: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}email_verified'])!,
+      isAnonymous: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_anonymous'])!,
+      photoURL: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}photo_u_r_l'])!,
+      refreshToken: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}refresh_token'])!,
+    );
+  }
+
+  @override
+  $UserEntitysTable createAlias(String alias) {
+    return $UserEntitysTable(attachedDatabase, alias);
+  }
+}
+
+class UserEntity extends DataClass implements Insertable<UserEntity> {
+  final String id;
+  final String uid;
+  final String userName;
+  final String email;
+  final String phoneNumber;
+  final bool emailVerified;
+  final bool isAnonymous;
+  final String photoURL;
+  final String refreshToken;
+  const UserEntity(
+      {required this.id,
+      required this.uid,
+      required this.userName,
+      required this.email,
+      required this.phoneNumber,
+      required this.emailVerified,
+      required this.isAnonymous,
+      required this.photoURL,
+      required this.refreshToken});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['uid'] = Variable<String>(uid);
+    map['user_name'] = Variable<String>(userName);
+    map['email'] = Variable<String>(email);
+    map['phone_number'] = Variable<String>(phoneNumber);
+    map['email_verified'] = Variable<bool>(emailVerified);
+    map['is_anonymous'] = Variable<bool>(isAnonymous);
+    map['photo_u_r_l'] = Variable<String>(photoURL);
+    map['refresh_token'] = Variable<String>(refreshToken);
+    return map;
+  }
+
+  UserEntitysCompanion toCompanion(bool nullToAbsent) {
+    return UserEntitysCompanion(
+      id: Value(id),
+      uid: Value(uid),
+      userName: Value(userName),
+      email: Value(email),
+      phoneNumber: Value(phoneNumber),
+      emailVerified: Value(emailVerified),
+      isAnonymous: Value(isAnonymous),
+      photoURL: Value(photoURL),
+      refreshToken: Value(refreshToken),
+    );
+  }
+
+  factory UserEntity.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return UserEntity(
+      id: serializer.fromJson<String>(json['id']),
+      uid: serializer.fromJson<String>(json['uid']),
+      userName: serializer.fromJson<String>(json['userName']),
+      email: serializer.fromJson<String>(json['email']),
+      phoneNumber: serializer.fromJson<String>(json['phoneNumber']),
+      emailVerified: serializer.fromJson<bool>(json['emailVerified']),
+      isAnonymous: serializer.fromJson<bool>(json['isAnonymous']),
+      photoURL: serializer.fromJson<String>(json['photoURL']),
+      refreshToken: serializer.fromJson<String>(json['refreshToken']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'uid': serializer.toJson<String>(uid),
+      'userName': serializer.toJson<String>(userName),
+      'email': serializer.toJson<String>(email),
+      'phoneNumber': serializer.toJson<String>(phoneNumber),
+      'emailVerified': serializer.toJson<bool>(emailVerified),
+      'isAnonymous': serializer.toJson<bool>(isAnonymous),
+      'photoURL': serializer.toJson<String>(photoURL),
+      'refreshToken': serializer.toJson<String>(refreshToken),
+    };
+  }
+
+  UserEntity copyWith(
+          {String? id,
+          String? uid,
+          String? userName,
+          String? email,
+          String? phoneNumber,
+          bool? emailVerified,
+          bool? isAnonymous,
+          String? photoURL,
+          String? refreshToken}) =>
+      UserEntity(
+        id: id ?? this.id,
+        uid: uid ?? this.uid,
+        userName: userName ?? this.userName,
+        email: email ?? this.email,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        emailVerified: emailVerified ?? this.emailVerified,
+        isAnonymous: isAnonymous ?? this.isAnonymous,
+        photoURL: photoURL ?? this.photoURL,
+        refreshToken: refreshToken ?? this.refreshToken,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('UserEntity(')
+          ..write('id: $id, ')
+          ..write('uid: $uid, ')
+          ..write('userName: $userName, ')
+          ..write('email: $email, ')
+          ..write('phoneNumber: $phoneNumber, ')
+          ..write('emailVerified: $emailVerified, ')
+          ..write('isAnonymous: $isAnonymous, ')
+          ..write('photoURL: $photoURL, ')
+          ..write('refreshToken: $refreshToken')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, uid, userName, email, phoneNumber,
+      emailVerified, isAnonymous, photoURL, refreshToken);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is UserEntity &&
+          other.id == this.id &&
+          other.uid == this.uid &&
+          other.userName == this.userName &&
+          other.email == this.email &&
+          other.phoneNumber == this.phoneNumber &&
+          other.emailVerified == this.emailVerified &&
+          other.isAnonymous == this.isAnonymous &&
+          other.photoURL == this.photoURL &&
+          other.refreshToken == this.refreshToken);
+}
+
+class UserEntitysCompanion extends UpdateCompanion<UserEntity> {
+  final Value<String> id;
+  final Value<String> uid;
+  final Value<String> userName;
+  final Value<String> email;
+  final Value<String> phoneNumber;
+  final Value<bool> emailVerified;
+  final Value<bool> isAnonymous;
+  final Value<String> photoURL;
+  final Value<String> refreshToken;
+  final Value<int> rowid;
+  const UserEntitysCompanion({
+    this.id = const Value.absent(),
+    this.uid = const Value.absent(),
+    this.userName = const Value.absent(),
+    this.email = const Value.absent(),
+    this.phoneNumber = const Value.absent(),
+    this.emailVerified = const Value.absent(),
+    this.isAnonymous = const Value.absent(),
+    this.photoURL = const Value.absent(),
+    this.refreshToken = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  UserEntitysCompanion.insert({
+    required String id,
+    required String uid,
+    required String userName,
+    required String email,
+    required String phoneNumber,
+    required bool emailVerified,
+    required bool isAnonymous,
+    required String photoURL,
+    required String refreshToken,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        uid = Value(uid),
+        userName = Value(userName),
+        email = Value(email),
+        phoneNumber = Value(phoneNumber),
+        emailVerified = Value(emailVerified),
+        isAnonymous = Value(isAnonymous),
+        photoURL = Value(photoURL),
+        refreshToken = Value(refreshToken);
+  static Insertable<UserEntity> custom({
+    Expression<String>? id,
+    Expression<String>? uid,
+    Expression<String>? userName,
+    Expression<String>? email,
+    Expression<String>? phoneNumber,
+    Expression<bool>? emailVerified,
+    Expression<bool>? isAnonymous,
+    Expression<String>? photoURL,
+    Expression<String>? refreshToken,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (uid != null) 'uid': uid,
+      if (userName != null) 'user_name': userName,
+      if (email != null) 'email': email,
+      if (phoneNumber != null) 'phone_number': phoneNumber,
+      if (emailVerified != null) 'email_verified': emailVerified,
+      if (isAnonymous != null) 'is_anonymous': isAnonymous,
+      if (photoURL != null) 'photo_u_r_l': photoURL,
+      if (refreshToken != null) 'refresh_token': refreshToken,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  UserEntitysCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? uid,
+      Value<String>? userName,
+      Value<String>? email,
+      Value<String>? phoneNumber,
+      Value<bool>? emailVerified,
+      Value<bool>? isAnonymous,
+      Value<String>? photoURL,
+      Value<String>? refreshToken,
+      Value<int>? rowid}) {
+    return UserEntitysCompanion(
+      id: id ?? this.id,
+      uid: uid ?? this.uid,
+      userName: userName ?? this.userName,
+      email: email ?? this.email,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      emailVerified: emailVerified ?? this.emailVerified,
+      isAnonymous: isAnonymous ?? this.isAnonymous,
+      photoURL: photoURL ?? this.photoURL,
+      refreshToken: refreshToken ?? this.refreshToken,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (uid.present) {
+      map['uid'] = Variable<String>(uid.value);
+    }
+    if (userName.present) {
+      map['user_name'] = Variable<String>(userName.value);
+    }
+    if (email.present) {
+      map['email'] = Variable<String>(email.value);
+    }
+    if (phoneNumber.present) {
+      map['phone_number'] = Variable<String>(phoneNumber.value);
+    }
+    if (emailVerified.present) {
+      map['email_verified'] = Variable<bool>(emailVerified.value);
+    }
+    if (isAnonymous.present) {
+      map['is_anonymous'] = Variable<bool>(isAnonymous.value);
+    }
+    if (photoURL.present) {
+      map['photo_u_r_l'] = Variable<String>(photoURL.value);
+    }
+    if (refreshToken.present) {
+      map['refresh_token'] = Variable<String>(refreshToken.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UserEntitysCompanion(')
+          ..write('id: $id, ')
+          ..write('uid: $uid, ')
+          ..write('userName: $userName, ')
+          ..write('email: $email, ')
+          ..write('phoneNumber: $phoneNumber, ')
+          ..write('emailVerified: $emailVerified, ')
+          ..write('isAnonymous: $isAnonymous, ')
+          ..write('photoURL: $photoURL, ')
+          ..write('refreshToken: $refreshToken, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $LicenseEntitysTable extends LicenseEntitys
+    with TableInfo<$LicenseEntitysTable, LicenseEntity> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $LicenseEntitysTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _freePeriodDateEndMeta =
+      const VerificationMeta('freePeriodDateEnd');
+  @override
+  late final GeneratedColumn<String> freePeriodDateEnd =
+      GeneratedColumn<String>('free_period_date_end', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _isPayDoneMeta =
+      const VerificationMeta('isPayDone');
+  @override
+  late final GeneratedColumn<bool> isPayDone =
+      GeneratedColumn<bool>('is_pay_done', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_pay_done" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, userId, freePeriodDateEnd, isPayDone];
+  @override
+  String get aliasedName => _alias ?? 'license_entitys';
+  @override
+  String get actualTableName => 'license_entitys';
+  @override
+  VerificationContext validateIntegrity(Insertable<LicenseEntity> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('free_period_date_end')) {
+      context.handle(
+          _freePeriodDateEndMeta,
+          freePeriodDateEnd.isAcceptableOrUnknown(
+              data['free_period_date_end']!, _freePeriodDateEndMeta));
+    } else if (isInserting) {
+      context.missing(_freePeriodDateEndMeta);
+    }
+    if (data.containsKey('is_pay_done')) {
+      context.handle(
+          _isPayDoneMeta,
+          isPayDone.isAcceptableOrUnknown(
+              data['is_pay_done']!, _isPayDoneMeta));
+    } else if (isInserting) {
+      context.missing(_isPayDoneMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  LicenseEntity map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return LicenseEntity(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      freePeriodDateEnd: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}free_period_date_end'])!,
+      isPayDone: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_pay_done'])!,
+    );
+  }
+
+  @override
+  $LicenseEntitysTable createAlias(String alias) {
+    return $LicenseEntitysTable(attachedDatabase, alias);
+  }
+}
+
+class LicenseEntity extends DataClass implements Insertable<LicenseEntity> {
+  final String id;
+  final String userId;
+  final String freePeriodDateEnd;
+  final bool isPayDone;
+  const LicenseEntity(
+      {required this.id,
+      required this.userId,
+      required this.freePeriodDateEnd,
+      required this.isPayDone});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['free_period_date_end'] = Variable<String>(freePeriodDateEnd);
+    map['is_pay_done'] = Variable<bool>(isPayDone);
+    return map;
+  }
+
+  LicenseEntitysCompanion toCompanion(bool nullToAbsent) {
+    return LicenseEntitysCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      freePeriodDateEnd: Value(freePeriodDateEnd),
+      isPayDone: Value(isPayDone),
+    );
+  }
+
+  factory LicenseEntity.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return LicenseEntity(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      freePeriodDateEnd: serializer.fromJson<String>(json['freePeriodDateEnd']),
+      isPayDone: serializer.fromJson<bool>(json['isPayDone']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'freePeriodDateEnd': serializer.toJson<String>(freePeriodDateEnd),
+      'isPayDone': serializer.toJson<bool>(isPayDone),
+    };
+  }
+
+  LicenseEntity copyWith(
+          {String? id,
+          String? userId,
+          String? freePeriodDateEnd,
+          bool? isPayDone}) =>
+      LicenseEntity(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        freePeriodDateEnd: freePeriodDateEnd ?? this.freePeriodDateEnd,
+        isPayDone: isPayDone ?? this.isPayDone,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('LicenseEntity(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('freePeriodDateEnd: $freePeriodDateEnd, ')
+          ..write('isPayDone: $isPayDone')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, userId, freePeriodDateEnd, isPayDone);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is LicenseEntity &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.freePeriodDateEnd == this.freePeriodDateEnd &&
+          other.isPayDone == this.isPayDone);
+}
+
+class LicenseEntitysCompanion extends UpdateCompanion<LicenseEntity> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String> freePeriodDateEnd;
+  final Value<bool> isPayDone;
+  final Value<int> rowid;
+  const LicenseEntitysCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.freePeriodDateEnd = const Value.absent(),
+    this.isPayDone = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  LicenseEntitysCompanion.insert({
+    required String id,
+    required String userId,
+    required String freePeriodDateEnd,
+    required bool isPayDone,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        freePeriodDateEnd = Value(freePeriodDateEnd),
+        isPayDone = Value(isPayDone);
+  static Insertable<LicenseEntity> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? freePeriodDateEnd,
+    Expression<bool>? isPayDone,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (freePeriodDateEnd != null) 'free_period_date_end': freePeriodDateEnd,
+      if (isPayDone != null) 'is_pay_done': isPayDone,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  LicenseEntitysCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<String>? freePeriodDateEnd,
+      Value<bool>? isPayDone,
+      Value<int>? rowid}) {
+    return LicenseEntitysCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      freePeriodDateEnd: freePeriodDateEnd ?? this.freePeriodDateEnd,
+      isPayDone: isPayDone ?? this.isPayDone,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (freePeriodDateEnd.present) {
+      map['free_period_date_end'] = Variable<String>(freePeriodDateEnd.value);
+    }
+    if (isPayDone.present) {
+      map['is_pay_done'] = Variable<bool>(isPayDone.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LicenseEntitysCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('freePeriodDateEnd: $freePeriodDateEnd, ')
+          ..write('isPayDone: $isPayDone, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $AffiliatesEntitysTable affiliatesEntitys =
       $AffiliatesEntitysTable(this);
   late final $RatingsEntitysTable ratingsEntitys = $RatingsEntitysTable(this);
+  late final $UserEntitysTable userEntitys = $UserEntitysTable(this);
+  late final $LicenseEntitysTable licenseEntitys = $LicenseEntitysTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [affiliatesEntitys, ratingsEntitys];
+      [affiliatesEntitys, ratingsEntitys, userEntitys, licenseEntitys];
 }

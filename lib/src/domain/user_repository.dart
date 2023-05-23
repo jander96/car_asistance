@@ -7,8 +7,9 @@ abstract class UserRepository {
   Future<AppUser?> accessWithGoogle();
   Future<void> logout();
   Future<void> restorePassword(String email);
-  Future<bool> saveDataUserInServer(AppUser user);
-  Future<bool> saveDataUserLocally(AppUser user);
+  Future<void> saveDataUserInServer(AppUser user);
+  Future<void> updateDataUserInServer(AppUser user);
+  Future<void> saveDataUserLocally(AppUser user);
   Future<void> storeUserSessionState(bool isSessionActive);
   Future<bool> verifyUserLog();
 }

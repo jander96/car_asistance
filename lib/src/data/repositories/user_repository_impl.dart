@@ -1,17 +1,25 @@
 import 'package:car_assistance/dependency_injection.dart';
+import 'package:car_assistance/src/data/api/network_datasource.dart';
+import 'package:car_assistance/src/data/database/user_local_datasource.dart';
 import 'package:car_assistance/src/data/services/models/user_mapper.dart';
+import 'package:car_assistance/src/data/services/models/user_service.dart';
 import 'package:car_assistance/src/domain/user_repository.dart';
 import '../../domain/model/user_model.dart';
+import '../database/model/mapper/user_mapper.dart';
 import '../services/auth_datasource.dart';
 import '../services/key_value_storage_datasource.dart';
 
 class UserRepositoryImp extends UserRepository {
   final AuthDataSource _authDataSource;
+  final NetworkDataSource _networkDataSource;
+  final UserLocalDataSource _userLocalDataSource;
   final KeyValueStorageDatasource _keyValueStorageDatasource;
   static const USER_SESSION_STATE = 'USER_SESSION_STATE';
 
   UserRepositoryImp()
       : _authDataSource = injector.get<AuthDataSource>(),
+        _networkDataSource = injector.get<NetworkDataSource>(),
+        _userLocalDataSource = injector.get<UserLocalDataSource>(),
         _keyValueStorageDatasource = injector.get<KeyValueStorageDatasource>();
 
   @override
@@ -57,15 +65,13 @@ class UserRepositoryImp extends UserRepository {
   }
 
   @override
-  Future<bool> saveDataUserInServer(AppUser user) {
-    // TODO: implement saveDataUserInServer
-    throw UnimplementedError();
+  Future<void> saveDataUserInServer(AppUser user) {
+    return _networkDataSource.addNewUser(UserNetwork.fromDomain(user));
   }
 
   @override
-  Future<bool> saveDataUserLocally(AppUser user) {
-    // TODO: implement saveDataUserLocally
-    throw UnimplementedError();
+  Future<void> saveDataUserLocally(AppUser user) {
+    return _userLocalDataSource.saveUser(userEntityFromDomain(user));
   }
 
   @override
@@ -77,5 +83,10 @@ class UserRepositoryImp extends UserRepository {
   @override
   Future<void> restorePassword(String email) {
     return _authDataSource.restorePassword(email);
+  }
+
+  @override
+  Future<void> updateDataUserInServer(AppUser user) {
+    return _networkDataSource.updateUser(UserNetwork.fromDomain(user));
   }
 }

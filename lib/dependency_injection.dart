@@ -2,12 +2,18 @@ import 'package:car_assistance/src/data/api/firestore_service.dart';
 import 'package:car_assistance/src/data/api/network_datasource.dart';
 import 'package:car_assistance/src/data/api/network_datasource_imp.dart';
 import 'package:car_assistance/src/data/database/daos/affiliate_dao.dart';
+import 'package:car_assistance/src/data/database/daos/license_dao.dart';
 import 'package:car_assistance/src/data/database/daos/rating_dao.dart';
+import 'package:car_assistance/src/data/database/daos/user_dao.dart';
 import 'package:car_assistance/src/data/database/drift_database.dart';
 import 'package:car_assistance/src/data/database/affiliate_local_datasource.dart';
 import 'package:car_assistance/src/data/database/affiliate_local_datasource_imp.dart';
+import 'package:car_assistance/src/data/database/license_local_datasource.dart';
+import 'package:car_assistance/src/data/database/license_local_datasource_impl.dart';
 import 'package:car_assistance/src/data/database/rating_local_datasource.dart';
 import 'package:car_assistance/src/data/database/rating_local_datasource_imp.dart';
+import 'package:car_assistance/src/data/database/user_local_datasource.dart';
+import 'package:car_assistance/src/data/database/user_local_datasource_impl.dart';
 import 'package:car_assistance/src/data/repositories/affiliate_repository_imp.dart';
 import 'package:car_assistance/src/data/repositories/location_repository_imp.dart';
 import 'package:car_assistance/src/data/repositories/rating_repository_imp.dart';
@@ -35,7 +41,6 @@ import 'package:get_it/get_it.dart';
 
 final injector = GetIt.instance;
 void inject() {
- 
   injector.registerSingleton<FirestoreService>(FirestoreService());
   injector.registerLazySingleton<LocationService>(() => LocationService());
   injector.registerSingleton<FirebaseAuthService>(FirebaseAuthService());
@@ -44,19 +49,26 @@ void inject() {
   injector.registerFactory<AffiliateLocalDataSource>(
       () => AffiliateLocalDataSourceImp());
   injector
+      .registerFactory<UserLocalDataSource>(() => UserLocalDatasourceImpl());
+  injector
+      .registerFactory<LicenseLocalDataSource>(() => LicenseLocalDatasourceImpl());
+  injector
       .registerFactory<RatingLocalDataSource>(() => RatingLocalDataSourceImp());
   injector.registerLazySingleton<AppDatabase>(() => AppDatabase());
   injector.registerFactory<AuthDataSource>(() => FirebaseAuthDatasource());
-  injector.registerSingleton<KeyValueStorageDatasource>( SharedPreferenceService());
+  injector
+      .registerSingleton<KeyValueStorageDatasource>(SharedPreferenceService());
 
   final db = injector.get<AppDatabase>();
   injector.registerLazySingleton<AffiliateDao>(() => AffiliateDao(db));
   injector.registerLazySingleton<RatingDao>(() => RatingDao(db));
+  injector.registerLazySingleton<UserDao>(() => UserDao(db));
+  injector.registerLazySingleton<LicenseDao>(() => LicenseDao(db));
 
   injector.registerFactory<AffiliateRepository>(() => AffiliateRepositoryImp());
   injector.registerFactory<RatingRepository>(() => RatingRepositoryImp());
   injector.registerFactory<LocationRepository>(() => LocationRepositoryImpl());
-  
+
   injector.registerFactory<UserRepository>(() => UserRepositoryImp());
 
   injector.registerFactory<WatchAllAffiliatesUsesCase>(
@@ -73,6 +85,6 @@ void inject() {
   injector.registerFactory<CreateAccountUseCase>(() => CreateAccountUseCase());
   injector.registerFactory<SingOutUseCase>(() => SingOutUseCase());
   injector.registerFactory<GetLogStateUseCase>(() => GetLogStateUseCase());
-  injector.registerFactory<RestorePasswordUseCase>(() => RestorePasswordUseCase());
-
+  injector
+      .registerFactory<RestorePasswordUseCase>(() => RestorePasswordUseCase());
 }

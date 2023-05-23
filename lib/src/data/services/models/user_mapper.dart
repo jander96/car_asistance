@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 extension UserExtension on User {
   UserNetwork toNetwork() {
     return UserNetwork(
-        id: uid,
+        uid: uid,
         displayName: displayName,
         email: email,
         emailVerified: emailVerified,
@@ -37,6 +37,7 @@ extension UserNetworkExtension on UserNetwork {
   AppUser toDomain() {
     return AppUser(
         id: id ?? "",
+        uid: uid ?? "",
         username: displayName ?? "",
         email: email ?? "",
         phoneNumber: phoneNumber ?? "",
