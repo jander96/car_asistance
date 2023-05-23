@@ -35,9 +35,8 @@ class _HomeView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CustomAppBar(
-                    userName: state.user?.username ?? "User",
-            
-                    userPhotoUrl: state.user?.photoURL ??  "https://th.bing.com/th/id/R.70539295fbd82cf866d02ccacaee6cba?rik=K%2f40F0IUYGEEHA&pid=ImgRaw&r=0",
+                    userName: state.user?.username,
+                    userPhotoUrl: state.user?.photoURL,
                     onSubmmit: (p0) {},
                     onStatePicked: (p0) {},
                     onAvatarTap: () {},

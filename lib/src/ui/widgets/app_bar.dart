@@ -4,8 +4,8 @@ import 'package:lottie/lottie.dart';
 import 'dropdown.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final String userName;
-  final String userPhotoUrl;
+  final String? userName;
+  final String? userPhotoUrl;
   final void Function(String) onSubmmit;
   final void Function(String) onStatePicked;
   final void Function() onCrowTap;
@@ -127,7 +127,7 @@ class _Gettings extends StatelessWidget {
     required this.textStyles,
   });
 
-  final String userName;
+  final String? userName;
   final TextTheme textStyles;
 
   @override
@@ -139,7 +139,7 @@ class _Gettings extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Hello $userName",
+              "Hello ${userName ?? 'User'}",
               style: textStyles.bodySmall,
             ),
             Text(
@@ -195,7 +195,7 @@ class _StateSelector extends StatelessWidget {
 
 class _Avatar extends StatelessWidget {
 
-  final String userPhotoUrl;
+  final String? userPhotoUrl;
   final void Function() onAvatarTap;
   const _Avatar(
       {required this.userPhotoUrl, required this.onAvatarTap, });
@@ -211,7 +211,8 @@ class _Avatar extends StatelessWidget {
         onTap: () => onAvatarTap,
         child: CircleAvatar(
           radius: 28.0,
-          foregroundImage: NetworkImage(userPhotoUrl),
+          foregroundImage: NetworkImage(
+            userPhotoUrl ?? "https://th.bing.com/th/id/R.70539295fbd82cf866d02ccacaee6cba?rik=K%2f40F0IUYGEEHA&pid=ImgRaw&r=0"),
         ),
       ),
     );
