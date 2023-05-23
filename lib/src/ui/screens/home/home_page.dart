@@ -35,14 +35,15 @@ class _HomeView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CustomAppBar(
-                    userName: "Jander",
-                    userPhotoUrl: "assets/images/jhon_wick.jpg",
+                    userName: state.user?.username ?? "User",
+            
+                    userPhotoUrl: state.user?.photoURL ??  "https://th.bing.com/th/id/R.70539295fbd82cf866d02ccacaee6cba?rik=K%2f40F0IUYGEEHA&pid=ImgRaw&r=0",
                     onSubmmit: (p0) {},
                     onStatePicked: (p0) {},
                     onAvatarTap: () {},
                     onCrowTap: () {},
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   SliderAffiliates(affiliate: state.affiliates),
@@ -51,7 +52,7 @@ class _HomeView extends StatelessWidget {
                       child: state.isLoading
                           ? const Center(child: CircularProgressIndicator())
                           : _listView(state.affiliates)),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   SizedBox(
@@ -59,7 +60,7 @@ class _HomeView extends StatelessWidget {
                       child: state.isLoading
                           ? const Center(child: CircularProgressIndicator())
                           : _listView(state.affiliates)),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   SizedBox(
@@ -67,7 +68,7 @@ class _HomeView extends StatelessWidget {
                       child: state.isLoading
                           ? const Center(child: CircularProgressIndicator())
                           : _listView(state.affiliates)),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   )
                 ],

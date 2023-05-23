@@ -211,7 +211,7 @@ class _Avatar extends StatelessWidget {
         onTap: () => onAvatarTap,
         child: CircleAvatar(
           radius: 28.0,
-          foregroundImage: AssetImage(userPhotoUrl),
+          foregroundImage: NetworkImage(userPhotoUrl),
         ),
       ),
     );

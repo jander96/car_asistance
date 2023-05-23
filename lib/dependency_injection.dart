@@ -38,6 +38,7 @@ import 'package:car_assistance/src/domain/usescases/get_affiliate_by_id.dart';
 import 'package:car_assistance/src/domain/usescases/get_end_of_free_period.dart';
 import 'package:car_assistance/src/domain/usescases/get_location_use_case.dart';
 import 'package:car_assistance/src/domain/usescases/get_log_state.dart';
+import 'package:car_assistance/src/domain/usescases/get_user.dart';
 import 'package:car_assistance/src/domain/usescases/login_user.dart';
 import 'package:car_assistance/src/domain/usescases/regist_license.dart';
 import 'package:car_assistance/src/domain/usescases/regist_user.dart';
@@ -100,4 +101,5 @@ void inject() {
   injector.registerFactory<RegistUserUseCase>(() => RegistUserUseCase());
   injector.registerFactory<GetEndOfFreePeriodUseCase>(() => GetEndOfFreePeriodUseCase());
   injector.registerFactory<RegistLicenseUseCase>(() => RegistLicenseUseCase());
+  injector.registerFactory<GetUserUseCase>(() => GetUserUseCase());
 }

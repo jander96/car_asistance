@@ -16,4 +16,14 @@ class RegistUserUseCase {
       return Future.error(e);
     }
   }
+
+  Future<void> loadUserFromSystem(AppUser user) async {
+    try {
+      final userFromServer = await _userRepository.getUserFromServer(user.uid);
+      await _userRepository.deleteUserInDb();
+      await _userRepository.saveDataUserLocally(userFromServer);
+    } on Exception catch (e) {
+      return Future.error(e);
+    }
+  }
 }

@@ -38,7 +38,7 @@ extension UserNetworkExtension on UserNetwork {
     return AppUser(
         id: id ?? "",
         uid: uid ?? "",
-        username: displayName ?? "",
+        username: displayName ?? "User",
         email: email ?? "",
         phoneNumber: phoneNumber ?? "",
         emailVerified: emailVerified ?? false,

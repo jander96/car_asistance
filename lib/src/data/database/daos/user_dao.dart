@@ -8,7 +8,8 @@ class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
   UserDao(AppDatabase db) : super(db);
 
   Future<UserEntity> getUser() {
-   return select(userEntitys).getSingle();
+   return select(userEntitys).get().then((list) => list.first);
+
   }
 
   Future<int> addUser(UserEntity user) {
