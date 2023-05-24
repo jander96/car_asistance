@@ -28,7 +28,7 @@ class CustomAppBar extends StatelessWidget {
 
     return Stack(alignment: Alignment.center, children: [
       _Back(size: size, colors: colors),
-      _Avatar(userPhotoUrl: userPhotoUrl,onAvatarTap: onAvatarTap),
+      _Avatar(userPhotoUrl: userPhotoUrl, onAvatarTap: onAvatarTap),
       _StateSelector(size: size, colors: colors),
       _Gettings(userName: userName, textStyles: textStyles),
       _SearchBar(colors: colors, size: size),
@@ -181,7 +181,7 @@ class _StateSelector extends StatelessWidget {
                 ],
                 borderRadius: BorderRadius.circular(4.0)),
             alignment: Alignment.center,
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Icon(Icons.edit_location_alt_outlined),
@@ -194,13 +194,12 @@ class _StateSelector extends StatelessWidget {
 }
 
 class _Avatar extends StatelessWidget {
-
   final String? userPhotoUrl;
   final void Function() onAvatarTap;
-  const _Avatar(
-      {required this.userPhotoUrl, required this.onAvatarTap, });
-
-  
+  const _Avatar({
+    required this.userPhotoUrl,
+    required this.onAvatarTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -209,10 +208,20 @@ class _Avatar extends StatelessWidget {
       top: 4,
       child: GestureDetector(
         onTap: () => onAvatarTap,
-        child: CircleAvatar(
-          radius: 28.0,
-          foregroundImage: NetworkImage(
-            userPhotoUrl ?? "https://th.bing.com/th/id/R.70539295fbd82cf866d02ccacaee6cba?rik=K%2f40F0IUYGEEHA&pid=ImgRaw&r=0"),
+        child: ClipOval(
+          child: SizedBox(
+            width: 56,
+            child: FadeInImage(
+              image: NetworkImage(userPhotoUrl ??
+                  "https://th.bing.com/th/id/R.70539295fbd82cf866d02ccacaee6cba?rik=K%2f40F0IUYGEEHA&pid=ImgRaw&r=0"),
+              fit: BoxFit.cover,
+              width: 56,
+              height: 56,
+              placeholder: const AssetImage('assets/images/profile_placeholder.png'),
+              imageErrorBuilder: (context, error, stackTrace) =>
+                  Image.asset('assets/images/profile_placeholder.png'),
+            ),
+          ),
         ),
       ),
     );
