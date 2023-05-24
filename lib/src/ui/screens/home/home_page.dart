@@ -24,6 +24,8 @@ class _HomeView extends StatelessWidget {
     final state = context.watch<HomeCubit>().state;
     final viewModel = context.read<HomeCubit>();
 
+    debugPrint('actualizando vista');
+
     return Scaffold(
         backgroundColor: Colors.blueGrey,
         body: CustomScrollView(
@@ -37,10 +39,17 @@ class _HomeView extends StatelessWidget {
                   CustomAppBar(
                     userName: state.user?.username,
                     userPhotoUrl: state.user?.photoURL,
+                    affiliates: state.affiliates,
                     onSubmmit: (p0) {},
-                    onStatePicked: (p0) {},
-                    onAvatarTap: () {},
-                    onCrowTap: () {},
+                    onStatePicked: (value) {
+                      debugPrint(value);
+                    },
+                    onAvatarTap: () {
+                      debugPrint('tap to avatar');
+                    },
+                    onCrowTap: () {
+                      debugPrint('tap to crown');
+                    },
                   ),
                   const SizedBox(
                     height: 16,

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../domain/model/affiliate_model.dart';
+import '../delegates/search_appbar_delegate.dart';
 import 'dropdown.dart';
 
 class CustomAppBar extends StatelessWidget {
+  final List<Affiliate> affiliates;
   final String? userName;
   final String? userPhotoUrl;
   final void Function(String) onSubmmit;
-  final void Function(String) onStatePicked;
+  final void Function(String?) onStatePicked;
   final void Function() onCrowTap;
   final void Function() onAvatarTap;
 
@@ -15,6 +18,7 @@ class CustomAppBar extends StatelessWidget {
       {super.key,
       required this.userName,
       required this.userPhotoUrl,
+      required this.affiliates,
       required this.onSubmmit,
       required this.onStatePicked,
       required this.onCrowTap,
@@ -29,9 +33,9 @@ class CustomAppBar extends StatelessWidget {
     return Stack(alignment: Alignment.center, children: [
       _Back(size: size, colors: colors),
       _Avatar(userPhotoUrl: userPhotoUrl, onAvatarTap: onAvatarTap),
-      _StateSelector(size: size, colors: colors),
+      _StateSelector(size: size, colors: colors, onStatePicked: onStatePicked),
       _Gettings(userName: userName, textStyles: textStyles),
-      _SearchBar(colors: colors, size: size),
+      _SearchBar(colors: colors, size: size, affiliates: affiliates),
       _Crown(onCrowTap: onCrowTap),
     ]);
   }
@@ -49,7 +53,7 @@ class _Crown extends StatelessWidget {
     return Positioned(
       right: 8,
       child: GestureDetector(
-        onTap: () => onCrowTap,
+        onTap: onCrowTap,
         child: Lottie.asset(height: 56, 'assets/jsons/ic_crown.json'),
       ),
     );
@@ -58,7 +62,6 @@ class _Crown extends StatelessWidget {
 
 class _Back extends StatelessWidget {
   const _Back({
-    super.key,
     required this.size,
     required this.colors,
   });
@@ -87,33 +90,49 @@ class _SearchBar extends StatelessWidget {
   const _SearchBar({
     required this.colors,
     required this.size,
+    required this.affiliates,
   });
 
   final ColorScheme colors;
   final Size size;
+  final List<Affiliate> affiliates;
 
   @override
   Widget build(BuildContext context) {
+    const boxShadow = [
+      BoxShadow(
+          color: Colors.black26, blurRadius: 2.0, offset: Offset(0.0, 2.0))
+    ];
+    var boxDecoration = BoxDecoration(
+        color: colors.secondaryContainer,
+        boxShadow: boxShadow,
+        borderRadius: BorderRadius.circular(4.0));
+
     return Positioned(
-      bottom: 16,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 64, right: 64),
+      bottom: 8,
+      child: GestureDetector(
+        onTap: () {
+          showSearch(
+              context: context,
+              delegate: SearchAffiliateDelegate(
+                affiliates: affiliates,
+              ));
+        },
         child: Container(
-          decoration: BoxDecoration(
-              color: colors.secondaryContainer,
-              boxShadow: const [
-                BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 2.0,
-                    spreadRadius: 3.0,
-                    offset: Offset(2.0, 0.0))
-              ],
-              borderRadius: BorderRadius.circular(4.0)),
+          decoration: boxDecoration,
           width: size.width * 0.60,
-          height: 36,
-          child: const TextField(
-            decoration: InputDecoration(
-                hintText: "Search", prefixIcon: Icon(Icons.search_outlined)),
+          height: 32,
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                Icon(Icons.search),
+                SizedBox(
+                  width: 8,
+                ),
+                Text('Search'),
+              ],
+            ),
           ),
         ),
       ),
@@ -140,11 +159,12 @@ class _Gettings extends StatelessWidget {
           children: [
             Text(
               "Hello ${userName ?? 'User'}",
-              style: textStyles.bodySmall,
+              style: textStyles.bodyMedium,
             ),
             Text(
               "Wellcome",
-              style: textStyles.headlineSmall,
+              style: textStyles.headlineSmall!
+                  .copyWith(fontWeight: FontWeight.bold),
             )
           ],
         ));
@@ -153,42 +173,39 @@ class _Gettings extends StatelessWidget {
 
 class _StateSelector extends StatelessWidget {
   const _StateSelector({
-    super.key,
     required this.size,
     required this.colors,
+    required this.onStatePicked,
   });
 
   final Size size;
   final ColorScheme colors;
+  final void Function(String?) onStatePicked;
 
   @override
   Widget build(BuildContext context) {
+    const boxShadow = BoxShadow(
+        color: Colors.black26, blurRadius: 2.0, offset: Offset(0.0, 2.0));
+
+    var boxDecoration = BoxDecoration(
+        color: colors.onPrimary,
+        boxShadow: const [boxShadow],
+        borderRadius: BorderRadius.circular(4.0));
     return Positioned(
-      top: 2,
-      child: Padding(
-          padding: const EdgeInsets.only(left: 64, right: 64, top: 16),
-          child: Container(
-            width: size.width * 0.60,
-            height: 36,
-            decoration: BoxDecoration(
-                color: colors.onPrimary,
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 2.0,
-                      spreadRadius: 3.0,
-                      offset: Offset(2.0, 0.0))
-                ],
-                borderRadius: BorderRadius.circular(4.0)),
-            alignment: Alignment.center,
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Icon(Icons.edit_location_alt_outlined),
-                CustomDropDown(),
-              ],
-            ),
-          )),
+      top: 16,
+      child: Container(
+        height: 32,
+        width: size.width * 0.6,
+        decoration: boxDecoration,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const Icon(Icons.edit_location_alt_outlined),
+            CustomDropDown(
+                onTap: (value) => onStatePicked(value), colors: colors),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -207,7 +224,7 @@ class _Avatar extends StatelessWidget {
       right: 8.0,
       top: 4,
       child: GestureDetector(
-        onTap: () => onAvatarTap,
+        onTap: onAvatarTap,
         child: ClipOval(
           child: SizedBox(
             width: 56,
@@ -217,7 +234,8 @@ class _Avatar extends StatelessWidget {
               fit: BoxFit.cover,
               width: 56,
               height: 56,
-              placeholder: const AssetImage('assets/images/profile_placeholder.png'),
+              placeholder:
+                  const AssetImage('assets/images/profile_placeholder.png'),
               imageErrorBuilder: (context, error, stackTrace) =>
                   Image.asset('assets/images/profile_placeholder.png'),
             ),

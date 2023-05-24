@@ -55,35 +55,47 @@ List<String> _states = [
 ];
 
 class CustomDropDown extends StatefulWidget {
-  const CustomDropDown({super.key});
+  final void Function(String?) onTap;
+  final ColorScheme colors;
+  const CustomDropDown({super.key, required this.onTap, required this.colors});
 
   @override
   State<CustomDropDown> createState() {
-    
-    return _CustomDropDownState();
+    // ignore: no_logic_in_create_state
+    return _CustomDropDownState(onTap, colors);
   }
 }
 
 class _CustomDropDownState extends State<CustomDropDown> {
   String _selectedState = "Florida";
+  final void Function(String?) onTap;
+  final ColorScheme colors;
+
+  _CustomDropDownState(this.onTap, this.colors);
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
+      underline: null,
+      elevation: 4,
+      borderRadius: BorderRadius.circular(4),
+      isDense: true,
+      dropdownColor: colors.onPrimary,
       icon: const Icon(Icons.keyboard_arrow_down_outlined),
       value: _selectedState,
       items: _states.map((String state) {
         return DropdownMenuItem<String>(
-         
+          alignment: Alignment.centerLeft,
           value: state,
           child: Column(
             children: [
               FadeIn(child: Text(state)),
-              
             ],
           ),
         );
       }).toList(),
       onChanged: (value) {
+        onTap(value);
+
         setState(() {
           if (value != null) {
             _selectedState = value;
