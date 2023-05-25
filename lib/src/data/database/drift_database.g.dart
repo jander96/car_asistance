@@ -1547,6 +1547,157 @@ class LicenseEntitysCompanion extends UpdateCompanion<LicenseEntity> {
   }
 }
 
+class $FavoritesTable extends Favorites
+    with TableInfo<$FavoritesTable, Favorite> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FavoritesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _affiliateIdMeta =
+      const VerificationMeta('affiliateId');
+  @override
+  late final GeneratedColumn<String> affiliateId = GeneratedColumn<String>(
+      'affiliate_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [affiliateId];
+  @override
+  String get aliasedName => _alias ?? 'favorites';
+  @override
+  String get actualTableName => 'favorites';
+  @override
+  VerificationContext validateIntegrity(Insertable<Favorite> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('affiliate_id')) {
+      context.handle(
+          _affiliateIdMeta,
+          affiliateId.isAcceptableOrUnknown(
+              data['affiliate_id']!, _affiliateIdMeta));
+    } else if (isInserting) {
+      context.missing(_affiliateIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  Favorite map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Favorite(
+      affiliateId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}affiliate_id'])!,
+    );
+  }
+
+  @override
+  $FavoritesTable createAlias(String alias) {
+    return $FavoritesTable(attachedDatabase, alias);
+  }
+}
+
+class Favorite extends DataClass implements Insertable<Favorite> {
+  final String affiliateId;
+  const Favorite({required this.affiliateId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['affiliate_id'] = Variable<String>(affiliateId);
+    return map;
+  }
+
+  FavoritesCompanion toCompanion(bool nullToAbsent) {
+    return FavoritesCompanion(
+      affiliateId: Value(affiliateId),
+    );
+  }
+
+  factory Favorite.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Favorite(
+      affiliateId: serializer.fromJson<String>(json['affiliateId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'affiliateId': serializer.toJson<String>(affiliateId),
+    };
+  }
+
+  Favorite copyWith({String? affiliateId}) => Favorite(
+        affiliateId: affiliateId ?? this.affiliateId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Favorite(')
+          ..write('affiliateId: $affiliateId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => affiliateId.hashCode;
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Favorite && other.affiliateId == this.affiliateId);
+}
+
+class FavoritesCompanion extends UpdateCompanion<Favorite> {
+  final Value<String> affiliateId;
+  final Value<int> rowid;
+  const FavoritesCompanion({
+    this.affiliateId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  FavoritesCompanion.insert({
+    required String affiliateId,
+    this.rowid = const Value.absent(),
+  }) : affiliateId = Value(affiliateId);
+  static Insertable<Favorite> custom({
+    Expression<String>? affiliateId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (affiliateId != null) 'affiliate_id': affiliateId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  FavoritesCompanion copyWith({Value<String>? affiliateId, Value<int>? rowid}) {
+    return FavoritesCompanion(
+      affiliateId: affiliateId ?? this.affiliateId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (affiliateId.present) {
+      map['affiliate_id'] = Variable<String>(affiliateId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FavoritesCompanion(')
+          ..write('affiliateId: $affiliateId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $AffiliatesEntitysTable affiliatesEntitys =
@@ -1554,10 +1705,16 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $RatingsEntitysTable ratingsEntitys = $RatingsEntitysTable(this);
   late final $UserEntitysTable userEntitys = $UserEntitysTable(this);
   late final $LicenseEntitysTable licenseEntitys = $LicenseEntitysTable(this);
+  late final $FavoritesTable favorites = $FavoritesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [affiliatesEntitys, ratingsEntitys, userEntitys, licenseEntitys];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        affiliatesEntitys,
+        ratingsEntitys,
+        userEntitys,
+        licenseEntitys,
+        favorites
+      ];
 }

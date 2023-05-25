@@ -1,4 +1,4 @@
-import 'model/affiliate_model.dart';
+import '../model/affiliate_model.dart';
 
 abstract class AffiliateRepository {
   Stream<List<Affiliate>> watchAffiliates();

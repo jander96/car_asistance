@@ -1,7 +1,7 @@
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/data/database/daos/affiliate_dao.dart';
 import 'package:car_assistance/src/data/database/drift_database.dart';
-import 'package:car_assistance/src/data/database/affiliate_local_datasource.dart';
+import 'package:car_assistance/src/data/database/datasource/affiliate_local_datasource.dart';
 
 class AffiliateLocalDataSourceImp extends AffiliateLocalDataSource {
   final AffiliateDao _affiliateDao;

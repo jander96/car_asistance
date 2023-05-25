@@ -1,8 +1,8 @@
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/data/api/model/api_rating_model.dart';
-import 'package:car_assistance/src/data/database/rating_local_datasource.dart';
+import 'package:car_assistance/src/data/database/datasource/rating_local_datasource.dart';
 import 'package:car_assistance/src/domain/model/rating_model.dart';
-import 'package:car_assistance/src/domain/rating_repository.dart';
+import 'package:car_assistance/src/domain/repositories/rating_repository.dart';
 
 import '../api/network_datasource.dart';
 import '../database/model/mapper/rating_mapper.dart';

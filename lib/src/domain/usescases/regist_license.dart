@@ -1,4 +1,4 @@
-import 'package:car_assistance/src/domain/license_repository.dart';
+import 'package:car_assistance/src/domain/repositories/license_repository.dart';
 
 import 'package:car_assistance/src/domain/model/user_model.dart';
 

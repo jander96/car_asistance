@@ -1,22 +1,44 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/model/affiliate_model.dart';
+import 'bottom_sheet_view_model.dart';
 import 'custom_bottom_sheet.dart';
+
 
 class CustomCard extends StatelessWidget {
   final Affiliate affiliate;
-  
 
-  const CustomCard({super.key, required this.affiliate});
+  CustomCard({super.key, required this.affiliate});
 
   @override
   Widget build(BuildContext context) {
     final textStyles = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
+    return BlocProvider(
+        create: (context) => SheetViewModel(affiliate),
+        child: _CardView(
+            colors: colors, affiliate: affiliate, textStyles: textStyles));
+  }
+}
+
+class _CardView extends StatelessWidget {
+  const _CardView({
+    required this.colors,
+    required this.affiliate,
+    required this.textStyles,
+  });
+
+  final ColorScheme colors;
+  final Affiliate affiliate;
+  final TextTheme textStyles;
+
+  @override
+  Widget build(BuildContext context) {
+    final state = context.watch<SheetViewModel>().state;
     return Container(
-width: 150,
+      width: 150,
       decoration: BoxDecoration(
           boxShadow: const [BoxShadow(blurRadius: 5, offset: Offset(0, 2))],
           borderRadius: BorderRadius.circular(4),
@@ -84,7 +106,8 @@ width: 150,
                       style: textStyles.bodyMedium
                           ?.copyWith(color: Colors.yellow.shade800)),
                   const Spacer(),
-                  const Icon(Icons.favorite_border),
+                    if(state.isFavorite) const Icon(Icons.favorite,color: Colors.red,),
+                    if(!state.isFavorite) const Icon(Icons.favorite_border)
                 ],
               ),
             )
@@ -93,14 +116,14 @@ width: 150,
       ),
     );
   }
-  _openBottomSheet(BuildContext context,Affiliate affiliate) {
-     showBottomSheet(
 
+  _openBottomSheet(BuildContext context, Affiliate affiliate) {
+    showBottomSheet(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-            )),
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        )),
         context: context,
         builder: (context) => CustomBottomSheet(
               affiliate: affiliate,
