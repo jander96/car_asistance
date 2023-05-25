@@ -22,7 +22,7 @@ class HomeCubit extends Cubit<HomeViewState> {
   }
 
   loadAffiliates() {
-       _subscription =
+    _subscription =
         _watchAffiliates.watchAffiliates().distinct().listen((affiliates) {
       emit(state.copyWith(affiliates: affiliates, isLoading: false));
     });
@@ -32,6 +32,14 @@ class HomeCubit extends Cubit<HomeViewState> {
     _getUserUseCase.getUser().then((user) {
       emit(state.copyWith(user: user, isLoading: false));
     });
+  }
+
+  filter(String value) {
+    final filtredAffiliates = state.affiliates
+        .where((affiliate) => affiliate.state == value)
+        .toList();
+
+    emit(state.copyWith(filtredAffiliates: filtredAffiliates,stateSelected: value));
   }
 
   @override

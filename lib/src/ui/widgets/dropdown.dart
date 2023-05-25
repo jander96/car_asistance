@@ -67,7 +67,7 @@ class CustomDropDown extends StatefulWidget {
 }
 
 class _CustomDropDownState extends State<CustomDropDown> {
-  String _selectedState = "Florida";
+  String? _selectedState;
   final void Function(String?) onTap;
   final ColorScheme colors;
 
@@ -75,6 +75,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
+      hint: const Text('Select state'),
       underline: null,
       elevation: 4,
       borderRadius: BorderRadius.circular(4),

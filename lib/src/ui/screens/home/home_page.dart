@@ -22,57 +22,105 @@ class _HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HomeCubit>().state;
-    // final viewModel = context.read<HomeCubit>();
+    final textStyles = Theme.of(context).textTheme;
+    final viewModel = context.read<HomeCubit>();
     final affiliates = state.affiliates;
-
-    debugPrint('actualizando vista');
 
     return Scaffold(
         backgroundColor: Colors.blueGrey,
-        body: state.isLoading ? const Center(child: CircularProgressIndicator()): CustomScrollView(
-          slivers: [
-            SliverList(
-                delegate: SliverChildBuilderDelegate(
-              childCount: 1,
-              (context, index) => Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CustomAppBar(
-                    userName: state.user?.username,
-                    userPhotoUrl: state.user?.photoURL,
-                    affiliates: affiliates,
-                    onSubmmit: (p0) {},
-                    onStatePicked: (value) {
-                      debugPrint(value);
-                    },
-                    onAvatarTap: () {
-                      debugPrint('tap to avatar');
-                    },
-                    onCrowTap: () {
-                      debugPrint('tap to crown');
-                    },
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  SliderAffiliates(affiliate: affiliates),
-                  SizedBox(height: 220, child: _listView(affiliates)),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  SizedBox(height: 220, child: _listView(affiliates)),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  SizedBox(height: 220, child: _listView(affiliates)),
-                  const SizedBox(
-                    height: 16,
-                  )
+        body: state.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : CustomScrollView(
+                slivers: [
+                  SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                    childCount: 1,
+                    (context, index) => Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomAppBar(
+                          userName: state.user?.username,
+                          userPhotoUrl: state.user?.photoURL,
+                          affiliates: affiliates,
+                          onSubmmit: (p0) {},
+                          onStatePicked: (value) {
+                            if (value != null) {
+                              viewModel.filter(value);
+                              
+                            }
+                          },
+                          onAvatarTap: () {
+                            debugPrint('tap to avatar');
+                          },
+                          onCrowTap: () {
+                            debugPrint('tap to crown');
+                          },
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        SliderAffiliates(affiliate: affiliates),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 24.0, bottom: 2),
+                          child: Text(
+                            'All',
+                            style: textStyles.displaySmall!
+                                .copyWith(decoration: TextDecoration.underline),
+                          ),
+                        ),
+                        SizedBox(height: 220, child: _listView(affiliates)),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 24.0, bottom: 2),
+                          child: Row(
+                            children: [
+                              Text('Filtred by state',
+                                  style: textStyles.displaySmall!.copyWith(
+                                      decoration: TextDecoration.underline)),
+
+                                      Spacer(),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 24.0),
+                                    child: ElevatedButton(
+                                      
+                                      onPressed: (){},
+                                       child: state.stateSelected != null ? Text(state.stateSelected!): const Text('State no selected')),
+                                  )
+                            ],
+                          ),
+                        ),
+                        state.filtredAffiliates.isEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 32.0, bottom: 2),
+                                child:
+                                    Text("No service avalible"),
+                              )
+                            : SizedBox(
+                                height: 220,
+                                child: _listView(state.filtredAffiliates)),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 24.0, bottom: 2),
+                          child: Text('Favorites',
+                              style: textStyles.displaySmall!.copyWith(
+                                  decoration: TextDecoration.underline)),
+                        ),
+                        SizedBox(height: 220, child: _listView(affiliates)),
+                        const SizedBox(
+                          height: 16,
+                        )
+                      ],
+                    ),
+                  ))
                 ],
-              ),
-            ))
-          ],
-        ));
+              ));
   }
 
   Widget _listView(List<Affiliate> affiliates) {
