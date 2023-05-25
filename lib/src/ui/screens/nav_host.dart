@@ -1,5 +1,3 @@
-import 'package:car_assistance/dependency_injection.dart';
-import 'package:car_assistance/src/domain/usescases/dowload_data_server.dart';
 import 'package:car_assistance/src/ui/screens/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'home/home_page.dart';
@@ -15,16 +13,16 @@ class NavHost extends StatefulWidget {
 class _NavHostState extends State<NavHost> {
   var selectedIndex = 0;
   final bottomNavigationOptions = <int, Widget>{
-    0: HomePage(),
-    1: MapPage(),
-    2: ProfilePage()
+    0: const HomePage(),
+    1: const MapPage(),
+    2: const ProfilePage()
   };
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
       body:
-          SafeArea(child: bottomNavigationOptions[selectedIndex] ?? HomePage()),
+          SafeArea(child: bottomNavigationOptions[selectedIndex] ?? const HomePage()),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
           selectedIndex = value;

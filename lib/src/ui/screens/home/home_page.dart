@@ -22,14 +22,14 @@ class _HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<HomeCubit>().state;
-    final viewModel = context.read<HomeCubit>();
+    // final viewModel = context.read<HomeCubit>();
     final affiliates = state.affiliates;
 
     debugPrint('actualizando vista');
 
     return Scaffold(
         backgroundColor: Colors.blueGrey,
-        body: state.isLoading ? Center(child: CircularProgressIndicator()): CustomScrollView(
+        body: state.isLoading ? const Center(child: CircularProgressIndicator()): CustomScrollView(
           slivers: [
             SliverList(
                 delegate: SliverChildBuilderDelegate(
