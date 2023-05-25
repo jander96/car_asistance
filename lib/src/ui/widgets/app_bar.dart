@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../domain/model/affiliate_model.dart';
 import '../delegates/search_appbar_delegate.dart';
+import 'custom_bottom_sheet.dart';
 import 'dropdown.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -116,7 +117,9 @@ class _SearchBar extends StatelessWidget {
               context: context,
               delegate: SearchAffiliateDelegate(
                 affiliates: affiliates,
-              ));
+              )).then((affiliate) {
+            if (affiliate != null) _openBottomSheet(context, affiliate);
+          });
         },
         child: Container(
           decoration: boxDecoration,
@@ -137,6 +140,19 @@ class _SearchBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _openBottomSheet(BuildContext context, Affiliate affiliate) {
+    showBottomSheet(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        )),
+        context: context,
+        builder: (context) => CustomBottomSheet(
+              affiliate: affiliate,
+            ));
   }
 }
 

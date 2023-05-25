@@ -26,7 +26,7 @@ class SearchAffiliateDelegate extends SearchDelegate<Affiliate?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final listOfAffiliates = affiliates
+   final listOfAffiliates = affiliates
         .where((affiliate) => affiliate.name.contains(query))
         .toList();
     return ListView.builder(
@@ -34,9 +34,14 @@ class SearchAffiliateDelegate extends SearchDelegate<Affiliate?> {
         itemBuilder: (context, index) {
           final affiliate = listOfAffiliates[index];
 
-          return ListTile(
-            title: Text(affiliate.name),
-          );
+          return GestureDetector(
+              child: ListTile(
+                title: Text(affiliate.name),
+                subtitle: Text(affiliate.address),
+              ),
+              onTap: () {
+                close(context, affiliate);
+              });
         });
   }
 
@@ -50,10 +55,14 @@ class SearchAffiliateDelegate extends SearchDelegate<Affiliate?> {
         itemBuilder: (context, index) {
           final affiliate = listOfAffiliates[index];
 
-          return ListTile(
-            title: Text(affiliate.name),
-            subtitle: Text(affiliate.address),
-          );
+          return GestureDetector(
+              child: ListTile(
+                title: Text(affiliate.name),
+                subtitle: Text(affiliate.address),
+              ),
+              onTap: () {
+                close(context, affiliate);
+              });
         });
   }
 }

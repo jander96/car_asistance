@@ -23,12 +23,13 @@ class _HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<HomeCubit>().state;
     final viewModel = context.read<HomeCubit>();
+    final affiliates = state.affiliates;
 
     debugPrint('actualizando vista');
 
     return Scaffold(
         backgroundColor: Colors.blueGrey,
-        body: CustomScrollView(
+        body: state.isLoading ? Center(child: CircularProgressIndicator()): CustomScrollView(
           slivers: [
             SliverList(
                 delegate: SliverChildBuilderDelegate(
@@ -39,7 +40,7 @@ class _HomeView extends StatelessWidget {
                   CustomAppBar(
                     userName: state.user?.username,
                     userPhotoUrl: state.user?.photoURL,
-                    affiliates: state.affiliates,
+                    affiliates: affiliates,
                     onSubmmit: (p0) {},
                     onStatePicked: (value) {
                       debugPrint(value);
@@ -54,28 +55,16 @@ class _HomeView extends StatelessWidget {
                   const SizedBox(
                     height: 16,
                   ),
-                  SliderAffiliates(affiliate: state.affiliates),
-                  SizedBox(
-                      height: 220,
-                      child: state.isLoading
-                          ? const Center(child: CircularProgressIndicator())
-                          : _listView(state.affiliates)),
+                  SliderAffiliates(affiliate: affiliates),
+                  SizedBox(height: 220, child: _listView(affiliates)),
                   const SizedBox(
                     height: 16,
                   ),
-                  SizedBox(
-                      height: 220,
-                      child: state.isLoading
-                          ? const Center(child: CircularProgressIndicator())
-                          : _listView(state.affiliates)),
+                  SizedBox(height: 220, child: _listView(affiliates)),
                   const SizedBox(
                     height: 16,
                   ),
-                  SizedBox(
-                      height: 220,
-                      child: state.isLoading
-                          ? const Center(child: CircularProgressIndicator())
-                          : _listView(state.affiliates)),
+                  SizedBox(height: 220, child: _listView(affiliates)),
                   const SizedBox(
                     height: 16,
                   )

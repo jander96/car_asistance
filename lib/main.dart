@@ -1,3 +1,4 @@
+import 'package:car_assistance/src/domain/usescases/dowload_data_server.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -14,6 +15,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   inject();
+  final downloader = injector.get<DowloadDataServerUseCase>();
+    downloader.downloadData();
   runApp(const MyApp());
 }
 

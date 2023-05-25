@@ -21,8 +21,7 @@ class _NavHostState extends State<NavHost> {
   };
   @override
   Widget build(BuildContext context) {
-    final downloader = injector.get<DowloadDataServerUseCase>();
-    downloader.watchAffiliates();
+    
     return Scaffold(
       body:
           SafeArea(child: bottomNavigationOptions[selectedIndex] ?? HomePage()),

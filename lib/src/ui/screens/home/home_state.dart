@@ -8,7 +8,7 @@ class HomeViewState extends Equatable {
   final List<Affiliate> affiliates;
   final AppUser? user;
 
-  const HomeViewState({this.affiliates = const [], this.isLoading = false, this.user});
+  const HomeViewState({this.affiliates = const [], this.isLoading = true, this.user});
 
   copyWith({
     List<Affiliate>? affiliates,

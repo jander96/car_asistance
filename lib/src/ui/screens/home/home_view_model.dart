@@ -22,16 +22,13 @@ class HomeCubit extends Cubit<HomeViewState> {
   }
 
   loadAffiliates() {
-    emit(state.copyWith(isLoading: true));
-    _subscription =
+       _subscription =
         _watchAffiliates.watchAffiliates().distinct().listen((affiliates) {
       emit(state.copyWith(affiliates: affiliates, isLoading: false));
     });
   }
 
   loadUser() {
-    emit(state.copyWith(isLoading: true));
-
     _getUserUseCase.getUser().then((user) {
       emit(state.copyWith(user: user, isLoading: false));
     });
