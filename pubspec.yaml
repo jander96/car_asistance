@@ -56,7 +56,6 @@ dependencies:
   card_swiper: ^2.0.4
   animate_do: ^3.0.2
   lottie: ^2.3.2
-  cached_network_image: ^3.2.3
 
   #Maps
   google_maps_flutter: ^2.2.6
