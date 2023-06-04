@@ -91,19 +91,19 @@ class _ActionWidget extends StatelessWidget {
           color: colors.primary,
             borderRadius: BorderRadius.circular(4),
             ),
-            child: Row(children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Flexible(child: Text('Start Your Maintenance',style: textStyles.bodyMedium!.copyWith(fontWeight: FontWeight.bold))),
-                    Flexible(child: Text('All kind of Arrangements', style: textStyles.bodySmall,)),
-              
-                    ],),
-              ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: GestureDetector(
-                      onTap: ()=> _openBottomSheet(context,affiliate),
+            child: GestureDetector(
+              onTap: ()=> _openBottomSheet(context,affiliate),
+              child: Row(children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Flexible(child: Text('Start Your Maintenance',style: textStyles.bodyMedium!.copyWith(fontWeight: FontWeight.bold))),
+                      Flexible(child: Text('All kind of Arrangements', style: textStyles.bodySmall,)),
+                
+                      ],),
+                ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
@@ -111,22 +111,23 @@ class _ActionWidget extends StatelessWidget {
                         ),
                         child: const Icon(Icons.arrow_forward)
                         ),
-                    ),
-                  )
-            ]),
+                    )
+              ]),
+            ),
       ),
     );
     
   }
 
-  _openBottomSheet(BuildContext context,Affiliate affiliate) {
-     showBottomSheet(
-
+ Future<void> _openBottomSheet(BuildContext context, Affiliate affiliate) {
+    return showModalBottomSheet(
+        isScrollControlled: true,
+        showDragHandle: true,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-            )),
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        )),
         context: context,
         builder: (context) => CustomBottomSheet(
               affiliate: affiliate,

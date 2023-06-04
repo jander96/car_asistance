@@ -127,6 +127,7 @@ class _CardView extends StatelessWidget {
   Future<void> _openBottomSheet(BuildContext context, Affiliate affiliate) {
     return showModalBottomSheet(
         isScrollControlled: true,
+        showDragHandle: true,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
