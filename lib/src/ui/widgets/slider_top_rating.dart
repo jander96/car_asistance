@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
 import '../../domain/model/affiliate_model.dart';
+import '../../utils/bottom_shower.dart';
 import 'custom_bottom_sheet.dart';
 
 class SliderAffiliates extends StatelessWidget {
@@ -97,7 +98,7 @@ class _ActionWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             ),
             child: GestureDetector(
-              onTap: ()=> _openBottomSheet(context,affiliate),
+              onTap: ()=> openBottomSheet(context,affiliate),
               child: Row(children: [
                 Expanded(
                   child: Column(
@@ -124,18 +125,4 @@ class _ActionWidget extends StatelessWidget {
     
   }
 
- Future<void> _openBottomSheet(BuildContext context, Affiliate affiliate) {
-    return showModalBottomSheet(
-        isScrollControlled: true,
-        showDragHandle: true,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
-        )),
-        context: context,
-        builder: (context) => CustomBottomSheet(
-              affiliate: affiliate,
-            ));
-  }
 }

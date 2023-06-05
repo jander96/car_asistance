@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/model/affiliate_model.dart';
+import '../../utils/bottom_shower.dart';
 import 'bottom_sheet_view_model.dart';
 import 'custom_bottom_sheet.dart';
 
@@ -38,7 +39,7 @@ class _CardView extends StatelessWidget {
     final state = context.watch<SheetViewModel>().state;
     final viewModel = context.read<SheetViewModel>();
     return GestureDetector(
-      onTap: () => _openBottomSheet(context, affiliate).then((_) {
+      onTap: () => openBottomSheet(context, affiliate).then((_) {
         viewModel.isFavorite(affiliate.id);
       }),
       child: Container(
@@ -129,18 +130,5 @@ class _CardView extends StatelessWidget {
     );
   }
 
-  Future<void> _openBottomSheet(BuildContext context, Affiliate affiliate) {
-    return showModalBottomSheet(
-        isScrollControlled: true,
-        showDragHandle: true,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
-        )),
-        context: context,
-        builder: (context) => CustomBottomSheet(
-              affiliate: affiliate,
-            ));
-  }
+  
 }

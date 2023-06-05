@@ -25,6 +25,7 @@ class _HomeView extends StatelessWidget {
     final textStyles = Theme.of(context).textTheme;
     final viewModel = context.read<HomeCubit>();
     final affiliates = state.affiliates;
+    
 
     return Scaffold(
         backgroundColor: Colors.blueGrey,
@@ -47,7 +48,6 @@ class _HomeView extends StatelessWidget {
                           onStatePicked: (value) {
                             if (value != null) {
                               viewModel.filter(value);
-                              
                             }
                           },
                           onAvatarTap: () {
@@ -80,16 +80,15 @@ class _HomeView extends StatelessWidget {
                               Text('Filtred by state',
                                   style: textStyles.displaySmall!.copyWith(
                                       decoration: TextDecoration.underline)),
-
-                                      Spacer(),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 24.0),
-                                    child: ElevatedButton(
-                                      
-                                      onPressed: (){},
-                                       child: state.stateSelected != null ? Text(state.stateSelected!): const Text('State no selected')),
-                                  )
+                              Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 24.0),
+                                child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: state.stateSelected != null
+                                        ? Text(state.stateSelected!)
+                                        : const Text('State no selected')),
+                              )
                             ],
                           ),
                         ),
@@ -97,8 +96,7 @@ class _HomeView extends StatelessWidget {
                             ? Padding(
                                 padding: const EdgeInsets.only(
                                     left: 32.0, bottom: 2),
-                                child:
-                                    Text("No service avalible"),
+                                child: Text("No service avalible"),
                               )
                             : SizedBox(
                                 height: 220,
@@ -112,7 +110,8 @@ class _HomeView extends StatelessWidget {
                               style: textStyles.displaySmall!.copyWith(
                                   decoration: TextDecoration.underline)),
                         ),
-                        SizedBox(height: 220, child: _listView(affiliates)),
+                        SizedBox(
+                            height: 220, child: _listView(state.favorites)),
                         const SizedBox(
                           height: 16,
                         )
