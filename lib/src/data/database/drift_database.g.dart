@@ -19,6 +19,12 @@ class $AffiliatesEntitysTable extends AffiliatesEntitys
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _imageUrlMeta =
+      const VerificationMeta('imageUrl');
+  @override
+  late final GeneratedColumn<String> imageUrl = GeneratedColumn<String>(
+      'image_url', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _openTimeMeta =
       const VerificationMeta('openTime');
   @override
@@ -85,6 +91,7 @@ class $AffiliatesEntitysTable extends AffiliatesEntitys
   List<GeneratedColumn> get $columns => [
         id,
         name,
+        imageUrl,
         openTime,
         closeTime,
         isFullTimeService,
@@ -115,6 +122,12 @@ class $AffiliatesEntitysTable extends AffiliatesEntitys
           _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
+    }
+    if (data.containsKey('image_url')) {
+      context.handle(_imageUrlMeta,
+          imageUrl.isAcceptableOrUnknown(data['image_url']!, _imageUrlMeta));
+    } else if (isInserting) {
+      context.missing(_imageUrlMeta);
     }
     if (data.containsKey('open_time')) {
       context.handle(_openTimeMeta,
@@ -189,6 +202,8 @@ class $AffiliatesEntitysTable extends AffiliatesEntitys
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      imageUrl: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image_url'])!,
       openTime: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}open_time']),
       closeTime: attachedDatabase.typeMapping
@@ -222,6 +237,7 @@ class AffiliatesEntity extends DataClass
     implements Insertable<AffiliatesEntity> {
   final String id;
   final String name;
+  final String imageUrl;
   final String? openTime;
   final String? closeTime;
   final bool isFullTimeService;
@@ -235,6 +251,7 @@ class AffiliatesEntity extends DataClass
   const AffiliatesEntity(
       {required this.id,
       required this.name,
+      required this.imageUrl,
       this.openTime,
       this.closeTime,
       required this.isFullTimeService,
@@ -250,6 +267,7 @@ class AffiliatesEntity extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['name'] = Variable<String>(name);
+    map['image_url'] = Variable<String>(imageUrl);
     if (!nullToAbsent || openTime != null) {
       map['open_time'] = Variable<String>(openTime);
     }
@@ -271,6 +289,7 @@ class AffiliatesEntity extends DataClass
     return AffiliatesEntitysCompanion(
       id: Value(id),
       name: Value(name),
+      imageUrl: Value(imageUrl),
       openTime: openTime == null && nullToAbsent
           ? const Value.absent()
           : Value(openTime),
@@ -294,6 +313,7 @@ class AffiliatesEntity extends DataClass
     return AffiliatesEntity(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
+      imageUrl: serializer.fromJson<String>(json['imageUrl']),
       openTime: serializer.fromJson<String?>(json['openTime']),
       closeTime: serializer.fromJson<String?>(json['closeTime']),
       isFullTimeService: serializer.fromJson<bool>(json['isFullTimeService']),
@@ -312,6 +332,7 @@ class AffiliatesEntity extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
+      'imageUrl': serializer.toJson<String>(imageUrl),
       'openTime': serializer.toJson<String?>(openTime),
       'closeTime': serializer.toJson<String?>(closeTime),
       'isFullTimeService': serializer.toJson<bool>(isFullTimeService),
@@ -328,6 +349,7 @@ class AffiliatesEntity extends DataClass
   AffiliatesEntity copyWith(
           {String? id,
           String? name,
+          String? imageUrl,
           Value<String?> openTime = const Value.absent(),
           Value<String?> closeTime = const Value.absent(),
           bool? isFullTimeService,
@@ -341,6 +363,7 @@ class AffiliatesEntity extends DataClass
       AffiliatesEntity(
         id: id ?? this.id,
         name: name ?? this.name,
+        imageUrl: imageUrl ?? this.imageUrl,
         openTime: openTime.present ? openTime.value : this.openTime,
         closeTime: closeTime.present ? closeTime.value : this.closeTime,
         isFullTimeService: isFullTimeService ?? this.isFullTimeService,
@@ -357,6 +380,7 @@ class AffiliatesEntity extends DataClass
     return (StringBuffer('AffiliatesEntity(')
           ..write('id: $id, ')
           ..write('name: $name, ')
+          ..write('imageUrl: $imageUrl, ')
           ..write('openTime: $openTime, ')
           ..write('closeTime: $closeTime, ')
           ..write('isFullTimeService: $isFullTimeService, ')
@@ -375,6 +399,7 @@ class AffiliatesEntity extends DataClass
   int get hashCode => Object.hash(
       id,
       name,
+      imageUrl,
       openTime,
       closeTime,
       isFullTimeService,
@@ -391,6 +416,7 @@ class AffiliatesEntity extends DataClass
       (other is AffiliatesEntity &&
           other.id == this.id &&
           other.name == this.name &&
+          other.imageUrl == this.imageUrl &&
           other.openTime == this.openTime &&
           other.closeTime == this.closeTime &&
           other.isFullTimeService == this.isFullTimeService &&
@@ -406,6 +432,7 @@ class AffiliatesEntity extends DataClass
 class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
   final Value<String> id;
   final Value<String> name;
+  final Value<String> imageUrl;
   final Value<String?> openTime;
   final Value<String?> closeTime;
   final Value<bool> isFullTimeService;
@@ -420,6 +447,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
   const AffiliatesEntitysCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
+    this.imageUrl = const Value.absent(),
     this.openTime = const Value.absent(),
     this.closeTime = const Value.absent(),
     this.isFullTimeService = const Value.absent(),
@@ -435,6 +463,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
   AffiliatesEntitysCompanion.insert({
     required String id,
     required String name,
+    required String imageUrl,
     this.openTime = const Value.absent(),
     this.closeTime = const Value.absent(),
     required bool isFullTimeService,
@@ -448,6 +477,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
     this.rowid = const Value.absent(),
   })  : id = Value(id),
         name = Value(name),
+        imageUrl = Value(imageUrl),
         isFullTimeService = Value(isFullTimeService),
         phoneNumber = Value(phoneNumber),
         rating = Value(rating),
@@ -459,6 +489,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
   static Insertable<AffiliatesEntity> custom({
     Expression<String>? id,
     Expression<String>? name,
+    Expression<String>? imageUrl,
     Expression<String>? openTime,
     Expression<String>? closeTime,
     Expression<bool>? isFullTimeService,
@@ -474,6 +505,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
+      if (imageUrl != null) 'image_url': imageUrl,
       if (openTime != null) 'open_time': openTime,
       if (closeTime != null) 'close_time': closeTime,
       if (isFullTimeService != null) 'is_full_time_service': isFullTimeService,
@@ -491,6 +523,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
   AffiliatesEntitysCompanion copyWith(
       {Value<String>? id,
       Value<String>? name,
+      Value<String>? imageUrl,
       Value<String?>? openTime,
       Value<String?>? closeTime,
       Value<bool>? isFullTimeService,
@@ -505,6 +538,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
     return AffiliatesEntitysCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
       openTime: openTime ?? this.openTime,
       closeTime: closeTime ?? this.closeTime,
       isFullTimeService: isFullTimeService ?? this.isFullTimeService,
@@ -527,6 +561,9 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
+    }
+    if (imageUrl.present) {
+      map['image_url'] = Variable<String>(imageUrl.value);
     }
     if (openTime.present) {
       map['open_time'] = Variable<String>(openTime.value);
@@ -569,6 +606,7 @@ class AffiliatesEntitysCompanion extends UpdateCompanion<AffiliatesEntity> {
     return (StringBuffer('AffiliatesEntitysCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
+          ..write('imageUrl: $imageUrl, ')
           ..write('openTime: $openTime, ')
           ..write('closeTime: $closeTime, ')
           ..write('isFullTimeService: $isFullTimeService, ')

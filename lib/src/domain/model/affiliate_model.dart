@@ -1,6 +1,7 @@
 class Affiliate {
   final String id;
   final String name;
+  final String imageUrl;
   final String? openTime;
   final String? closeTime;
   final bool isFullTimeService;
@@ -12,9 +13,10 @@ class Affiliate {
   final List<String> services;
   final String state;
 
-  Affiliate( 
+  Affiliate(
       {required this.id,
       required this.name,
+      required this.imageUrl, 
       this.openTime,
       this.closeTime,
       required this.isFullTimeService,
@@ -29,6 +31,7 @@ class Affiliate {
   Affiliate copyWith({
     String? id,
     String? name,
+    String? imageUrl,
     String? openTime,
     String? closeTime,
     bool? isFullTimeService,
@@ -43,6 +46,7 @@ class Affiliate {
     return Affiliate(
       id: id ?? this.id,
       name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
       openTime: openTime ?? this.openTime,
       closeTime: closeTime ?? this.closeTime,
       isFullTimeService: isFullTimeService ?? this.isFullTimeService,

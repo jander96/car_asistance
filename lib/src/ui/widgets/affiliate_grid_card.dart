@@ -58,13 +58,18 @@ class _CardView extends StatelessWidget {
                 width: 150,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
-                  child: FadeIn(
-                    child: Image.asset(
-                      "assets/images/taller.jpeg",
-                      fit: BoxFit.cover,
-                      width: 148,
-                    ),
-                  ),
+                  child: FadeInImage(
+
+                    placeholderFit: BoxFit.contain,
+              image: NetworkImage(affiliate.imageUrl),
+              fit: BoxFit.cover,
+              width: 56,
+              height: 80,
+              placeholder:
+                  const AssetImage('assets/images/loading_gif.gif'),
+              imageErrorBuilder: (context, error, stackTrace) =>
+                  Image.asset('assets/images/loading_gif.gif'),
+            ),
                 ),
               ),
 

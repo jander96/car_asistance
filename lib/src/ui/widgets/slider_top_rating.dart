@@ -55,12 +55,17 @@ class _Slide extends StatelessWidget {
               child: Stack(
                
                 children: [
-                  Image.asset(
-                    height: 120,
-                    width: double.infinity,
-                    "assets/images/taller.jpeg",
-                    fit: BoxFit.cover,
-                  ),
+                  FadeInImage(
+
+                    placeholderFit: BoxFit.contain,
+              image: NetworkImage(affiliate.imageUrl),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              placeholder:
+                  const AssetImage('assets/images/loading_gif.gif'),
+              imageErrorBuilder: (context, error, stackTrace) =>
+                  Image.asset('assets/images/loading_gif.gif'),
+            ),
                   _ActionWidget(colors: colors, textStyles: textStyles,affiliate: affiliate,),
                   Text(affiliate.name,style: textStyles.titleMedium!.copyWith(color: colors.onPrimary),)
                 ],
