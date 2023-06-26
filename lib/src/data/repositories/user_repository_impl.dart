@@ -1,9 +1,9 @@
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/data/api/network_datasource.dart';
-import 'package:car_assistance/src/data/database/user_local_datasource.dart';
+import 'package:car_assistance/src/data/database/datasource/user_local_datasource.dart';
 import 'package:car_assistance/src/data/services/models/user_mapper.dart';
 import 'package:car_assistance/src/data/services/models/user_service.dart';
-import 'package:car_assistance/src/domain/user_repository.dart';
+import 'package:car_assistance/src/domain/repositories/user_repository.dart';
 import '../../domain/model/user_model.dart';
 import '../database/model/mapper/user_mapper.dart';
 import '../services/auth_datasource.dart';

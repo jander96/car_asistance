@@ -1,4 +1,4 @@
-import 'model/rating_model.dart';
+import '../model/rating_model.dart';
 
 abstract class RatingRepository {
   Future<List<Rating>> getAllRatings();

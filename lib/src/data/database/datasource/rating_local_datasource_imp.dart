@@ -1,8 +1,8 @@
 import 'package:car_assistance/src/data/database/daos/rating_dao.dart';
 import 'package:car_assistance/src/data/database/drift_database.dart';
-import 'package:car_assistance/src/data/database/rating_local_datasource.dart';
+import 'package:car_assistance/src/data/database/datasource/rating_local_datasource.dart';
 
-import '../../../dependency_injection.dart';
+import '../../../../dependency_injection.dart';
 
 class RatingLocalDataSourceImp extends RatingLocalDataSource {
   final RatingDao _ratingDao;

@@ -1,11 +1,11 @@
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/data/api/model/api_license_model.dart';
 import 'package:car_assistance/src/data/database/model/mapper/license_mapper.dart';
-import 'package:car_assistance/src/domain/license_repository.dart';
+import 'package:car_assistance/src/domain/repositories/license_repository.dart';
 import 'package:car_assistance/src/domain/model/license_model.dart';
 
 import '../api/network_datasource.dart';
-import '../database/license_local_datasource.dart';
+import '../database/datasource/license_local_datasource.dart';
 
 class LicenseRepositoryImpl extends LicenseRepository {
   final NetworkDataSource _networkDataSource;

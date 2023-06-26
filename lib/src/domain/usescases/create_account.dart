@@ -1,6 +1,6 @@
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:car_assistance/src/domain/model/user_model.dart';
-import 'package:car_assistance/src/domain/user_repository.dart';
+import 'package:car_assistance/src/domain/repositories/user_repository.dart';
 import 'package:car_assistance/src/domain/usescases/regist_license.dart';
 import 'package:car_assistance/src/domain/usescases/regist_user.dart';
 

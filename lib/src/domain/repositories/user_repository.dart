@@ -1,4 +1,4 @@
-import 'model/user_model.dart';
+import '../model/user_model.dart';
 
 abstract class UserRepository {
   Stream<AppUser?> watchUserStatusChanges();
