@@ -6,6 +6,7 @@ extension AffiliateMapper on AffiliatesEntity {
     return Affiliate(
         id: id,
         name: name,
+        imageUrl: imageUrl,
         openTime: openTime,
         closeTime: closeTime,
         isFullTimeService: isFullTimeService,
@@ -25,6 +26,7 @@ AffiliatesEntity affiliatesEntityfromDomain(Affiliate affiliate) {
   return AffiliatesEntity(
       id: affiliate.id,
       name: affiliate.name,
+      imageUrl: affiliate.imageUrl,
       openTime: affiliate.openTime ,
       closeTime: affiliate.closeTime,
       isFullTimeService: affiliate.isFullTimeService,

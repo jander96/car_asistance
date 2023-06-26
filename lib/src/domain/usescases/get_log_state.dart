@@ -1,5 +1,5 @@
 import '../../../dependency_injection.dart';
-import '../user_repository.dart';
+import '../repositories/user_repository.dart';
 
 class GetLogStateUseCase {
   final UserRepository _userRepository;

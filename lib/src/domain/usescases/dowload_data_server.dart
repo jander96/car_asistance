@@ -1,7 +1,7 @@
 import 'package:car_assistance/dependency_injection.dart';
-import 'package:car_assistance/src/domain/affiliate_repository.dart';
+import 'package:car_assistance/src/domain/repositories/affiliate_repository.dart';
 import 'package:car_assistance/src/domain/model/affiliate_model.dart';
-import 'package:car_assistance/src/domain/rating_repository.dart';
+import 'package:car_assistance/src/domain/repositories/rating_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../model/rating_model.dart';

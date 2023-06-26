@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
 import '../../domain/model/affiliate_model.dart';
-import 'custom_bottom_sheet.dart';
+import '../../utils/bottom_shower.dart';
+
 
 class SliderAffiliates extends StatelessWidget {
   final List<Affiliate> affiliate;
@@ -55,12 +56,17 @@ class _Slide extends StatelessWidget {
               child: Stack(
                
                 children: [
-                  Image.asset(
-                    height: 120,
-                    width: double.infinity,
-                    "assets/images/taller.jpeg",
-                    fit: BoxFit.cover,
-                  ),
+                  FadeInImage(
+
+                    placeholderFit: BoxFit.contain,
+              image: NetworkImage(affiliate.imageUrl),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              placeholder:
+                  const AssetImage('assets/images/loading_gif.gif'),
+              imageErrorBuilder: (context, error, stackTrace) =>
+                  Image.asset('assets/images/taller.jpeg'),
+            ),
                   _ActionWidget(colors: colors, textStyles: textStyles,affiliate: affiliate,),
                   Text(affiliate.name,style: textStyles.titleMedium!.copyWith(color: colors.onPrimary),)
                 ],
@@ -91,19 +97,19 @@ class _ActionWidget extends StatelessWidget {
           color: colors.primary,
             borderRadius: BorderRadius.circular(4),
             ),
-            child: Row(children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Flexible(child: Text('Start Your Maintenance',style: textStyles.bodyMedium!.copyWith(fontWeight: FontWeight.bold))),
-                    Flexible(child: Text('All kind of Arrangements', style: textStyles.bodySmall,)),
-              
-                    ],),
-              ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: GestureDetector(
-                      onTap: ()=> _openBottomSheet(context,affiliate),
+            child: GestureDetector(
+              onTap: ()=> openBottomSheet(context,affiliate),
+              child: Row(children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Flexible(child: Text('Start Your Maintenance',style: textStyles.bodyMedium!.copyWith(fontWeight: FontWeight.bold))),
+                      Flexible(child: Text('All kind of Arrangements', style: textStyles.bodySmall,)),
+                
+                      ],),
+                ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
@@ -111,25 +117,12 @@ class _ActionWidget extends StatelessWidget {
                         ),
                         child: const Icon(Icons.arrow_forward)
                         ),
-                    ),
-                  )
-            ]),
+                    )
+              ]),
+            ),
       ),
     );
     
   }
 
-  _openBottomSheet(BuildContext context,Affiliate affiliate) {
-     showBottomSheet(
-
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-            )),
-        context: context,
-        builder: (context) => CustomBottomSheet(
-              affiliate: affiliate,
-            ));
-  }
 }

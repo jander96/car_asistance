@@ -1,18 +1,15 @@
 import 'package:car_assistance/src/domain/model/affiliate_model.dart';
-import 'package:json_annotation/json_annotation.dart';
-part 'api_affiliate_model.g.dart';
 
-@JsonSerializable()
+
+
+
 class AffiliateNetwork {
   final String id;
   final String name;
-  @JsonKey(name: "open_time")
+  final String imageUrl;
   final String? openTime;
-  @JsonKey(name: "close_time")
   final String? closeTime;
-  @JsonKey(name: "is_full_time_service")
   final bool isFullTimeService;
-  @JsonKey(name: "phone_number")
   final String phoneNumber;
   final double rating;
   final double lat;
@@ -24,6 +21,7 @@ class AffiliateNetwork {
   AffiliateNetwork(
       {required this.id,
       required this.name,
+      required this.imageUrl, 
       required this.openTime,
       required this.closeTime,
       required this.isFullTimeService,
@@ -38,6 +36,7 @@ class AffiliateNetwork {
   factory AffiliateNetwork.fromJson(String id ,Map<String, dynamic> json) => AffiliateNetwork(
       id: id,
       name: json['name'] as String,
+      imageUrl: json['image_url'] as String,
       openTime: json['open_time'] as String?,
       closeTime: json['close_time'] as String?,
       isFullTimeService: json['is_full_time_service'] as bool,
@@ -60,6 +59,7 @@ extension AffilateExtensions on AffiliateNetwork {
   Affiliate toDomain() => Affiliate(
       id: id,
       name: name,
+      imageUrl: imageUrl,
       openTime: openTime,
       closeTime: closeTime,
       isFullTimeService: isFullTimeService,

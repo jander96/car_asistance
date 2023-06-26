@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../domain/model/affiliate_model.dart';
+import '../../utils/bottom_shower.dart';
 import '../delegates/search_appbar_delegate.dart';
 import 'custom_bottom_sheet.dart';
 import 'dropdown.dart';
@@ -118,7 +119,7 @@ class _SearchBar extends StatelessWidget {
               delegate: SearchAffiliateDelegate(
                 affiliates: affiliates,
               )).then((affiliate) {
-            if (affiliate != null) _openBottomSheet(context, affiliate);
+            if (affiliate != null) openBottomSheet(context, affiliate);
           });
         },
         child: Container(
@@ -142,18 +143,7 @@ class _SearchBar extends StatelessWidget {
     );
   }
 
-  _openBottomSheet(BuildContext context, Affiliate affiliate) {
-    showBottomSheet(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
-        )),
-        context: context,
-        builder: (context) => CustomBottomSheet(
-              affiliate: affiliate,
-            ));
-  }
+  
 }
 
 class _Gettings extends StatelessWidget {

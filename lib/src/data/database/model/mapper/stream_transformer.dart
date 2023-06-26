@@ -13,4 +13,13 @@ class ConvertToAffiliate {
   });
 }
 
+class ConvertToString {
+  static final transformToString =
+      StreamTransformer<List<Favorite>, List<String>>.fromHandlers(
+          handleData: (listOfEntity, sink) {
+    final listOfString =
+        listOfEntity.map((entity) => entity.affiliateId).toList();
+    sink.add(listOfString);
+  });
+}
 

@@ -1,7 +1,7 @@
 import 'package:car_assistance/dependency_injection.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../location_repository.dart';
+import '../repositories/location_repository.dart';
 
 class GetLocationUseCase {
   final LocationRepository _locationRepository;
