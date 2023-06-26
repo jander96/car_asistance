@@ -1,10 +1,9 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/model/affiliate_model.dart';
 import '../../utils/bottom_shower.dart';
 import 'bottom_sheet_view_model.dart';
-import 'custom_bottom_sheet.dart';
+
 
 class CustomCard extends StatelessWidget {
   final Affiliate affiliate;
@@ -69,7 +68,7 @@ class _CardView extends StatelessWidget {
               placeholder:
                   const AssetImage('assets/images/loading_gif.gif'),
               imageErrorBuilder: (context, error, stackTrace) =>
-                  Image.asset('assets/images/loading_gif.gif'),
+                  Image.asset('assets/images/taller.jpeg'),
             ),
                 ),
               ),

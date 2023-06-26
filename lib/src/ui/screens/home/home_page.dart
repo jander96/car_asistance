@@ -80,7 +80,7 @@ class _HomeView extends StatelessWidget {
                               Text('Filtred by state',
                                   style: textStyles.displaySmall!.copyWith(
                                       decoration: TextDecoration.underline)),
-                              Spacer(),
+                              const Spacer(),
                               Padding(
                                 padding: const EdgeInsets.only(right: 24.0),
                                 child: ElevatedButton(
@@ -93,8 +93,8 @@ class _HomeView extends StatelessWidget {
                           ),
                         ),
                         state.filtredAffiliates.isEmpty
-                            ? Padding(
-                                padding: const EdgeInsets.only(
+                            ? const Padding(
+                                padding: EdgeInsets.only(
                                     left: 32.0, bottom: 2),
                                 child: Text("No service avalible"),
                               )

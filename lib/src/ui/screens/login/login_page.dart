@@ -39,20 +39,24 @@ class _LoginView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const _Header(),
-                  _GoogleAccesButton(viewModel: viewModel, state: state),
-                  const SizedBox(
-                    height: 48,
+                  Column(
+                    children: [
+                      _GoogleAccesButton(viewModel: viewModel, state: state, colors: colors),
+                      const SizedBox(
+                        height: 48,
+                      ),
+                      _Formulary(
+                          emailController: emailController,
+                          passwordController: passwordController),
+                      _HelperText(viewModel, emailController),
+                      _LoginButton(
+                          colors: colors,
+                          state: state,
+                          emailController: emailController,
+                          passwordController: passwordController,
+                          viewModel: viewModel),
+                    ],
                   ),
-                  _Formulary(
-                      emailController: emailController,
-                      passwordController: passwordController),
-                  _HelperText(viewModel, emailController),
-                  _LoginButton(
-                      colors: colors,
-                      state: state,
-                      emailController: emailController,
-                      passwordController: passwordController,
-                      viewModel: viewModel),
                   if (state.error != null && !state.isLogin)
                     FadeInUp(child: Text('Error ${state.error!.code}')),
                   if (state.isLogin)
@@ -86,30 +90,26 @@ class _LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 48,
-      child: ElevatedButton(
-        style: ButtonStyle(
-            overlayColor: MaterialStatePropertyAll(colors.secondary),
-            fixedSize: const MaterialStatePropertyAll(Size(274, 43)),
-            backgroundColor: MaterialStatePropertyAll(colors.primary)),
-        onPressed: state.isLoading && state.error != null
-            ? null
-            : () {
-                final email = emailController.value.text;
-                final password = passwordController.value.text;
-                viewModel
-                    .login(email: email, password: password)
-                    .then((isLogin) {
-                  if (isLogin) context.pushReplacement('/');
-                });
-              },
-        child: const Text(
+    return MaterialButton(
+        color: colors.primary,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            
+                Text(
           'Login',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: colors.onPrimary),
         ),
-      ),
-    );
+        
+          ],
+        ),
+
+          onPressed: () async {
+            viewModel.login().then((isLogin) {
+              if (isLogin) context.pushReplacement('/');
+            });
+          },
+          );
   }
 }
 
@@ -210,10 +210,12 @@ class _GoogleAccesButton extends StatelessWidget {
   const _GoogleAccesButton({
     required this.viewModel,
     required this.state,
+    required this.colors
   });
 
   final LoginViewModel viewModel;
   final LoginViewState state;
+  final ColorScheme colors;
 
   @override
   Widget build(BuildContext context) {
@@ -221,23 +223,30 @@ class _GoogleAccesButton extends StatelessWidget {
       padding: const EdgeInsets.only(top: 24.0),
       child: SizedBox(
         height: 48,
-        child: OutlinedButton.icon(
+        child: MaterialButton(
+          color: colors.onPrimary,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              
+                   const Text(
+            'Access with google',
+            style: TextStyle(color: Colors.black45),
+          ),
+          state.isLoading
+                  ? SpinPerfect(
+                      infinite: true,
+                      child: Image.asset('assets/images/ic_google.png'))
+                  : Image.asset('assets/images/ic_google.png'),
+            ],
+          ),
+
             onPressed: () async {
               viewModel.login().then((isLogin) {
                 if (isLogin) context.pushReplacement('/');
               });
             },
-            icon: state.isLoading
-                ? SpinPerfect(
-                    infinite: true,
-                    child: Image.asset('assets/images/ic_google.png'))
-                : Image.asset('assets/images/ic_google.png'),
-            label: const Text(
-              'Access with google',
-              style: TextStyle(color: Colors.black45),
             ),
-            style: const ButtonStyle(
-                fixedSize: MaterialStatePropertyAll(Size(274, 48)))),
       ),
     );
   }

@@ -3,7 +3,7 @@ import 'package:card_swiper/card_swiper.dart';
 
 import '../../domain/model/affiliate_model.dart';
 import '../../utils/bottom_shower.dart';
-import 'custom_bottom_sheet.dart';
+
 
 class SliderAffiliates extends StatelessWidget {
   final List<Affiliate> affiliate;
@@ -65,7 +65,7 @@ class _Slide extends StatelessWidget {
               placeholder:
                   const AssetImage('assets/images/loading_gif.gif'),
               imageErrorBuilder: (context, error, stackTrace) =>
-                  Image.asset('assets/images/loading_gif.gif'),
+                  Image.asset('assets/images/taller.jpeg'),
             ),
                   _ActionWidget(colors: colors, textStyles: textStyles,affiliate: affiliate,),
                   Text(affiliate.name,style: textStyles.titleMedium!.copyWith(color: colors.onPrimary),)
