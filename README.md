@@ -1,16 +1,8 @@
 # car_assistance
 
-A new Flutter project.
+Esta es una app con el objetivo de poner en contacto al cliente con talleres de autos. 
+Se hace uso de google maps ademas de explotar varios servicios de firebase como son la autenticación de usuarios y bases de datos 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![](https://github.com/jander96/resources_for_repos/blob/main/car_2023-10-12_06-39-49.jpg)
+![](https://github.com/jander96/resources_for_repos/blob/main/car_2023-10-12_06-40-12.jpg)
+![](https://github.com/jander96/resources_for_repos/blob/main/car_2023-10-12_06-40-25.jpg)
